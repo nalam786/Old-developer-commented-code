@@ -1,4 +1,3 @@
-let URL='http://192.168.1.6:8080/'
-// let URL='http://88.80.185.222:8080/'
-
-exports.url=URL
+let URL='http://192.168.43.210:8080/';
+//let URL='ec2-54-169-6-178.ap-southeast-1.compute.amazonaws.com:3001/';
+exports.url=URL;

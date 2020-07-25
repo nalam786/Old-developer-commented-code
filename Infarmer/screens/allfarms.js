@@ -1,15 +1,8 @@
 
 import React from 'react';
-import { Circle, Triangle } from 'react-native-shape';
-import { Container, Content, Button,Footer } from 'native-base';
-// import Form_footer from './form_footer';
 import URL from '../URL';
 import { connect } from 'react-redux';
 
-
-
-
-// import ProductCard2 from '../componente/ProductCard2';
 import {
   SafeAreaView,
   StyleSheet,
@@ -21,7 +14,6 @@ import {
   Image,
   FlatList,
   Picker,
-
 } from 'react-native';
 
 import {
@@ -31,6 +23,7 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
 const ProductsData = [
   {
       id: 1,
@@ -79,13 +72,13 @@ const Allfarms = (props) =>  {
   const get_farms = async () => {
     
     let data = {
-      f_farm_id:props.user_ids.user_id
+      f_user_id:props.user_ids.user_id
        
   
     }
     //  console.log(Q_data)
     console.log("Qualification in final call API................", data)
-    await fetch(URL.url+'farms/farms_get', {
+    await fetch(URL.url+'farms/farms_get_all', {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -95,7 +88,8 @@ const Allfarms = (props) =>  {
     })
         .then(res => res.json())
         .then((resjson) => {
-          if(resjson.Message == 'Farm Get Successfully'){
+          if(resjson.Message == 'All Farms Get Successfully'){
+            // alert(345678)
             data.farm_info=resjson.data
             setData({
               ...data,
@@ -120,8 +114,9 @@ const Allfarms = (props) =>  {
       didmount:1,
     });
   }
-  // console.log(props)
   renderItem = ({ item, index }) => {
+    console.log(props)
+
     let style = {};
     let season=JSON.stringify(item.season)
     console.log(item.id);
@@ -169,9 +164,9 @@ const Allfarms = (props) =>  {
   
               <View  style={{flex:1,flexDirection: 'column',justifyContent: 'center',alignItems:'center'}} >
   
-                        <View style={[styles.box,{backgroundColor:'#359814'}]} >
-                        <Text style={{color:'#fff'}} >رپورٹ دیکھیں </Text>
-                            <Text style={{color:'#fff'}} >VIEW REPORT </Text>
+                        <View onPress={ ()=> props.navigation.navigate('crop_health_form') }  style={[styles.box,{backgroundColor:'#359814'}]} >
+                        <Text onPress={ ()=> props.navigation.navigate('crop_health_form') } style={{color:'#fff'}} >رپورٹ دیکھیں </Text>
+                            <Text onPress={ ()=> props.navigation.navigate('crop_health_form') } style={{color:'#fff'}} >VIEW REPORT </Text>
                         </View>
                     <View style={[styles.box,{backgroundColor:'#05422b',marginVertical:5}]} >
                         <Image
@@ -403,28 +398,32 @@ const styles = StyleSheet.create({
 
 
 const mapStateToProps = (state) => {
+
   return {
     flag:state.flag,
-    signup:state.sugnup_recux,
-    user_ids:state.user_id_recux
-
-
+    signup:state.signup_redux,
+    user_ids:state.user_id_redux,
+    map_cord:state.map_redux
   }
-}
+
+};
   
 const mapDispatchToProps = (dispatch) => {
+
   return {
-      changeFlag: (data) =>{
-          dispatch({ type:'CHANGE_FLAG',payload:data})
-      },
-      changeSignup: (data) =>{
-        dispatch({ type:'SUGNUP_DATA',payload:data})
+    changeFlag: (data) =>{
+      dispatch({ type:'CHANGE_FLAG',payload:data})
     },
+    
+    changeSignup: (data) =>{
+      dispatch({ type:'SIGNUP_DATA',payload:data})
+    },
+    
     user_id: (data) =>{
       dispatch({ type:'USER_ID',payload:data})
+    }     
   }
-      
-  }
-}
+
+};
 
 export default connect(mapStateToProps,mapDispatchToProps)(Allfarms);

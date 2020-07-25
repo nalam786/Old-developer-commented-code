@@ -1,31 +1,40 @@
 
-const iState ={
-    flag:[{flag:0,s_key:'s_key',index:'index',value:'value'}],
-    sugnup_recux:[{email:'EMAIL',phone_code:'+92',phone:'',password:'',username:'USER',code:''}],
-    user_id_recux:[{user_id:0,farm_id:0,phone:'',password:'',username:'USER',code:''}],
+const iState = {
+    flag: [{ flag: 0, s_key: 's_key', index: 'index', value: 'value' }],
+    signup_redux: [{ email: 'EMAIL', phone_code: '+92', phone: '', password: '', username: 'USER', code: '' }],
+    user_id_redux: [{ user_id: 0, farm_id: 0 }],
+    map_redux:[{ cordinates: 'rrrrrrr', }],
 }
-const form_reducer = (state=iState, action) => {
+const form_reducer = (state = iState, action) => {
 
-    if(action.type==='CHANGE_FLAG'){
-        return{
+    if (action.type === 'CHANGE_FLAG') {
+        return {
             ...state,
-            flag:action.payload
-        }
+            flag: action.payload
+        };
     }
-    if(action.type==='SUGNUP_DATA'){
-        return{
+
+    if (action.type === 'SIGNUP_DATA') {
+        return {
             ...state,
-            sugnup_recux:action.payload
-        }
+            signup_redux: action.payload
+        };
     }
-    if(action.type==='USER_ID'){
-        return{
+
+    if (action.type === 'USER_ID') {
+        return {
             ...state,
-            user_id_recux:action.payload
-        }
+            user_id_redux: action.payload
+        };
     }
-    
+    if (action.type === 'MAP') {
+        return {
+            ...state,
+            map_redux: action.payload
+        };
+    }
+
     return state;
 }
-    
+
 export default form_reducer;

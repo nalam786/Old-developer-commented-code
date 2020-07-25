@@ -1,0 +1,6 @@
+module Pods_Aun_projecct {
+  umbrella header "Pods-Aun_projecct-umbrella.h"
+
+  export *
+  module * { export * }
+}
