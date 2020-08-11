@@ -1,11 +1,8 @@
-
 import React from 'react';
 import URL from '../URL';
-import { useState } from "react";
-import { AsyncStorage } from 'react-native';
-import { 
-  connect 
-} from 'react-redux';
+import {useState} from 'react';
+import {AsyncStorage} from 'react-native';
+import {connect} from 'react-redux';
 
 import {
   SafeAreaView,
@@ -16,14 +13,10 @@ import {
   Text,
   StatusBar,
   Image,
-  CheckBox
+  CheckBox,
 } from 'react-native';
 
-import { 
-  Container, 
-  Content, 
-  Button 
-} from 'native-base';
+import {Container, Content, Button} from 'native-base';
 
 import {
   Header,
@@ -33,219 +26,227 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App = (props) => {
-
+const App = props => {
   const [data, setData] = React.useState({
     email: '',
-    password: ''  ,
-    didmount:0,
-});
-const [isSelected, setSelection] = useState(false);
-  const textInputChange = (v,no) => {
-
+    password: '',
+    didmount: 0,
+  });
+  const [isSelected, setSelection] = useState(false);
+  const textInputChange = (v, no) => {
     switch (no) {
+      case 1:
+        if (v.length !== 1) {
+          data.email = v;
+        }
+        console.log('email:', data.email);
+        break;
 
-        case 1:
-          if( v.length !== 1 ) {
-                data.email=v;   
-          } 
-          console.log('email:', data.email);
-          break;
-
-        case 2:
-          if( v.length !== 2 ) {
-                data.password=v;   
-          } 
-          console.log('password:', data.password)
-          break;
-          
+      case 2:
+        if (v.length !== 2) {
+          data.password = v;
+        }
+        console.log('password:', data.password);
+        break;
     }
-
-  }
+  };
 
   const signup = async () => {
     // alert(isSelected)
     try {
-      await AsyncStorage.setItem('User_ID','');
+      await AsyncStorage.setItem('User_ID', '');
     } catch (error) {
       // Error saving data
     }
-    
-    
-    if (data.email == '' ||  data.password == '' ) {
+
+    if (data.email == '' || data.password == '') {
       // alert('Please fill all the fields');
       return false;
     }
-      
+
     let U_data = {
-        email: data.email,
-        password: data.password
-    }
+      email: data.email,
+      password: data.password,
+    };
 
-    console.log("Login API Calling", U_data);
+    console.log('Login API Calling', U_data);
 
-    await fetch(URL.url+'users/log_in', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ U_data })
+    await fetch(URL.url + 'users/log_in', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({U_data}),
     })
-    
-    .then(res => res.json())
-    
-    .then(async(resjson) => {
+      .then(res => res.json())
 
-      if(resjson.Message == 'Successfully_Login'){
-        if(isSelected){
-          let a =resjson.data[0].id,farm_id
-          try {
-            await AsyncStorage.setItem('User_ID',''+a);
-          } catch (error) {
-            // Error saving data
+      .then(async resjson => {
+        if (resjson.Message == 'Successfully_Login') {
+          if (isSelected) {
+            let a = resjson.data[0].id,
+              farm_id;
+            try {
+              await AsyncStorage.setItem('User_ID', '' + a);
+            } catch (error) {
+              // Error saving data
+            }
           }
+
+          props.user_id({
+            user_id: resjson.data[0].id,
+            farm_id: 0,
+            phone: data.phone_no,
+            password: data.password,
+            username: data.user_name,
+            code: 0,
+          });
+          props.navigation.navigate('dashboard');
         }
-       
-        props.user_id({user_id:resjson.data[0].id,farm_id:0,phone:data.phone_no,password:data.password,username:data.user_name,code:0});
-        props.navigation.navigate('dashboard');
-    }
 
-      alert(resjson.Message);
+        alert(resjson.Message);
+      })
 
-    })
-        
-    .catch(err => {
-      console.log('API Failed:', err);
-      alert('Failed to Connect to Server: '+err);
-    })
-  
+      .catch(err => {
+        console.log('API Failed:', err);
+        alert('Failed to Connect to Server: ' + err);
+      });
   };
   const auto_login = async () => {
     try {
       const value = await AsyncStorage.getItem('User_ID');
-     if (value !== null) {
-      props.user_id({user_id:JSON.parse(value),farm_id:0,phone:data.phone_no,password:data.password,username:data.user_name,code:0});
-      props.navigation.navigate('dashboard');
-       console.log(JSON.parse(value));
-     }
-      } catch (error) {
+      if (value !== null) {
+        props.user_id({
+          user_id: JSON.parse(value),
+          farm_id: 0,
+          phone: data.phone_no,
+          password: data.password,
+          username: data.user_name,
+          code: 0,
+        });
+        props.navigation.navigate('dashboard');
+        console.log(JSON.parse(value));
+      }
+    } catch (error) {
       // Error retrieving data
-     }
-  }
+    }
+  };
   if (data.didmount == 0) {
-
     auto_login();
     data.didmount = 1;
 
     setData({
-
       ...data,
-      didmount: 1
-
+      didmount: 1,
     });
-
   }
   return (
     <>
-     
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}>
+        <View style={[styles.triangleCorner]} />
 
-      <View style={[styles.triangleCorner]} />
-       
-        <View style={{alignSelf:"center" }} >
-          
+        <View style={{alignSelf: 'center'}}>
           <Text style={[styles.green_h2]}>SIGN IN</Text>
 
           <TextInput
-              placeholderTextColor="#272626"
-              placeholder="Email"
-              style={[styles.input_email]}
-              onChangeText={(val) => textInputChange(val,1)}
-            />
-          <TextInput
-              placeholderTextColor="#272626"
-              secureTextEntry={true}
-              placeholder="Password"
-              style={[styles.input_]}
-              onChangeText={(val) => textInputChange(val,2)}
+            placeholderTextColor="#272626"
+            placeholder="Email"
+            style={[styles.input_email]}
+            onChangeText={val => textInputChange(val, 1)}
           />
-          <View style={{ flexDirection: 'row', }}>
-              <Text style={{fontSize:15,fontWeight:'800'}} >Remember Me</Text>
-              <CheckBox 
-                style={{alignSelf:"flex-start",borderRadius:50,  }}
-                value={isSelected}
-                onValueChange={setSelection}
-              />
+          <TextInput
+            placeholderTextColor="#272626"
+            secureTextEntry={true}
+            placeholder="Password"
+            style={[styles.input_]}
+            onChangeText={val => textInputChange(val, 2)}
+          />
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{fontSize: 15, fontWeight: '800'}}>Remember Me</Text>
+            <CheckBox
+              style={{alignSelf: 'flex-start', borderRadius: 50}}
+              value={isSelected}
+              onValueChange={setSelection}
+            />
           </View>
-         
-          <Text onPress={ ()=> props.navigation.navigate('forgetpass') } style={[styles.green_h6]}>Forget Password?</Text>
-        
+
+          <Text
+            onPress={() => props.navigation.navigate('forgetpass')}
+            style={[styles.green_h6]}>
+            Forget Password?
+          </Text>
         </View>
 
-        <Button onPress={ ()=> signup() } style={[styles.input_button]} full >
-          <Text style={{color:"white",fontSize:15,fontWeight:'800'}} >LOGIN</Text>
+        <Button onPress={() => signup()} style={[styles.input_button]} full>
+          <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+            LOGIN
+          </Text>
         </Button>
 
-        <Text onPress={ ()=> props.navigation.navigate('signup') } style={[styles.green_h6,{alignSelf:"center",color:'green',marginTop:15}]}>Create A New Account!</Text>
-        
-        <View style={[styles.triangleCorner_bottom]} rotate={270} />
+        <Text
+          onPress={() => props.navigation.navigate('signup')}
+          style={[
+            styles.green_h6,
+            {alignSelf: 'center', color: 'green', marginTop: 15},
+          ]}>
+          Create A New Account!
+        </Text>
 
+        <View style={[styles.triangleCorner_bottom]} rotate={270} />
       </View>
-      
     </>
   );
 };
 
 const styles = StyleSheet.create({
-
   input_button: {
     height: 40,
-    width:300,
-    backgroundColor:'#05422b',
-    color:'red',
-    alignSelf:"center",
-    margin:0
+    width: 300,
+    backgroundColor: '#05422b',
+    color: 'red',
+    alignSelf: 'center',
+    margin: 0,
   },
 
   input_email: {
     height: 40,
-    width:300,
-    borderTopWidth:0,
-    borderLeftWidth:0,
-    borderRightWidth:0,
-    borderBottomColor:'gray',
+    width: 300,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderBottomColor: 'gray',
     borderWidth: 1,
-    marginBottom:30
+    marginBottom: 30,
   },
 
   input_: {
     height: 40,
-    width:300,
-    borderTopWidth:0,
-    borderLeftWidth:0,
-    borderRightWidth:0,
-    borderBottomColor:'gray',
+    width: 300,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderBottomColor: 'gray',
     borderWidth: 1,
-    marginBottom:20
+    marginBottom: 20,
   },
 
   green_h2: {
     color: '#05422b',
     fontWeight: '700',
     fontSize: 40,
-    alignSelf:"center",
-    marginBottom:50
+    alignSelf: 'center',
+    marginBottom: 50,
   },
 
   green_h6: {
     color: 'black',
     fontSize: 13,
-    alignSelf:"flex-end"
+    alignSelf: 'flex-end',
   },
 
   triangleCorner: {
@@ -256,7 +257,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 130,
     borderTopWidth: 130,
     borderRightColor: 'transparent',
-    borderTopColor: '#359814'
+    borderTopColor: 'transparent',
   },
 
   triangleCorner_bottom: {
@@ -267,8 +268,8 @@ const styles = StyleSheet.create({
     borderLeftWidth: 130,
     borderBottomWidth: 130,
     borderLeftColor: 'transparent',
-    borderBottomColor: '#359814',
-    alignSelf:"flex-end"
+    borderBottomColor: 'transparent',
+    alignSelf: 'flex-end',
   },
 
   scrollView: {
@@ -312,35 +313,33 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 4,
     paddingRight: 12,
-    textAlign: 'right'
-  }
-
+    textAlign: 'right',
+  },
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    flag:state.flag,
-    signup:state.signup_redux,
-    user_ids:state.user_id_redux
-  }
-}
-  
-const mapDispatchToProps = (dispatch) => {
+    flag: state.flag,
+    signup: state.signup_redux,
+    user_ids: state.user_id_redux,
+  };
+};
 
+const mapDispatchToProps = dispatch => {
   return {
-
-    changeFlag: (data) =>{
-      dispatch({ type:'CHANGE_FLAG',payload:data})
+    changeFlag: data => {
+      dispatch({type: 'CHANGE_FLAG', payload: data});
     },
-    changeSignup: (data) =>{
-      dispatch({ type:'SIGNUP_DATA',payload:data})
+    changeSignup: data => {
+      dispatch({type: 'SIGNUP_DATA', payload: data});
     },
-    user_id: (data) =>{
-      dispatch({ type:'USER_ID',payload:data})
-    }
+    user_id: data => {
+      dispatch({type: 'USER_ID', payload: data});
+    },
+  };
+};
 
-  }
-
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);

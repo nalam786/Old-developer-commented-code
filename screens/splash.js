@@ -23,8 +23,8 @@ import {
 
 const App = props => {
   setTimeout(() => {
-    props.navigation.navigate('signin');
-  }, 4000);
+    props.navigation.navigate('land_preperation_form');
+  }, 8000);
 
   return (
     <>

@@ -384,7 +384,7 @@ const signup = props => {
                 onValueChange={setSelection}
               />
               <Text style={[styles.green_h6]}>
-                I Agree Withe The Terms And Conditions?
+                I agree with the terms and conditions
               </Text>
             </View>
           </View>
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#05422b',
     color: 'red',
     alignSelf: 'center',
-    margin: 0,
+    marginBottom: -10,
   },
 
   input_email: {
@@ -493,7 +493,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 130,
     borderTopWidth: 130,
     borderRightColor: 'transparent',
-    borderTopColor: '#359814',
+    borderTopColor: 'transparent',
   },
 
   triangleCorner_bottom: {
@@ -504,7 +504,7 @@ const styles = StyleSheet.create({
     borderLeftWidth: 130,
     borderBottomWidth: 130,
     borderLeftColor: 'transparent',
-    borderBottomColor: '#359814',
+    borderBottomColor: 'transparent',
     alignSelf: 'flex-end',
   },
 
