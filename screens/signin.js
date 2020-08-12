@@ -104,13 +104,60 @@ const App = props => {
           props.navigation.navigate('dashboard');
         }
 
-        alert(resjson.Message);
+        // alert(resjson.Message);
       })
 
       .catch(err => {
         console.log('API Failed:', err);
         alert('Failed to Connect to Server: ' + err);
       });
+
+
+
+
+
+
+
+      await fetch(URL.url + 'users/log_in_p', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({U_data}),
+      })
+        .then(res => res.json())
+  
+        .then(async resjson => {
+          if (resjson.Message == 'Successfully_Login') {
+            if (isSelected) {
+              let a = resjson.data[0].id,
+                farm_id;
+              try {
+                await AsyncStorage.setItem('User_ID', '' + a);
+              } catch (error) {
+                // Error saving data
+              }
+            }
+  
+            props.user_id({
+              user_id: resjson.data[0].id,
+              farm_id: 0,
+              phone: data.phone_no,
+              password: data.password,
+              username: data.user_name,
+              code: 0,
+            });
+            props.navigation.navigate('dashboard');
+          }
+  
+          // alert(resjson.Message);
+        })
+  
+        .catch(err => {
+          console.log('API Failed:', err);
+          alert('Failed to Connect to Server: ' + err);
+        });
   };
   const auto_login = async () => {
     try {
@@ -144,30 +191,33 @@ const App = props => {
     <>
       <View
         style={{
-          flex: 1,
+          // flex: 1,
           flexDirection: 'column',
           justifyContent: 'space-between',
+          marginTop:50
         }}>
-        <View style={[styles.triangleCorner]} />
+        {/* <View style={[styles.triangleCorner]} /> */}
 
         <View style={{alignSelf: 'center'}}>
-          <Text style={[styles.green_h2]}>SIGN IN</Text>
+          <Text style={[styles.green_h2,{marginBottom:0}]}>SIGN IN</Text>
+          <Text style={[styles.green_h2_urdu]}>سائن ان کریں</Text>
 
           <TextInput
             placeholderTextColor="#272626"
-            placeholder="Email"
+            placeholder="Email or Mobile (ای میل یا موبائل نمبر)"
             style={[styles.input_email]}
             onChangeText={val => textInputChange(val, 1)}
           />
           <TextInput
             placeholderTextColor="#272626"
             secureTextEntry={true}
-            placeholder="Password"
+            placeholder="Password (پاس ورڈ)"
             style={[styles.input_]}
             onChangeText={val => textInputChange(val, 2)}
           />
           <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 15, fontWeight: '800'}}>Remember Me</Text>
+            <Text style={{fontSize: 15, fontWeight: '800',marginTop:4}}>Remember Me (یاد رکھیں)</Text>
+            
             <CheckBox
               style={{alignSelf: 'flex-start', borderRadius: 50}}
               value={isSelected}
@@ -178,26 +228,39 @@ const App = props => {
           <Text
             onPress={() => props.navigation.navigate('forgetpass')}
             style={[styles.green_h6]}>
-            Forget Password?
+            Forget Password? 
+          </Text>
+          <Text
+            onPress={() => props.navigation.navigate('forgetpass')}
+            style={[styles.green_h6]}>
+            کیا آپ پاس ورڈ بھول گے ہیں؟
           </Text>
         </View>
-
+        <View>
         <Button onPress={() => signup()} style={[styles.input_button]} full>
           <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-            LOGIN
+            LOGIN (لاگ ان کریں)
           </Text>
         </Button>
-
+        </View>
         <Text
           onPress={() => props.navigation.navigate('signup')}
           style={[
             styles.green_h6,
             {alignSelf: 'center', color: 'green', marginTop: 15},
           ]}>
-          Create A New Account!
+          Create a new account
         </Text>
-
-        <View style={[styles.triangleCorner_bottom]} rotate={270} />
+        <Text
+          onPress={() => props.navigation.navigate('signup')}
+          style={[
+            styles.green_h6,
+            {alignSelf: 'center', color: 'green',margin:0},
+          ]}>
+          نیا اکاؤنٹ بنائیں
+        </Text>
+{/*  */}
+        {/* <View style={[styles.triangleCorner_bottom]} rotate={270} /> */}
       </View>
     </>
   );
@@ -205,16 +268,16 @@ const App = props => {
 
 const styles = StyleSheet.create({
   input_button: {
-    height: 40,
+    // height: 40,
     width: 300,
     backgroundColor: '#05422b',
     color: 'red',
     alignSelf: 'center',
-    margin: 0,
+    margin: 15,
   },
 
   input_email: {
-    height: 40,
+    // height: 40,
     width: 300,
     borderTopWidth: 0,
     borderLeftWidth: 0,
@@ -225,7 +288,7 @@ const styles = StyleSheet.create({
   },
 
   input_: {
-    height: 40,
+    // height: 40,
     width: 300,
     borderTopWidth: 0,
     borderLeftWidth: 0,
@@ -239,6 +302,13 @@ const styles = StyleSheet.create({
     color: '#05422b',
     fontWeight: '700',
     fontSize: 40,
+    alignSelf: 'center',
+    marginBottom: 50,
+  },
+  green_h2_urdu: {
+    color: '#05422b',
+    fontWeight: '700',
+    fontSize: 20,
     alignSelf: 'center',
     marginBottom: 50,
   },

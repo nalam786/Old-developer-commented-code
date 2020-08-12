@@ -39,7 +39,7 @@ ReloadInstructions,
 
 const Feedback = (props) => {
 const [data, setData] = React.useState({
-rating: 0,
+rating: 5,
 note:'',
 photo:'',
 crop:'',
@@ -480,15 +480,21 @@ style={{ width: '30%', height: 30, resizeMode: 'stretch', marginLeft: 10, }}
 flex: 1,
 flexDirection: 'column',
 justifyContent: 'space-between',
+width:'90%',
+justifyContent:'center',
+alignItems:'center',
+alignSelf:'center'
 }}>
 <View style={{ alignSelf: "center", marginTop: 30, }} >
 <View style={{alignSelf:"center" }} >
 
 <Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >How do you rate our advisory services?</Text>
+<Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >ہمارے مشورہ آپ کتنا مفید سمجھتے ہیں؟</Text>
 <Text> (Please score us on a scale from 1 to </Text>
 <Text> 10 with 10 as excellent and 1 as poor) </Text>
+<Text>( براہے کرم ہمیں ۱ سے ۱۰ کے درمیان لائک کریں ۱ کا مطلب مفید نہیں اور ۱۰ کا مطلب بہت مفید ہے)</Text>
 <View style={styles.container}>
-    <Text style={{fontSize:16,color:'green',fontWeight:'bold',marginTop:10 }} >Value: {data.rating}</Text>
+    <Text style={{fontSize:16,color:'green',fontWeight:'bold',marginTop:10 }} >Rating: {data.rating}</Text>
         <Slider
         minimumValue={0}
         maximumValue={10}
@@ -513,6 +519,7 @@ justifyContent: 'space-between',
 <Text style={{fontSize:16,color:'green',fontWeight:'bold' }} > picture of your affected crop and we would  </Text>
 <Text style={{fontSize:16,color:'green',fontWeight:'bold' }} > detect the disease and inform you about</Text>
 <Text style={{fontSize:16,color:'green',fontWeight:'bold' }} > the next steps.</Text>
+<Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >اگر آپ کی فصل بیماری سے متاثر ہے اور آپ کا علم اس کے متعلق کم ہے تو براہ کرم اپنے پودے/فصل کی ایک قریب سے تصویر کھینچ کر اپ لوڈ کریں_ہمارا ماڈل بیماری کو تشخیص کرکے آپ کو مطلع کرے گا اور مزید رہنمائی بھی کرے گا-</Text>
 <Text style={{fontSize:16,color:'green',fontWeight:'bold',marginTop: 30 }} >Crop (فصل):</Text>
 <View style={[styles.input_email]} >
               <Picker
@@ -527,7 +534,7 @@ justifyContent: 'space-between',
                 <Picker.Item label="Other (دیگر)" value="Other" />
               </Picker>
             </View>
-<Text style={{fontSize:16,color:'green',fontWeight:'bold',marginTop: 0 }} >Note (فصل):</Text>
+<Text style={{fontSize:16,color:'green',fontWeight:'bold',marginTop: 0 }} >Note (نوٹ):</Text>
 <TextInput
 placeholderTextColor="#272626"
 style={[styles.input_email,{height: 50}]}
@@ -546,8 +553,10 @@ onChangeText={(val) => textInputChange(val,1)}
 <Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >to your farm, crop and soil health, please</Text>
 <Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >write the details in the text area below </Text>
 <Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >and we will contact you to give our feedback.</Text>
+<Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >and we will contact you to give our feedback.</Text>
+<Text style={{fontSize:16,color:'green',fontWeight:'bold' }} >اگر آپ کو فارم،فصل اور زمین کی صہت کے باکے میں کچھ معلومات چاہیے تو براہ کرم اپنا سوال نیچے درج کریں</Text>
 
-<Text style={{fontSize:16,color:'green',fontWeight:'bold',marginTop: 20 }} >Note (فصل):</Text>
+<Text style={{fontSize:16,color:'green',fontWeight:'bold',marginTop: 20 }} >Note (نوٹ):</Text>
 <TextInput
 placeholderTextColor="#272626"
 style={[styles.input_email,{height: 50,marginBottom:0}]}

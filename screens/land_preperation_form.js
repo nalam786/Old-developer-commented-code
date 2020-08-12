@@ -39,6 +39,7 @@ const form_2 = props => {
     levelled_date: [],
     first_irrigation: [],
     irrigation_frequency: [],
+    irrigation_time: [],
     farm_distance_watercourse: [],
     created_at: [],
     modified_at: [],
@@ -49,6 +50,7 @@ const form_2 = props => {
   renderForm = () => {
     data.farm_id.push({farm_id: ''});
     data.prepared_field_irrigation.push({prepared_field_irrigation: 0});
+    data.irrigation_time.push({irrigation_time: 0});
     data.soil_type.push({soil_type: ''});
     data.laser_levelled.push({laser_levelled: 1});
     data.levelled_date.push({levelled_date: ''});
@@ -93,6 +95,7 @@ const form_2 = props => {
         f_prepared_field_irrigation:
           data.prepared_field_irrigation[i].prepared_field_irrigation,
         f_soil_type: data.soil_type[i].soil_type,
+        f_irrigation_time: data.irrigation_time[i].irrigation_time,
         f_laser_levelled: data.laser_levelled[i].laser_levelled,
         f_levelled_date: data.levelled_date[i].levelled_date,
         f_first_irrigation: data.first_irrigation[i].first_irrigation,
@@ -159,6 +162,9 @@ const form_2 = props => {
         data.irrigation_frequency[props.flag.index].irrigation_frequency =
           props.flag.value;
         break;
+        case 8:
+        data.irrigation_time[props.flag.index].irrigation_time =props.flag.value;
+        break;
       case 7:
         data.farm_distance_watercourse[
           props.flag.index
@@ -187,6 +193,7 @@ const form_2 = props => {
     data.first_irrigation.splice(props.flag.index, 1);
     data.irrigation_frequency.splice(props.flag.index, 1);
     data.farm_distance_watercourse.splice(props.flag.index, 1);
+    data.irrigation_time.splice(props.flag.index, 1);
 
     if (data.rander_flag == 0) {
       this.renderForm();
@@ -383,6 +390,7 @@ const form_2 = props => {
                   f_first_irrigation={data.first_irrigation}
                   f_irrigation_frequency={data.irrigation_frequency}
                   f_farm_distance_watercourse={data.farm_distance_watercourse}
+                  f_irrigation_time={data.irrigation_time}
                   index2={keys}
                 />
               ))}
@@ -403,7 +411,7 @@ const form_2 = props => {
           <View>
             <Button
               onPress={() => sendform()}
-              style={[styles.input_button]}
+              style={[styles.input_button,{    marginBottom: 300   }]}
               full>
               <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
                 SUBMIT

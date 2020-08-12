@@ -79,9 +79,6 @@ const form_4 = (props) => {
     f_pesticide_name,
     f_pesticide_company,
     f_crop_disease,
-    f_fertilizer_type,
-    f_fertilizer_per_acre,
-    f_application_date,
     index2 
   } =props; 
   
@@ -102,7 +99,7 @@ const form_4 = (props) => {
           </View>
 
         <View>
-          <Text style={styles.q_text}>Use of pesticides</Text>
+          <Text style={styles.q_text}>Reason of use</Text>
           <Text style={styles.q_text}>زہر کا استعمال</Text>
         </View>
         <View style={{marginTop:2}} >
@@ -110,9 +107,9 @@ const form_4 = (props) => {
              onValueChange={(itemValue, itemIndex) => changeData(itemValue,1,index2)}
              selectedValue={props.f_use_reason[index2].use_reason}
             >
-            <Picker.Item label="Weed removal جڑی بوٹیوں کوختم کرنے کے لئے" value="0" />
-            <Picker.Item label="Disease control بیماری کے لئے" value="1" />
-            <Picker.Item label="Killing insects کیڑوں کے لئے" value="2" />
+            <Picker.Item label="Weed removal (جڑی بوٹیوں کا خاتمہ)" value="0" />
+            <Picker.Item label="Disease control (بیماری کے لئے)" value="1" />
+            <Picker.Item label="Killing insects (کیڑوں کے لئے)" value="2" />
             </Picker>
             <View style={[styles.border_bottom]} ></View>
         </View> 
@@ -121,29 +118,50 @@ const form_4 = (props) => {
           <Text style={styles.q_text}>کیمیائی مقدار فی ایکڑ استعمال</Text>
         </View>
         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,2,index2)} value={props.f_chemical_per_acre[index2].chemical_per_acre} placeholder="" keyboardType="numeric" style={[styles.input_email]} />
-        <View>
-          <Text style={styles.q_text}>Application date</Text>
-          <Text style={styles.q_text}>تاریخ (زہر لگانے کی)</Text>
-        </View>
-        <View style={[styles.input_email,{marginTop:20,flexDirection:'row',justifyContent:'space-between',backgroundColor:'gray'}]} >
-          
-            <DatePicker
-                  defaultDate={new Date(props.f_date_of_application[index2].date_of_application)}
-                  locale={"en"}
-                  timeZoneOffsetInMinutes={undefined}
-                  modalTransparent={false}
-                  animationType={"fade"}
-                  androidMode={"default"}
-                  placeHolderText={""+props.f_date_of_application[index2].date_of_application}
-                  textStyle={{ color: "#fff" }}
-                  onDateChange={(val) => setDate(val,3,index2)}
-                  disabled={false}
-                  />
-                   <Image
-                          source={require('../assets/img/calendar.png')}
-                          style={{width: '12%', height:'80%',resizeMode: 'stretch',marginRight:10}}
-                  />
-        </View>
+       
+       
+        <View style={{marginTop:20,}} >
+            <View>
+              <Text style={styles.q_text}>Pesticide company</Text>
+              <Text style={styles.q_text}>زہرکی کمپنی</Text>
+            </View>
+            <Picker 
+             onValueChange={(itemValue, itemIndex) => changeData(itemValue,5,index2)}
+             selectedValue={props.f_pesticide_company[index2].pesticide_company}
+            >
+            <Picker.Item label="Sygenta (سیجنٹا)" value="0" />
+              <Picker.Item label="Sungro (سن گرو)" value="1" />
+              <Picker.Item label="ICI Pakistan (آئ سی آئ پاکستان)" value="2" />
+              <Picker.Item label="Swat Agro  (سوات ايگرو )" value="3" />
+              <Picker.Item label="Warble (واربل)" value="4" />
+              <Picker.Item label="FMC (ایف ايم سی)" value="5" />
+              <Picker.Item label="Hexon Crop  (بائير کراپ )" value="6" />
+              <Picker.Item label="Excel Crop  (ايکسل کراپ )" value="7" />
+              <Picker.Item label="Sayban (سائبان)" value="8" />
+              <Picker.Item label="Pak Agro (پاک ايگرو)" value="9" />
+              <Picker.Item label="Well wisher (ويل وشر)" value="10" />
+              <Picker.Item label="Agrarian (ايگريرين)" value="11" />
+              <Picker.Item label="Kanzo AG (کينزو۔اے جی)" value="12" />
+              <Picker.Item label="Target (ٹارگٹ)" value="13" />
+              <Picker.Item label="Jaffer Brothers (جعفر برا درز)" value="14" />
+              <Picker.Item label="Arista  (آرسٹا )" value="15" />
+              <Picker.Item label="Four Brothers (فور برا درز)" value="16" />
+              <Picker.Item label="Geo  (جيو )" value="17" />
+              <Picker.Item label="Saver  (سيور )" value="18" />
+              <Picker.Item label="Greenlet (گرین لٹ)" value="19" />
+              <Picker.Item label="Tara Group (تارا گروپ)" value="20" />
+              <Picker.Item label="Parbat Agro  (پربت ايگرو)" value="21" />
+              <Picker.Item label="Bio Star (بائيو سٹار)" value="22" />
+              <Picker.Item label="Agriforce (ايگری فورس)" value="23" />
+              <Picker.Item label="Auriga  (اوريگا )" value="24" />
+              <Picker.Item label="Crop Land (کراپ لينڈ)" value="25" />
+              <Picker.Item label="Tarzan Group  (ٹارزن گروپ )" value="26" />
+            
+            </Picker>
+            <View style={[styles.border_bottom]} ></View>
+        </View> 
+
+        
         
         {/* <View style={[styles.border_bottom]} ></View> */}
         
@@ -156,12 +174,12 @@ const form_4 = (props) => {
              onValueChange={(itemValue, itemIndex) => changeData(itemValue,4,index2)}
              selectedValue={props.f_pesticide_name[index2].pesticide_name}
             >
-            <Picker.Item label="Abamectine ايباميکٹن " value="0" />
-            <Picker.Item label="Azocyclotin ايزسائيکلوٹن" value="1" />
-            <Picker.Item label="Imidacloprid SL اميڈاکلوپرڈ ايس ايل" value="2" />
-            <Picker.Item label="Imidacloprid WP  اميڈاکلوپرڈ ڈبليو پی" value="3" />
-            <Picker.Item label="Acetameprid اسيٹاميپرڈ" value="4" />
-            <Picker.Item label="Diafenthuron  ڈايافنتھران" value="5" />
+            <Picker.Item label="Abamectine (ايباميکٹن) " value="0" />
+            <Picker.Item label="Azocyclotin (ايزسائيکلوٹن)" value="1" />
+            <Picker.Item label="Imidacloprid SL (اميڈاکلوپرڈ ايس ايل)" value="2" />
+            <Picker.Item label="Imidacloprid WP  (اميڈاکلوپرڈ ڈبليو پی)" value="3" />
+            <Picker.Item label="Acetameprid (اسيٹاميپرڈ)" value="4" />
+            <Picker.Item label="Diafenthuron  (ڈايافنتھران)" value="5" />
             
             </Picker>
             <View style={[styles.border_bottom]} ></View>
@@ -169,27 +187,6 @@ const form_4 = (props) => {
         
         
 
-        <View style={{marginTop:20,}} >
-            <View>
-              <Text style={styles.q_text}>Pesticide company</Text>
-              <Text style={styles.q_text}>زہرکی کمپنی</Text>
-            </View>
-            <Picker 
-             onValueChange={(itemValue, itemIndex) => changeData(itemValue,5,index2)}
-             selectedValue={props.f_pesticide_company[index2].pesticide_company}
-            >
-            <Picker.Item label="Sygenta سیجنٹا" value="0" />
-            <Picker.Item label="Sungro سن گرو" value="1" />
-            <Picker.Item label="ICI Pakistan آئ سی آئ پاکستان" value="2" />
-            <Picker.Item label="Swat Agro Chemicals سوات ايگرو کيميکلز" value="3" />
-            <Picker.Item label="Warble واربل" value="4" />
-            <Picker.Item label="FMC ایف ايم سی" value="5" />
-            
-            </Picker>
-            <View style={[styles.border_bottom]} ></View>
-        </View> 
-
-        
 
         <View style={{marginTop:20,}} >
           <View>
@@ -200,67 +197,41 @@ const form_4 = (props) => {
             onValueChange={(itemValue, itemIndex) => changeData(itemValue,6,index2)}
             selectedValue={props.f_crop_disease[index2].crop_disease}
             >
-            <Picker.Item label="Root Rot disease ٹوکا" value="0" />
-            <Picker.Item label="Boll Rot Disease سبز تيلا" value="1" />
-            <Picker.Item label="Leaf spot or Blight Disease چت تيلا" value="2" />
-            <Picker.Item label="Angular leaf spot  تھرپس" value="3" />
-            <Picker.Item label="Redning ملی بگ" value="4" />
-            <Picker.Item label="CLCV ڈسکی بگ" value="5" />
+            <Picker.Item label="Root Rot disease (ٹوکا)" value="0" />
+            <Picker.Item label="Boll Rot Disease (سبز تيلا)" value="1" />
+            <Picker.Item label="Leaf spot or Blight disease (چت تيلا)" value="2" />
+            <Picker.Item label="Angular leaf spot  (تھرپس)" value="3" />
+            <Picker.Item label="Redning (ملی بگ)" value="4" />
+            <Picker.Item label="CLCV (ڈسکی بگ)" value="5" />
             
             </Picker>
             <View style={[styles.border_bottom]} ></View>
         </View> 
-
-        <View style={{marginTop:2,}} >
-          <View>
-            <Text style={styles.q_text}>Fertilizer type</Text>
-            <Text style={styles.q_text}>کھاد کی قسم</Text>
-          </View>
-            <Picker 
-             onValueChange={(itemValue, itemIndex) => changeData(itemValue,7,index2)}
-             selectedValue={props.f_fertilizer_type[index2].fertilizer_type}
-            >
-            <Picker.Item label="Bio-Fertilizer بائیو کھاد" value="0" />
-            <Picker.Item label="Chemical or Synthetic fertilizer کیمیائی" value="1" />
-            <Picker.Item label="Other دیگر" value="2" />
-            <Picker.Item label="None" value="3" />
-            </Picker>
-            <View style={[styles.border_bottom]} ></View>     
-        </View> 
-        
-        <View>
-          <Text style={styles.q_text}>Amount of fertilizer used per acre</Text>
-          <Text style={styles.q_text}>کھاد کی مقدار ہر ایکڑ</Text>
-        </View>
-        <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,8,index2)} value={props.f_fertilizer_per_acre[index2].fertilizer_per_acre} keyboardType="numeric" placeholder=""  style={[styles.input_email]} />
-        
-        
-        <View>
-            <Text style={styles.q_text}>Application Date</Text>
-            <Text style={styles.q_text}>تاریخ درخواست</Text>
-        </View>
-        <View style={[styles.input_email,{marginTop:20,flexDirection:'row',justifyContent:'space-between',backgroundColor:'gray'}]} >
           
-            <DatePicker
-                  defaultDate={new Date(props.f_application_date[index2].application_date)}
-                  locale={"en"}
-                  timeZoneOffsetInMinutes={undefined}
-                  modalTransparent={false}
-                  animationType={"fade"}
-                  androidMode={"default"}
-                  placeHolderText={props.f_application_date[index2].application_date}
-                  textStyle={{ color: "#fff" }}
-                  onDateChange={(val) => setDate(val,9,index2)}
-                  disabled={false}
-                  />
-                   <Image
-                          source={require('../assets/img/calendar.png')}
-                          style={{width: '12%', height:'80%',resizeMode: 'stretch',marginRight:10}}
-                  />
+      </View>   
+      <View>
+          <Text style={styles.q_text}>Application date</Text>
+          <Text style={styles.q_text}>تاریخ (زہر لگانے کی)</Text>
         </View>
+      <View style={[styles.input_email,{marginTop:20,flexDirection:'row',justifyContent:'space-between',backgroundColor:'gray',height:'5%'}]} >
           
-        </View>   
-        
+          <DatePicker
+                defaultDate={new Date(props.f_date_of_application[index2].date_of_application)}
+                locale={"en"}
+                timeZoneOffsetInMinutes={undefined}
+                modalTransparent={false}
+                animationType={"fade"}
+                androidMode={"default"}
+                placeHolderText={""+props.f_date_of_application[index2].date_of_application}
+                textStyle={{ color: "#fff" }}
+                onDateChange={(val) => setDate(val,3,index2)}
+                disabled={false}
+                />
+                 <Image
+                        source={require('../assets/img/calendar.png')}
+                        style={{width: '12%', height:'80%',resizeMode: 'stretch',marginRight:10,marginTop:2}}
+                />
+      </View>
         
       </View>
         

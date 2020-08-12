@@ -14,7 +14,8 @@ import {
   StatusBar,
   Image,
   FlatList,
-  TouchableOpacity
+  TouchableOpacity,
+  Linking
 } from 'react-native';
 
 import {
@@ -28,13 +29,13 @@ import {
 const ProductsData1 = [
   {
     id: 1,
-    title: 'CREATE NEW FARMS',
+    title: 'CREATE NEW FARM',
     navigate: 'general_form',
-    image: require('../assets/img/Infarmer.png'),
+    image: require('../assets/img/Add_Form.png'),
   },
   {
     id: 2,
-    title: 'ALL FARM',
+    title: 'ALL FARMS',
     navigate: 'allfarms',
     image: require('../assets/img/all_farm.png'),
   },
@@ -138,8 +139,8 @@ const openDrawer = () => {
       <Footer style={{ backgroundColor: '#00432b', }} >
         <View style={{ flexDirection: 'column', alignSelf: "center", }}>
 
-          <Text style={{ color: 'white', fontSize: 15, fontWeight: '400', marginTop: 20, alignSelf: "center" }} > معلومات براءے جدید فارمنگ</Text>
-          <Text style={{ color: 'white', fontSize: 15, fontWeight: '400', marginBottom: 10, alignSelf: "center" }} > Information about modern farming</Text>
+          <Text onPress={() => Linking.openURL('https://watersprint.io/category/publications/')} style={{ color: 'white', fontSize: 15, fontWeight: '400', marginTop: 20, alignSelf: "center" }} > معلومات براءے جدید فارمنگ</Text>
+          <Text onPress={() => Linking.openURL('https://watersprint.io/category/publications/')} style={{ color: 'white', fontSize: 15, fontWeight: '400', marginBottom: 10, alignSelf: "center" }} > Information about modern farming</Text>
         </View>
       </Footer>
     </Drawer>

@@ -35,13 +35,9 @@ const form_4 = props => {
     rander_flag: 0,
     footer: true,
     farm_id: [],
-    use_reason: [],
-    chemical_per_acre: [],
-    date_of_application: [],
-    pesticide_name: [],
-    pesticide_company: [],
-    crop_disease: [],
     fertilizer_type: [],
+    fertilizer_company: [],
+    fertilizer_name: [],
     fertilizer_per_acre: [],
     application_date: [],
     created_at: [],
@@ -68,19 +64,15 @@ const form_4 = props => {
       }
     }
     data.farm_id.push({farm_id: ''});
-    data.use_reason.push({use_reason: ''});
-    data.chemical_per_acre.push({chemical_per_acre: ''});
-    data.date_of_application.push({date_of_application: date});
-    data.pesticide_name.push({pesticide_name: ''});
-    data.pesticide_company.push({pesticide_company: ''});
-    data.crop_disease.push({crop_disease: ''});
     data.fertilizer_type.push({fertilizer_type: ''});
-    data.fertilizer_per_acre.push({fertilizer_per_acre: ''});
+    data.fertilizer_per_acre.push({fertilizer_per_acre: 0});
     data.application_date.push({application_date: date});
+    data.fertilizer_company.push({fertilizer_company: date});
+    data.fertilizer_name.push({fertilizer_name: date});
 
     setData({
       ...data,
-      use_reason: data.use_reason,
+      fertilizer_type: data.fertilizer_type,
     });
   };
 
@@ -101,26 +93,22 @@ const form_4 = props => {
       }
     }
 
-    for (let j = 0; j < data.use_reason.length; j++) {
-      if (data.use_reason[j] == '') {
+    for (let j = 0; j < data.fertilizer_type.length; j++) {
+      if (data.fertilizer_type[j] == '') {
         alert('Please fill all the mandatory fields' + j);
         return false;
       }
     }
 
-    for (let i = 0; i < data.use_reason.length; i++) {
+    for (let i = 0; i < data.fertilizer_type.length; i++) {
       let F_data = {};
       let F_Data = {
         f_farm_id: props.user_ids.farm_id,
-        f_use_reason: data.use_reason[i].use_reason,
-        f_chemical_per_acre: data.chemical_per_acre[i].chemical_per_acre,
-        f_date_of_application: data.date_of_application[i].date_of_application,
-        f_pesticide_name: data.pesticide_name[i].pesticide_name,
-        f_pesticide_company: data.pesticide_company[i].pesticide_company,
-        f_crop_disease: data.crop_disease[i].crop_disease,
         f_fertilizer_type: data.fertilizer_type[i].fertilizer_type,
         f_fertilizer_per_acre: data.fertilizer_per_acre[i].fertilizer_per_acre,
         f_application_date: data.application_date[i].application_date,
+        f_fertilizer_company: data.fertilizer_company[i].fertilizer_company,
+        f_fertilizer_name: data.fertilizer_name[i].fertilizer_name,
         f_created_by: props.user_ids.farm_id,
         f_created_at: date,
         f_modified_by: props.user_ids.farm_id,
@@ -129,7 +117,7 @@ const form_4 = props => {
 
       console.log('Pesticide Form Create API Calling', F_Data);
 
-      await fetch(URL.url + 'pesticides/pesticides_create', {
+      await fetch(URL.url + 'fertilizers/fertilizer_create', {
         method: 'POST',
 
         headers: {
@@ -142,9 +130,9 @@ const form_4 = props => {
         .then(res => res.json())
 
         .then(resjson => {
-          if (resjson.Message == 'New Pesticide Created Successfully') {
-            props.navigation.navigate('seed_form');
-          }
+          // if (resjson.Message == 'New Pesticide Created Successfully') {
+          //   props.navigation.navigate('seed_form');
+          // }
 
           alert(resjson.Message);
         })
@@ -156,28 +144,15 @@ const form_4 = props => {
     }
   };
 
-  if (props.flag.flag == 'pesticides_create') {
+  if (props.flag.flag == 'fertilizers_create') {
     switch (props.flag.s_key) {
-      case 1:
-        data.use_reason[props.flag.index].use_reason = props.flag.value;
-        break;
-      case 2:
-        data.chemical_per_acre[props.flag.index].chemical_per_acre =
-          props.flag.value;
-        break;
-      case 3:
-        data.date_of_application[props.flag.index].date_of_application =
-          props.flag.value;
-        break;
-      case 4:
-        data.pesticide_name[props.flag.index].pesticide_name = props.flag.value;
-        break;
       case 5:
-        data.pesticide_company[props.flag.index].pesticide_company =
+        data.fertilizer_company[props.flag.index].fertilizer_company =
           props.flag.value;
         break;
       case 6:
-        data.crop_disease[props.flag.index].crop_disease = props.flag.value;
+        data.fertilizer_name[props.flag.index].fertilizer_name =
+          props.flag.value;
         break;
       case 7:
         data.fertilizer_type[props.flag.index].fertilizer_type =
@@ -205,17 +180,13 @@ const form_4 = props => {
     console.log('Props Flag Changed to efef0');
   }
 
-  if (props.flag.flag == 'pesticides_delete') {
+  if (props.flag.flag == 'fertilizers_delete') {
     data.farm_id.splice(props.flag.index, 1);
-    data.use_reason.splice(props.flag.index, 1);
-    data.chemical_per_acre.splice(props.flag.index, 1);
-    data.date_of_application.splice(props.flag.index, 1);
-    data.pesticide_name.splice(props.flag.index, 1);
-    data.pesticide_company.splice(props.flag.index, 1);
-    data.crop_disease.splice(props.flag.index, 1);
     data.fertilizer_type.splice(props.flag.index, 1);
     data.fertilizer_per_acre.splice(props.flag.index, 1);
     data.application_date.splice(props.flag.index, 1);
+    data.fertilizer_company.splice(props.flag.index, 1);
+    data.fertilizer_name.splice(props.flag.index, 1);
 
     if (data.rander_flag == 0) {
       this.renderForm();
@@ -223,7 +194,7 @@ const form_4 = props => {
 
       setData({
         ...data,
-        use_reason: data.use_reason,
+        fertilizer_type: data.fertilizer_type,
         rander_flag: 1,
       });
     }
@@ -245,7 +216,7 @@ const form_4 = props => {
       didmount: 1,
     });
   }
-  if (props.flag.flag == 'pesticides_hide/show_footer') {
+  if (props.flag.flag == 'fertilizers_hide/show_footer') {
     // alert(3456)
 
     if (props.flag.value == 'hide' && data.rander_flag == 0) {
@@ -402,19 +373,15 @@ const form_4 = props => {
               justifyContent: 'space-between',
             }}>
             <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
-              {data.use_reason.map((use_reason, keys) => (
+              {data.fertilizer_type.map((fertilizer_type, keys) => (
                 <Form10
                   index={keys + 1}
                   farm_id={data.farm_id}
-                  f_use_reason={data.use_reason}
-                  f_chemical_per_acre={data.chemical_per_acre}
-                  f_date_of_application={data.date_of_application}
-                  f_pesticide_name={data.pesticide_name}
-                  f_pesticide_company={data.pesticide_company}
-                  f_crop_disease={data.crop_disease}
                   f_fertilizer_type={data.fertilizer_type}
                   f_fertilizer_per_acre={data.fertilizer_per_acre}
                   f_application_date={data.application_date}
+                  f_fertilizer_company={data.fertilizer_company}
+                  f_fertilizer_name={data.fertilizer_name}
                   index2={keys}
                 />
               ))}
@@ -433,7 +400,7 @@ const form_4 = props => {
           <View style={{marginBottom: 8}}>
             <Button
               onPress={() => sendform()}
-              style={[styles.input_button]}
+              style={[styles.input_button,{ marginBottom: 300}]}
               full>
               <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
                 Submit

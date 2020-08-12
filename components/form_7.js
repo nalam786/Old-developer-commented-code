@@ -101,18 +101,18 @@ const form_7 = (props) =>  {
           </View>
 
           <View>
-              <Text style={styles.q_text}>Crop / plant height (in feet)</Text>
-              <Text style={styles.q_text}>فصل/پودے کی اونچائی (فیٹ میں)</Text>
+              <Text style={styles.q_text}>Crop / plant height (feet)</Text>
+              <Text style={styles.q_text}>فصل/پودے کی اونچائی (فیٹ )</Text>
             </View>
         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,1,index2)} value={props.f_crop_height[index2].crop_height} placeholder="" keyboardType="numeric" style={[styles.input_email]} />
         <View>
-              <Text style={styles.q_text}>Distance between plants (in feet)</Text>
-              <Text style={styles.q_text}>پودوں کا درمیانی فاصلہ (فیٹ میں)</Text>
+              <Text style={styles.q_text}>Distance between plants ( feet)</Text>
+              <Text style={styles.q_text}>پودوں کا درمیانی فاصلہ (فیٹ )</Text>
             </View>
         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,2,index2)} value={props.f_plants_distance[index2].plants_distance} placeholder="" keyboardType="numeric" style={[styles.input_email]} />
         <View>
-          <Text style={styles.q_text}>Crop’s leaf width (average in feet)</Text>
-          <Text style={styles.q_text}>فصل کے پتے کی چوڑائی (فیٹ میں)</Text>
+          <Text style={styles.q_text}>Crop’s leaf width (average  feet)</Text>
+          <Text style={styles.q_text}>فصل کے پتے کی چوڑائی (فیٹ )</Text>
         </View>
         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,3,index2)} value={props.f_leaf_width[index2].leaf_width} placeholder="" keyboardType="numeric" style={[styles.input_email]} />
         <View style={{marginBottom:20}}>
@@ -127,7 +127,7 @@ const form_7 = (props) =>  {
                      onValueChange={(val) => changeData(1,4,index2)}
                        style={{borderRadius:50, }} />
                 </View>
-                <Text >healthy صحت بخش</Text>
+                <Text style={{marginTop:6.5}} >Healthy (صحت بخش)</Text>
               </View>
               <View style={{ flexDirection: 'row',marginTop:15 }} >
                 <View>                
@@ -136,7 +136,7 @@ const form_7 = (props) =>  {
                       onValueChange={(val) => changeData(2,4,index2)}
                        style={{borderRadius:50, }} />
                 </View>
-                <Text>Moderate درمیانی/ معتدل </Text>
+                <Text style={{marginTop:6.5}} >Moderate (درمیانی/ معتدل)</Text>
               </View>
               <View style={{ flexDirection: 'row',marginTop:15 }} >
                 <View>                
@@ -145,7 +145,7 @@ const form_7 = (props) =>  {
                        onValueChange={(val) => changeData(3,4,index2)}
                        style={{borderRadius:50, }} />
                 </View>
-                <Text>Unhealthy غیر صحت بخش </Text>
+                <Text style={{marginTop:6.5}} >Unhealthy (غیر صحت بخش) </Text>
               </View>
               
               <View style={{ flexDirection: 'row',marginTop:15 }} >
@@ -155,7 +155,7 @@ const form_7 = (props) =>  {
                        onValueChange={(val) => changeData(4,4,index2)}
                        style={{borderRadius:50, }} />
                 </View>
-                <Text>Under severe pressure سخت دباؤ میں</Text>
+                <Text style={{marginTop:6.5}} >Under severe pressure (سخت دباؤ میں)</Text>
               </View>
               <View style={{ flexDirection: 'row',marginTop:15 }} >
                 <View>                
@@ -164,7 +164,7 @@ const form_7 = (props) =>  {
                        onValueChange={(val) => changeData(5,4,index2)}
                        style={{borderRadius:50, }} />
                 </View>
-                <Text>Do not know معلوم نہیں</Text>
+                <Text style={{marginTop:6.5}} >Do not know (معلوم نہیں)</Text>
               </View>
               <View style={{ flexDirection: 'row',marginTop:15 }} >
                 <View>                
@@ -173,26 +173,27 @@ const form_7 = (props) =>  {
                       onValueChange={(val) => changeData(6,4,index2)}
                        style={{borderRadius:50, }} />
                 </View>
-                <Text>Other دیگر</Text>
+                <Text style={{marginTop:6.5}} >Other (دیگر)</Text>
               </View>
 
               {/* Note */}
 
+        
         <View style={{marginTop:30}}>
+          <Text style={styles.q_text}>Upload picture of crop/plant (on weekly basis)</Text>
+          <Text style={styles.q_text}>فصل/پودے کی تصویر اپ لوڈ کریں (ہفتہ وار)</Text>
+        </View>
+        <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,7,index2)} value={props.f_pic[index2].pic} placeholder=""  style={[styles.input_email]} />
+        
+        <View>
           <Text style={styles.q_text}>Note</Text>
           <Text style={styles.q_text}>نوٹ</Text>
         </View>
         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,6,index2)} value={props.f_note[index2].note} placeholder=""  style={[styles.input_email]} />
-        <View>
-          <Text style={styles.q_text}>Pic</Text>
-          <Text style={styles.q_text}>تصویر</Text>
-        </View>
-        <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,7,index2)} value={props.f_pic[index2].pic} placeholder=""  style={[styles.input_email]} />
-
             
         <View>
-          <Text style={styles.q_text}>Checking crop health/length</Text>
-          <Text style={styles.q_text}>(فصل کی صحت/اونچائی وغیرہ)</Text>
+          <Text style={styles.q_text}>Date (Checking crop health/height)</Text>
+          <Text style={styles.q_text}>تاریخ (فصل کی صحت/اونچائی وغیرہ) </Text>
         </View>
         <View style={[styles.input_email,{marginTop:20,flexDirection:'row',justifyContent:'space-between',backgroundColor:'gray'}]} >
             <DatePicker

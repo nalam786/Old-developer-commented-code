@@ -40,9 +40,6 @@ const form_4 = props => {
     pesticide_name: [],
     pesticide_company: [],
     crop_disease: [],
-    fertilizer_type: [],
-    fertilizer_per_acre: [],
-    application_date: [],
     created_at: [],
     modified_at: [],
     gestureName: '',
@@ -73,9 +70,6 @@ const form_4 = props => {
     data.pesticide_name.push({pesticide_name: ''});
     data.pesticide_company.push({pesticide_company: ''});
     data.crop_disease.push({crop_disease: ''});
-    data.fertilizer_type.push({fertilizer_type: ''});
-    data.fertilizer_per_acre.push({fertilizer_per_acre: ''});
-    data.application_date.push({application_date: date});
 
     setData({
       ...data,
@@ -117,9 +111,6 @@ const form_4 = props => {
         f_pesticide_name: data.pesticide_name[i].pesticide_name,
         f_pesticide_company: data.pesticide_company[i].pesticide_company,
         f_crop_disease: data.crop_disease[i].crop_disease,
-        f_fertilizer_type: data.fertilizer_type[i].fertilizer_type,
-        f_fertilizer_per_acre: data.fertilizer_per_acre[i].fertilizer_per_acre,
-        f_application_date: data.application_date[i].application_date,
         f_created_by: props.user_ids.farm_id,
         f_created_at: date,
         f_modified_by: props.user_ids.farm_id,
@@ -178,18 +169,6 @@ const form_4 = props => {
       case 6:
         data.crop_disease[props.flag.index].crop_disease = props.flag.value;
         break;
-      case 7:
-        data.fertilizer_type[props.flag.index].fertilizer_type =
-          props.flag.value;
-        break;
-      case 8:
-        data.fertilizer_per_acre[props.flag.index].fertilizer_per_acre =
-          props.flag.value;
-        break;
-      case 9:
-        data.application_date[props.flag.index].application_date =
-          props.flag.value;
-        break;
       default:
         break;
     }
@@ -212,9 +191,6 @@ const form_4 = props => {
     data.pesticide_name.splice(props.flag.index, 1);
     data.pesticide_company.splice(props.flag.index, 1);
     data.crop_disease.splice(props.flag.index, 1);
-    data.fertilizer_type.splice(props.flag.index, 1);
-    data.fertilizer_per_acre.splice(props.flag.index, 1);
-    data.application_date.splice(props.flag.index, 1);
 
     if (data.rander_flag == 0) {
       this.renderForm();
@@ -379,7 +355,7 @@ const form_4 = props => {
                   alignItems: 'center',
                 }}>
                 <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                  Use Of Pesticide
+                  Use Of Pesticides
                 </Text>
               </View>
               <View
@@ -411,9 +387,6 @@ const form_4 = props => {
                   f_pesticide_name={data.pesticide_name}
                   f_pesticide_company={data.pesticide_company}
                   f_crop_disease={data.crop_disease}
-                  f_fertilizer_type={data.fertilizer_type}
-                  f_fertilizer_per_acre={data.fertilizer_per_acre}
-                  f_application_date={data.application_date}
                   index2={keys}
                 />
               ))}
@@ -432,7 +405,7 @@ const form_4 = props => {
           <View style={{marginBottom: 8}}>
             <Button
               onPress={() => sendform()}
-              style={[styles.input_button]}
+              style={[styles.input_button,{ marginBottom: 300}]}
               full>
               <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
                 Submit

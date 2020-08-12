@@ -360,11 +360,11 @@ console.log(this.state.editing);
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             onPress={() => this.get_current_location()}
-            style={[styles.bubble , styles.button,{paddingRight:10,paddingLeft:0,}]}
+            style={[styles.bubble , styles.button,{paddingRight:10,paddingLeft:0,borderRadius:100}]}
           >
              <Image
-                                  source={require('../assets/img/location.png')}
-                                  style={{width: 20, height: 20,resizeMode: 'stretch',marginLeft:10,}}
+                                  source={require('../assets/img/hunt.png')}
+                                  style={{width: 20, height: 20,resizeMode: 'stretch',marginLeft:10,marginTop:2.5,marginBottom:2.5}}
                                   />
           </TouchableOpacity>
 
@@ -372,10 +372,10 @@ console.log(this.state.editing);
             this.state.editing.coordinates.length > 3 && (
             <TouchableOpacity
               onPress={() => this.finish()}
-              style={[styles.bubble, styles.button]}
+              style={[styles.bubble, styles.button,{borderRadius:100}]}
             >
               <Image
-                                  source={require('../assets/img/plane.png')}
+                                  source={require('../assets/img/sent.png')}
                                   style={{width: 20, height: 20,resizeMode: 'stretch',marginLeft:10,}}
                                   />
             </TouchableOpacity>
@@ -395,12 +395,12 @@ console.log(this.state.editing);
         {this.state.editing && (
       <TouchableOpacity
             onPress={() => this.undo()}
-            style={[styles.bubble, styles.button,{position: 'absolute', right: 0, top: "5%"}]}
+            style={[styles.bubble, styles.button,{position: 'absolute', right: 0, top: "5%",borderRadius:100}]}
             // style={{position: 'absolute', right: 10, top: "50%"}} cccc
           >
             <Image
                 source={require('../assets/img/undo.png')}
-                style={{width: 20, height: 20,resizeMode: 'stretch',marginLeft:10,}}
+                style={{width: 20, height: 20,resizeMode: 'stretch',marginLeft:10,marginTop:2.5,marginBottom:2.5}}
                 />
           </TouchableOpacity>
           

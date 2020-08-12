@@ -62,7 +62,6 @@ const form_6 = (props) => {
         date = y + '-0' + m + '-' + day;
       }
     }
-    alert(date);
     props.changeFlag({ flag: 'harvisting_create', s_key: s_key, index: index, value: date })
   };
 
@@ -93,10 +92,10 @@ const form_6 = (props) => {
             <Text onPress={ ()=> removeData(2,100,props.index2) } style={{marginBottom:40,color:'green',fontSize:25,fontWeight:'bold', }} >X </Text>
           </View>
             <View>
-              <Text style={styles.q_text}>Crop/ harvesting acres</Text>
+              <Text style={styles.q_text}>Crop harvesting area (acres)</Text>
               <Text style={styles.q_text}>فصل چنائی/کٹائی کا رقبہ (ایکڑ)</Text>
             </View>
-            <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val, 1, index2)} value={props.f_harvesting_area[index2].harvesting_area} placeholder="" style={[styles.input_email]} />
+            <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val, 1, index2)} value={props.f_harvesting_area[index2].harvesting_area} placeholder="" keyboardType='numeric' style={[styles.input_email]} />
             
             <View>
               <Text style={styles.q_text}>Crop yield (kg)</Text>
@@ -150,15 +149,24 @@ const form_6 = (props) => {
             </View>
 
 
-            <View style={{marginTop:30}}>
-              <Text style={styles.q_text}>Crop quantity</Text>
+            {/* <View style={{marginTop:30}}>
+              <Text style={styles.q_text}>Crop quantity (kg) </Text>
               <Text style={styles.q_text}>فصل کی مقدار</Text>
             </View>
               <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val, 4, index2)} value={props.f_crop_qty_detail[index2].crop_qty_detail} keyboardType="numeric" placeholder="" style={[styles.input_email]} />
 
+               */}
+
               <View style={{marginTop:30}}>
+              <Text style={styles.q_text}>Additional information</Text>
+              <Text style={styles.q_text}>اضافی معلومات</Text>
+            </View>
+              <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val, 6, index2)} value={props.f_additional_info[index2].additional_info} placeholder="" style={[styles.input_email]} />
+
+              {/* <View style={[styles.border_bottom]} ></View> */}
+              <View style={{marginTop:25}}>
               <Text style={styles.q_text}>Harvest date</Text>
-              <Text style={styles.q_text}>تاریخ کٹاءی</Text>
+              <Text style={styles.q_text}>تاریخ کٹائی</Text>
             </View>
               <View style={[styles.input_email,{marginTop:20,flexDirection:'row',justifyContent:'space-between',backgroundColor:'gray'}]} >
                 <DatePicker
@@ -169,24 +177,15 @@ const form_6 = (props) => {
                   animationType={"fade"}
                   androidMode={"default"}
                   placeHolderText=""
-                  textStyle={{ color: "green" }}
+                  textStyle={{ color: "#fff" }}
                   onDateChange={(val) => setDate(val, 5,index2)}
                   disabled={false}
                 />
                  <Image
                     source={require('../assets/img/calendar.png')}
-                    style={{width: '12%', height:'80%',resizeMode: 'stretch',marginRight:10}}
+                    style={{width: '12%', height:'80%',resizeMode: 'stretch',marginRight:10,marginTop:4}}
               />
               </View>
-
-              <View style={{marginTop:30}}>
-              <Text style={styles.q_text}>Additional information</Text>
-              <Text style={styles.q_text}>اضافی معلومات</Text>
-            </View>
-              <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val, 6, index2)} value={props.f_additional_info[index2].additional_info} placeholder="" style={[styles.input_email]} />
-
-              {/* <View style={[styles.border_bottom]} ></View> */}
-
           </View>
 
       </View>

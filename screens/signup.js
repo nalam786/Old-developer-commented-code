@@ -1,6 +1,8 @@
 import React from 'react';
 import {useState} from 'react';
 import URL from '../URL';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
 
 import {
   SafeAreaView,
@@ -36,7 +38,7 @@ const signup = props => {
     email: '',
     password: '',
     phone_no: '',
-    phone_code: 92,
+    phone_code: '92',
     terms_conditions: false,
     country: [],
     options: 1,
@@ -98,10 +100,7 @@ const signup = props => {
   const send_sms = mycode => {
     alert(data.phone_no);
     fetch(
-      'https://connect.jazzcmt.com/sendsms_url.html?Username=03040740644&Password=Flux_12345&From=Business&To=92' +
-        data.phone_no +
-        '&Message=Your Infarmer Registration code is' +
-        mycode,
+      'https://connect.jazzcmt.com/sendsms_url.html?Username=03040740644&Password=Flux_12345&From=WATERSPRINT&To='+data.phone_no+'&Message=Your infarmer OTP code is: '+mycode,
       {
         method: 'GET',
         headers: {
@@ -261,27 +260,30 @@ const signup = props => {
   }
   return (
     <>
-      <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+      <KeyboardAvoidingView  >
+      <ScrollView>
         <View
           style={{
             flex: 1,
             flexDirection: 'column',
             justifyContent: 'space-between',
           }}>
-          <View style={[styles.triangleCorner]} />
+          {/* <View style={[styles.triangleCorner]} /> */}
 
-          <View style={{alignSelf: 'center'}}>
-            <Text style={[styles.green_h2]}>REGISTER</Text>
+          <View style={{alignSelf: 'center' ,marginTop:50}}>
+            <Text style={[styles.green_h2,{marginBottom:0}]}>SIGN UP</Text>
+            <Text style={[styles.green_h2_urdu]}>سائن اپ</Text>
+            
             <TextInput
               placeholderTextColor="#272626"
               onChangeText={val => textInputChange(val, 1)}
-              placeholder="Full Name"
+              placeholder="Full Name (پورا نام)"
               style={[styles.input_email]}
             />
 
-            <View style={{flexDirection: 'row'}}>
-              <View style={[styles.input_phone_code, {width: 120}]}>
-                <Text>92</Text>
+            {/* <View style={{flexDirection: 'row'}}> */}
+              {/* <View style={[styles.input_phone_code, {width: 120}]}> */}
+                {/* <Text>92</Text> */}
                 {/* <Picker
                   onValueChange={(itemValue, itemIndex) =>
                     textInputChange(itemValue, 2)
@@ -298,21 +300,21 @@ const signup = props => {
                     />
                   ))}
                 </Picker> */}
-              </View>
+              {/* </View> */}
               <TextInput
                 placeholderTextColor="#272626"
                 onChangeText={val => textInputChange(val, 3)}
-                placeholder="Phone No"
+                placeholder="Mobile number  موبائل نمبر (92+)"
                 keyboardType="numeric"
                 maxLength={11}
                 style={[styles.input_phone]}
               />
-            </View>
+            {/* </View> */}
 
             <TextInput
               placeholderTextColor="#272626"
               onChangeText={val => textInputChange(val, 4)}
-              placeholder="Email"
+              placeholder="Email (ای میل)"
               style={[styles.input_email]}
             />
 
@@ -320,11 +322,12 @@ const signup = props => {
               placeholderTextColor="#272626"
               onChangeText={val => textInputChange(val, 5)}
               secureTextEntry={true}
-              placeholder="Password"
+              placeholder="Password (پاس ورڈ)"
               style={[styles.input_]}
             />
             <View>
-              <Text>Receive OTP Code via ?</Text>
+              <Text>Receive OTP Code via:</Text>
+              <Text>او ٹی پی کوڈ وصول کرنے کا ذریعہ:</Text>
 
               <View
                 style={{
@@ -345,6 +348,7 @@ const signup = props => {
                     onValueChange={val => textInputChange(1, 6)}
                   />
                   <Text style={{alignSelf: 'center'}}>Email</Text>
+                  <Text style={{alignSelf: 'center'}}>ای میل </Text>
                 </View>
 
                 <View
@@ -358,7 +362,8 @@ const signup = props => {
                     value={2 == data.options}
                     onValueChange={val => textInputChange(2, 6)}
                   />
-                  <Text style={{alignSelf: 'center'}}>Phone No</Text>
+                  <Text style={{alignSelf: 'center'}}>Mobile number</Text>
+                  <Text style={{alignSelf: 'center'}}>موبائل نمبر</Text>
                 </View>
 
                 <View
@@ -373,6 +378,7 @@ const signup = props => {
                     onValueChange={val => textInputChange(3, 6)}
                   />
                   <Text style={{alignSelf: 'center'}}>Both</Text>
+                  <Text style={{alignSelf: 'center'}}>دونوں</Text>
                 </View>
               </View>
             </View>
@@ -383,15 +389,23 @@ const signup = props => {
                 value={isSelected}
                 onValueChange={setSelection}
               />
-              <Text style={[styles.green_h6]}>
-                I agree with the terms and conditions
-              </Text>
+              <View >
+                <Text style={[styles.green_h6,{marginTop:6}]}>
+                  I agree with the terms and conditions
+                </Text>
+                
+
+              </View>
+              
             </View>
+            <Text style={[styles.green_h6,{marginTop:0,alignSelf:'flex-end',marginBottom:5}]}>
+                میں شرائط و ضوابط سے اتفاق کرتا ہوں
+                </Text>
           </View>
 
           <Button onPress={() => signup()} style={[styles.input_button]} full>
             <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-              REGISTER
+            SIGN UP (سائن اپ)
             </Text>
           </Button>
 
@@ -406,10 +420,23 @@ const signup = props => {
                 marginTop: 20,
               },
             ]}>
-            Already have an account!
+            Already have an account?
           </Text>
-          <View style={[styles.triangleCorner_bottom]} rotate={270} />
+          <Text
+            onPress={() => props.navigation.navigate('signin')}
+            style={[
+              styles.green_h6,
+              {
+                alignSelf: 'center',
+                color: 'green',
+                fontSize: 13,
+              },
+            ]}>
+           کیا آپ پہلے سے اکاؤنٹ رکھتے ہیں؟
+          </Text>
+          {/* <View style={[styles.triangleCorner_bottom]} rotate={270} /> */}
         </View>
+        </ScrollView>
       </KeyboardAvoidingView>
     </>
   );
@@ -417,8 +444,8 @@ const signup = props => {
 
 const styles = StyleSheet.create({
   input_phone_code: {
-    height: 35,
-    width: 50,
+    // height: 35,
+    width: 180,
     borderTopWidth: 0,
     borderLeftWidth: 0,
     borderRightWidth: 0,
@@ -429,8 +456,8 @@ const styles = StyleSheet.create({
   },
 
   input_phone: {
-    height: 35,
-    width: 180,
+    // height: 35,
+    width: 300,
     borderTopWidth: 0,
     borderLeftWidth: 0,
     borderRightWidth: 0,
@@ -438,7 +465,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 20,
   },
-
+  green_h2_urdu: {
+    color: '#05422b',
+    fontWeight: '700',
+    fontSize: 20,
+    alignSelf: 'center',
+    marginBottom: 50,
+  },
   input_button: {
     height: 35,
     width: 300,
@@ -449,7 +482,7 @@ const styles = StyleSheet.create({
   },
 
   input_email: {
-    height: 35,
+    // height: 35,
     width: 300,
     borderTopWidth: 0,
     borderLeftWidth: 0,
@@ -460,7 +493,7 @@ const styles = StyleSheet.create({
   },
 
   input_: {
-    height: 35,
+    // height: 35,
     width: 300,
     borderTopWidth: 0,
     borderLeftWidth: 0,

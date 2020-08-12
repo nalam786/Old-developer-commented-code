@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator} from '@react-navigation/stack';      
 
 import splash from './screens/splash';
 import signup from './screens/signup';
@@ -11,7 +11,6 @@ import resetpass from './screens/resetpass';
 import otp from './screens/otp';
 import dashboard from './screens/dashboard';
 import manageprofile from './screens/manageprofile';
-
 import feedback from './screens/feedback';
 import allfarms from './screens/allfarms';
 import general_form from './screens/general_form';
@@ -28,6 +27,7 @@ import form_footer from './components/form_footer';
 import crop_health_report from './screens/crop_health_report';
 import farm_map from './screens/farm_map';
 import farm_map_edit from './screens/edit_form/farm_map_edit';
+import test_footer from './screens/test_footer';
 
 // edit
 import general_form_edit from './screens/edit_form/general_form';
@@ -75,9 +75,9 @@ function App() {
         {/* <Stack.Screen name="forgetpass" component={forgetpass} /> */}
         {/* <Stack.Screen name="land_preperation_form" component={land_preperation_form} /> */}
         {/* <Stack.Screen name="seed_form" component={seed_form} /> */}
-
+        {/* <Stack.Screen name="test_footer" component={test_footer} /> */}
+        {/* <Stack.Screen name="irrigation_form" component={irrigation_form} /> */}
         <Stack.Screen name="splash" component={splash} />
-
         <Stack.Screen name="signup" component={signup} />
         <Stack.Screen name="otp" component={otp} />
         <Stack.Screen name="signin" component={signin} />
@@ -96,17 +96,11 @@ function App() {
         <Stack.Screen name="seed_form" component={seed_form} />
         <Stack.Screen name="pesticide_form" component={pesticide_form} />
         <Stack.Screen name="fertilizer_form" component={fertilizer_form} />
-        <Stack.Screen name="irrigation_form" component={irrigation_form} />
+        {/* <Stack.Screen name="irrigation_form" component={irrigation_form} /> */}
         <Stack.Screen name="harvesting_form" component={harvesting_form} />
-        <Stack.Screen
-          name="land_preperation_form_edit"
-          component={land_preperation_form_edit}
-        />
+        <Stack.Screen name="land_preperation_form_edit" component={land_preperation_form_edit} />
         <Stack.Screen name="crop_health_form" component={crop_health_form} />
-        <Stack.Screen
-          name="crop_health_report"
-          component={crop_health_report}
-        />
+        <Stack.Screen name="crop_health_report" component={crop_health_report} />
         <Stack.Screen
           name="irrigation_schedule_form"
           component={irrigation_schedule_form}

@@ -144,7 +144,7 @@ const form_5 = (props) =>  {
                 value={4==props.f_removal_of_herbs[index2].removal_of_herbs}
                 onValueChange={(val) => changeData(4,1,index2)}
               />
-              <Text style={{alignSelf:"center" }} >None کوئی نہیں</Text>
+              <Text style={{alignSelf:"center" }} >None (کوئی نہیں)</Text>
             </View>
           
           </View>
@@ -160,24 +160,46 @@ const form_5 = (props) =>  {
             onValueChange={(val) => changeData(val,2,index2)}
             selectedValue={props.f_seed_variety[index2].seed_variety}
             >
-              <Picker.Item label="FH-114" value="0" />
-              <Picker.Item label="CIM-598" value="1" />
-              <Picker.Item label="SITARA-009" value="2" />
-              <Picker.Item label="A-one" value="3" />
-              <Picker.Item label="BH-167" value="4" />
-              <Picker.Item label="MIAD-852" value="5" />
-              <Picker.Item label="CIM-573" value="6" />
-              <Picker.Item label="SLH-317" value="7" />
-              <Picker.Item label="TARZAN-1" value="8" />
-              <Picker.Item label="NS-141" value="9" />
-              <Picker.Item label="IR-NIBGE-3" value="10" />
-              <Picker.Item label="MNH-886" value="11" />
-              <Picker.Item label="NIBGE −115" value="12" />
-              <Picker.Item label="FH-941" value="13" />
-              <Picker.Item label="FH-942" value="14" />
-              <Picker.Item label="IR-1524" value="15" />
-              <Picker.Item label="Ali Akbar-802" value="16" />
-              <Picker.Item label="NEELAM-121" value="17" />
+              <Picker.Item label="A-one (اے ون)" value="0" />
+              <Picker.Item label="A-555 (۵۵۵-اے)" value="1" />
+              <Picker.Item label="Ali Akbar-802 (۸۰۲-علی اکبر)" value="2" />
+              <Picker.Item label="BH-160 (۱۶۰-بی ایچ)" value="3" />
+              <Picker.Item label="BH-167 (۱۶۷-بی ایچ)" value="4" />
+              <Picker.Item label="BH-178 (۱۷۸-بی ایچ)" value="5" />
+              <Picker.Item label="CA 12 (۱۲-سی اے)" value="6" />
+              <Picker.Item label="CIM-446 (۴۴۶-سی آئی ایم)" value="7" />
+              <Picker.Item label="CIM-496 (۴۹۶-سی آئی ایم)" value="8" />
+              <Picker.Item label="CIM-499 (۴۹۹-سی آئی ایم)" value="9" />
+              <Picker.Item label="CIM-506 (۵۰۶-سی آئی ایم)" value="10" />
+              <Picker.Item label="CIM-534 (۵۳۴-سی آئی ایم)" value="11" />
+              <Picker.Item label="CIM-573 (۵۷۳-سی آئی ایم)" value="12" />
+              <Picker.Item label="CIM-598  (۵۹۸-سی  آئی ایم)" value="13" />
+              <Picker.Item label="CIM-599  (۵۹۹-سی  آئی ایم)" value="14" />
+              <Picker.Item label="CIM-602  (۶۰۲-سی  آئی ایم)" value="15" />
+              <Picker.Item label="CIM-707 (۷۰۷-سی آئی ایم)" value="16" />
+              <Picker.Item label="FH-114  (۱۱۴- ایف ا یچ)" value="17" />
+              <Picker.Item label="FH-118  (۱۱۸- ایف ا یچ)" value="17" />
+              <Picker.Item label="FH-142  (۱۴۲- ایف ا یچ)" value="17" />
+              <Picker.Item label="FH-941 (۹۴۱- ایف ا یچ)" value="17" />
+              <Picker.Item label="FH-942  (۹۴۲- ایف ا یچ)" value="17" />
+              <Picker.Item label="GN Hybrid 2085 (۲۰۸۵-جی این ہائبرڈ)" value="17" />
+              <Picker.Item label="IR-1524 (۱۵۲۴-آئی آر)" value="17" />
+              <Picker.Item label="IR-3701 (۳۷۰۱-آئی آر)" value="17" />
+              <Picker.Item label="IR NIAB-824 (۸۲۴-آئی آر  نیاب)" value="17" />
+              <Picker.Item label="IUB-222 (۲۲۲-آئی یو بی)" value="17" />
+              <Picker.Item label="KZ 181 (۱۸۱-کے ذیڈ)" value="17" />
+              <Picker.Item label="MIAD-852 (۸۵۲-ایم آئی اے ڈی)" value="17" />
+              <Picker.Item label="MG-6 (۶-ایم جی)" value="17" />
+              <Picker.Item label="MNH-886 (۸۸۶-ایم این ایچ)" value="17" />
+              <Picker.Item label="NEELAM-121 (۱۲۱-نیلم)" value="17" />
+              <Picker.Item label="Saiban 201 (۲۰۱-سائیبان)" value="17" />
+              <Picker.Item label="SITARA-008 (۰۰۸-ستارہ) " value="17" />
+              <Picker.Item label="SITARA-009 (۰۰۹-ستارہ) " value="17" />
+              <Picker.Item label="SITARA-11M (ستارہ ۱۱ ایم)" value="17" />
+              <Picker.Item label="SLH-317 (۳۱۷-ایس ل ایچ)" value="17" />
+              <Picker.Item label="TARZAN-1 (۱-ٹارزن)" value="17" />
+              <Picker.Item label="TARZAN-2 (۲-ٹارزن)" value="17" />
+              <Picker.Item label="VH-259 (۲۵۹-وی ایچ)" value="17" />
             </Picker>
             <View style={[styles.border_bottom]} ></View>
           </View> 
@@ -192,25 +214,25 @@ const form_5 = (props) =>  {
             onValueChange={(val) => changeData(val,5,index2)}
             selectedValue={props.f_seed_compamy[index2].seed_compamy}
             >
-              <Picker.Item label="Punjab Seed Corporation" value="0" />
-              <Picker.Item label="H.M Shafi" value="1" />
-              <Picker.Item label="Jalandar Seed," value="2" />
-              <Picker.Item label="Nobe Bio" value="3" />
-              <Picker.Item label="Pioneer" value="4" />
-              <Picker.Item label="Monsento" value="5" />
-              <Picker.Item label="Lalika Seed" value="6" />
-              <Picker.Item label="Saver Chemicals" value="7" />
-              <Picker.Item label="Neelam Seed," value="8" />
-              <Picker.Item label="Kisan Corporation" value="9" />
-              <Picker.Item label="Saim Seed" value="10" />
-              <Picker.Item label="Hamlok" value="11" />
-              <Picker.Item label="Sohni Dharti" value="12" />
-              <Picker.Item label="Hope Seed" value="13" />
-              <Picker.Item label="Data Agro seeds" value="14" />
-              <Picker.Item label="Barkha Seeds" value="15" />
-              <Picker.Item label="Gold Seeds" value="16" />
-              <Picker.Item label="Axis Seeds" value="17" />
-              <Picker.Item label="Energy Seeds" value="18" />
+              <Picker.Item label="Punjab Seed Corp (پنجاب سيڈ کارپوریشن)" value="0" />
+              <Picker.Item label="H.M Shafi (ايچ۔ايم شفيع)" value="1" />
+              <Picker.Item label="Jalandar Seed (جالندھر سيڈ)" value="2" />
+              <Picker.Item label="Nobe Bio (نوب بائيو)" value="3" />
+              <Picker.Item label="Pioneer (پائينر)" value="4" />
+              <Picker.Item label="Monsento (مونسينٹو)" value="5" />
+              <Picker.Item label="Lalika Seed (لاليکا سيڈ)" value="6" />
+              <Picker.Item label="Saver Chemicals (سيور کيميکلز)" value="7" />
+              <Picker.Item label="Neelam Seed (نيلم سيڈ)" value="8" />
+              <Picker.Item label="Kisan Corporation (کسان کارپوريشن)" value="9" />
+              <Picker.Item label="Saim Seed (صائم سيڈ)" value="10" />
+              <Picker.Item label="Hamlok (ہملاک)" value="11" />
+              <Picker.Item label="Sohni Dharti (سوہنی دھرتی)" value="12" />
+              <Picker.Item label="Hope Seed (ہوپ سيڈ)" value="13" />
+              <Picker.Item label="Data Agro seeds (داتا ايگروسيڈ)" value="14" />
+              <Picker.Item label="Barkha Seeds (برکھا سيڈ)" value="15" />
+              <Picker.Item label="Gold Seeds (گولڈ سيڈ)" value="16" />
+              <Picker.Item label="Axis Seeds (‍ايکسز سيڈ)" value="17" />
+              <Picker.Item label="Energy Seeds (انرجی سيڈ)" value="18" />
             </Picker>
             <View style={[styles.border_bottom]} ></View>
           </View> 

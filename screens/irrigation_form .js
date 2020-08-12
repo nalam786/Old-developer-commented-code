@@ -470,7 +470,7 @@ const form_3 = props => {
           <View style={{marginBottom: 8}}>
             <Button
               onPress={() => sendform()}
-              style={[styles.input_button]}
+              style={[styles.input_button,{ marginBottom: 300}]}
               full>
               <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
                 SUBMIT

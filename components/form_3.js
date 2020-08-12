@@ -193,19 +193,19 @@ const form_3 = (props) =>  {
           </View> 
           <View style={[styles.border_bottom]} ></View>
           <View>
-           <Text style={styles.q_text}>Depth of water course (In feet)</Text>
-            <Text style={styles.q_text}>نہری کھالے میں پانی کی گہرائی</Text>
+           <Text style={styles.q_text}>Depth of water in water course (feet)</Text>
+            <Text style={styles.q_text}>نہری کھالے میں پانی کی گہرائی (فیٹ)</Text>
            </View>
           <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,6,index2)} value={props.f_water_depth[index2].water_depth} placeholder="" style={[styles.input_email,{height:'3%'}]} />
           
           <View>
-           <Text style={styles.q_text}>Width of water course at water level (in feet)</Text>
-            <Text style={styles.q_text}> نہری کھالےکی چوڑائی پانی کی سطح پر(فیٹ)</Text>
+           <Text style={styles.q_text}>Width of water course at water level (feet)</Text>
+            <Text style={styles.q_text}> نہری کھالےکی چوڑائی پانی کی سطح پر (فیٹ)</Text>
            </View>
           <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,7,index2)} value={props.f_water_width[index2].water_width} placeholder="" keyboardType="numeric" style={[styles.input_email,{height:'3%'}]} />
           <View>
-           <Text style={styles.q_text}>Width of water course at bed Level (in feet)</Text>
-            <Text style={styles.q_text}> نہری کھالےکی چوڑا ئی کھالےکی تہ میں(فیٹ)</Text>
+           <Text style={styles.q_text}>Width of water course at bed Level (feet)</Text>
+            <Text style={styles.q_text}> نہری کھالےکی چوڑا ئی کھالےکی تہ میں (فیٹ)</Text>
            </View>
           <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,8,index2)} value={props.f_bed_level_water_width[index2].bed_level_water_width} placeholder="" keyboardType="numeric" style={[styles.input_email,{height:'3%'}]} />
           <View>
@@ -265,7 +265,7 @@ const form_3 = (props) =>  {
                     <View>
           <Text style={[styles.q_text,{fontSize:18,marginBottom:10}]}>TUBE-WELL (زمینی پانی):</Text>
            <Text style={styles.q_text}>Tube well size (cusecs)</Text>
-            <Text style={styles.q_text}>ٹیوب ویل کا سائز(کیوسیک)</Text>
+            <Text style={styles.q_text}>ٹیوب ویل کا سائز (کیوسیک)</Text>
            </View>            
               <TextInput keyboardType="numeric" placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,12,index2)} value={props.f_tube_well_size[index2].tube_well_size} placeholder="" style={[styles.input_email,{height:'5%',marginTop:0}]} />
               <View>
@@ -282,11 +282,11 @@ const form_3 = (props) =>  {
              onValueChange={(itemValue, itemIndex) => changeData(itemValue,14,index2)}
              selectedValue={props.f_water_quality[index2].water_quality}
             >
-              <Picker.Item label="Sweet میٹھا" value="0" />
-              <Picker.Item label="Brackish   کھارا" value="1" />
-              <Picker.Item label="Sline نمکین" value="2" />
-              <Picker.Item label="Other دیگر" value="3" />
-              <Picker.Item label="Don't Know معلوم نہیں"  value="4" />
+              <Picker.Item label="Sweet (میٹھا)" value="0" />
+              <Picker.Item label="Brackish   (کھارا)" value="1" />
+              <Picker.Item label="Saline (نمکین)" value="2" />
+              <Picker.Item label="Other (دیگر)" value="3" />
+              <Picker.Item label="Don't Know (معلوم نہیں)"  value="4" />
             </Picker>
             <View style={[styles.border_bottom]} ></View>
             </View>
@@ -358,19 +358,19 @@ const form_3 = (props) =>  {
                         </View> 
                         <View style={[styles.border_bottom]} ></View>
                         <View>
-                        <Text style={styles.q_text}>Depth of water course (In feet)</Text>
-                          <Text style={styles.q_text}>نہری کھالے میں پانی کی گہرائی</Text>
-                        </View>
+                          <Text style={styles.q_text}>Depth of water in water course (feet)</Text>
+                            <Text style={styles.q_text}>نہری کھالے میں پانی کی گہرائی (فیٹ)</Text>
+                          </View>
                         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,6,index2)} value={props.f_water_depth[index2].water_depth} placeholder="" style={[styles.input_email]} />
                         
                         <View>
-                        <Text style={styles.q_text}>Width of water course at water level (in feet)</Text>
-                          <Text style={styles.q_text}> نہری کھالےکی چوڑائی پانی کی سطح پر(فیٹ)</Text>
+                        <Text style={styles.q_text}>Width of water course at water level (feet)</Text>
+                          <Text style={styles.q_text}> نہری کھالےکی چوڑائی پانی کی سطح پر (فیٹ)</Text>
                         </View>
                         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,7,index2)} value={props.f_water_width[index2].water_width} placeholder="" keyboardType="numeric" style={[styles.input_email]} />
                         <View>
-                        <Text style={styles.q_text}>Width of water course at bed Level (in feet)</Text>
-                          <Text style={styles.q_text}> نہری کھالےکی چوڑا ئی کھالےکی تہ میں(فیٹ)</Text>
+                        <Text style={styles.q_text}>Width of water course at bed Level (feet)</Text>
+                          <Text style={styles.q_text}> نہری کھالےکی چوڑا ئی کھالےکی تہ میں (فیٹ)</Text>
                         </View>
                         <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,8,index2)} value={props.f_bed_level_water_width[index2].bed_level_water_width} placeholder="" keyboardType="numeric" style={[styles.input_email]} />
                         <View>
@@ -424,7 +424,7 @@ const form_3 = (props) =>  {
                         <View>
             <Text style={[styles.q_text,{fontSize:18,marginBottom:10}]}>TUBE-WELL (زمینی پانی):</Text>
            <Text style={styles.q_text}>Tube well size (cusecs)</Text>
-            <Text style={styles.q_text}>ٹیوب ویل کا سائز(کیوسیک)</Text>
+            <Text style={styles.q_text}>ٹیوب ویل کا سائز (کیوسیک)</Text>
            </View>            
               <TextInput keyboardType="numeric" placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,12,index2)} value={props.f_tube_well_size[index2].tube_well_size} placeholder="" style={[styles.input_email]} />
               <View>
@@ -434,7 +434,7 @@ const form_3 = (props) =>  {
           <TextInput keyboardType="numeric" placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,3,index2)} value={props.f_bore_depth[index2].bore_depth} placeholder="" style={[styles.input_email]} />
           <View >
             <Text style={styles.q_text}>Tube-well/Ground water quality</Text>
-            <Text style={styles.q_text}>ٹیوب ویل/زمینی پانی کا معیار</Text>
+            <Text style={styles.q_text}>ٹیوب ویل/زمینی پانی کا معیار/کوالٹی</Text>
           </View>
 
             <View  >
@@ -442,11 +442,11 @@ const form_3 = (props) =>  {
              onValueChange={(itemValue, itemIndex) => changeData(itemValue,14,index2)}
              selectedValue={props.f_water_quality[index2].water_quality}
             >
-              <Picker.Item label="Sweet میٹھا" value="0" />
-              <Picker.Item label="Brackish   کھارا" value="1" />
-              <Picker.Item label="Sline نمکین" value="2" />
-              <Picker.Item label="Other دیگر" value="3" />
-              <Picker.Item label="Don't Know معلوم نہیں"  value="4" />
+              <Picker.Item label="Sweet (میٹھا)" value="0" />
+              <Picker.Item label="Brackish   (کھارا)" value="1" />
+              <Picker.Item label="Saline (نمکین)" value="2" />
+              <Picker.Item label="Other (دیگر)" value="3" />
+              <Picker.Item label="Don't Know (معلوم نہیں)"  value="4" />
             </Picker>
             <View style={[styles.border_bottom]} ></View>
             </View>

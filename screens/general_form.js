@@ -218,8 +218,12 @@ const styles = StyleSheet.create({
     padding: 4,
     paddingRight: 12,
     textAlign: 'right'
+  },
+  q_text:{
+    color:'green',
+    fontWeight:'bold',
+    fontSize:16
   }
-
 });
 
 export default form_1;

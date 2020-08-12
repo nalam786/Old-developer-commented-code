@@ -81,6 +81,7 @@ const form_2 = (props) =>  {
     f_first_irrigation,
     f_irrigation_frequency,
     f_farm_distance_watercourse,
+    f_irrigation_time,
     index2 
   } =props; 
 
@@ -139,11 +140,11 @@ const form_2 = (props) =>  {
               onValueChange={(itemValue, itemIndex) => changeData(itemValue,2,props.index2)}
               selectedValue={props.f_soil_type[index2].soil_type}
             >
-              <Picker.Item label="Sandy soil ریتیلی مٹی" value="0" />
-              <Picker.Item label="Clay  چکنی مٹی" value="1" />
-              <Picker.Item label="Loam مکس" value="2" />
+              <Picker.Item label="Sandy soil (ریتیلی مٹی)" value="0" />
+              <Picker.Item label="Clay  (چکنی مٹی)" value="1" />
+              <Picker.Item label="Loam (مکس)" value="2" />
               <Picker.Item label="Sandy loam زیادہ ریتیلی (میرا)" value="3" />
-              <Picker.Item label="Clayey loam زیادہ چکنی" value="4" />
+              <Picker.Item label="Clayey loam (زیادہ چکنی)" value="4" />
               </Picker>
           </View>
         
@@ -235,19 +236,23 @@ const form_2 = (props) =>  {
               selectedValue={props.f_irrigation_frequency[index2].irrigation_frequency}
               onValueChange={(itemValue, itemIndex) => changeData(itemValue,6,props.index2)}
             >
-              <Picker.Item label="Weekly ہفتہ وار" value="0" />
-              <Picker.Item label="Biweekly دو ہفتوں کے بعد" value="1" />
-              <Picker.Item label="Twice a week ہفتے میں دو دفعہ" value="2" />
-              <Picker.Item label="After every third week ہر تیسرے ہفتے کے بعد" value="3" />
-              <Picker.Item label="Monthly ماہانہ" value="4" />
-              <Picker.Item label="Other دیگر" value="5" />
+              <Picker.Item label="Weekly (ہفتہ وار)" value="0" />
+              <Picker.Item label="Biweekly (دو ہفتوں کے بعد)" value="1" />
+              <Picker.Item label="Twice a week (ہفتے میں دو دفعہ)" value="2" />
+              <Picker.Item label="After every third week (ہر تیسرے ہفتے کے بعد)" value="3" />
+              <Picker.Item label="Monthly (ماہانہ)" value="4" />
+              <Picker.Item label="Other (دیگر)" value="5" />
             </Picker>
             
           </View> 
           <View style={[styles.border_bottom]} ></View>
-
           <View>
-            <Text style={styles.q_text}>What far is your farm from the outlet of water course?</Text>
+           <Text style={styles.q_text}>How much time is required for complete irrigation in your farm?</Text>
+            <Text style={styles.q_text}>فصل کو پا نی لگانے میں کتنا وقت درکار ہوتا ہے؟</Text>
+           </View>
+          <TextInput placeholderTextColor="#272626" onFocus={() => focus()} onBlur={() => blur()} onChangeText={(val) => changeData(val,8,index2)} value={props.f_irrigation_time[index2].irrigation_time} placeholder="" keyboardType="numeric" style={[styles.input_email,{height:'3%'}]} />
+          <View>
+            <Text style={styles.q_text}>How far is your farm from the outlet of water course?</Text>
             <Text style={styles.q_text}>فارم موگے سے کتنے فاصلے پر ہے؟</Text>
           </View>
           <View style={{marginTop:20,height:'3%'}} >
@@ -255,9 +260,9 @@ const form_2 = (props) =>  {
               selectedValue={props.f_farm_distance_watercourse[index2].farm_distance_watercourse}
               onValueChange={(itemValue, itemIndex) => changeData(itemValue,7,index2)}
             >
-              <Picker.Item label="Head ھیڈ" value="0" />
-              <Picker.Item label="Middle درميان" value="1" />
-              <Picker.Item label="Tail ٹيل" value="2" />
+              <Picker.Item label="Head (ھیڈ)" value="0" />
+              <Picker.Item label="Middle (درميان)" value="1" />
+              <Picker.Item label="Tail (ٹيل)" value="2" />
             </Picker>
           </View> 
     
