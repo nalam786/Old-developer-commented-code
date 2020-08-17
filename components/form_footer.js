@@ -113,7 +113,7 @@ const form_footer = props => {
                   style={{
                     width: '100%',
                     height: 45,
-                    marginLeft: 15,
+
                     resizeMode: 'contain',
                   }}
                 />

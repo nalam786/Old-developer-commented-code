@@ -52,15 +52,11 @@ const App = props => {
   };
 
   const signup = async () => {
-    // alert(isSelected)
     try {
       await AsyncStorage.setItem('User_ID', '');
-    } catch (error) {
-      // Error saving data
-    }
+    } catch (error) {}
 
     if (data.email == '' || data.password == '') {
-      // alert('Please fill all the fields');
       return false;
     }
 
@@ -71,54 +67,9 @@ const App = props => {
 
     console.log('Login API Calling', U_data);
 
-    await fetch(URL.url + 'users/log_in', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({U_data}),
-    })
-      .then(res => res.json())
-
-      .then(async resjson => {
-        if (resjson.Message == 'Successfully_Login') {
-          if (isSelected) {
-            let a = resjson.data[0].id,
-              farm_id;
-            try {
-              await AsyncStorage.setItem('User_ID', '' + a);
-            } catch (error) {
-              // Error saving data
-            }
-          }
-
-          props.user_id({
-            user_id: resjson.data[0].id,
-            farm_id: 0,
-            phone: data.phone_no,
-            password: data.password,
-            username: data.user_name,
-            code: 0,
-          });
-          props.navigation.navigate('dashboard');
-        }
-
-        // alert(resjson.Message);
-      })
-
-      .catch(err => {
-        console.log('API Failed:', err);
-        alert('Failed to Connect to Server: ' + err);
-      });
-
-
-
-
-
-
-
-      await fetch(URL.url + 'users/log_in_p', {
+    if (data.email.includes('@')) {
+      console.log('inside id');
+      await fetch(URL.url + 'users/log_in', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -127,7 +78,7 @@ const App = props => {
         body: JSON.stringify({U_data}),
       })
         .then(res => res.json())
-  
+
         .then(async resjson => {
           if (resjson.Message == 'Successfully_Login') {
             if (isSelected) {
@@ -139,7 +90,7 @@ const App = props => {
                 // Error saving data
               }
             }
-  
+
             props.user_id({
               user_id: resjson.data[0].id,
               farm_id: 0,
@@ -150,14 +101,58 @@ const App = props => {
             });
             props.navigation.navigate('dashboard');
           }
-  
+
           // alert(resjson.Message);
         })
-  
+
         .catch(err => {
           console.log('API Failed:', err);
           alert('Failed to Connect to Server: ' + err);
         });
+    } else {
+      console.log('inside else');
+      await fetch(URL.url + 'users/log_in_p', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({U_data}),
+      })
+        .then(res => res.json())
+
+        .then(async resjson => {
+          console.log(resjson);
+          if (resjson.Message == 'Successfully Login') {
+            if (isSelected) {
+              let a = resjson.data[0].id,
+                farm_id;
+              try {
+                AsyncStorage.setItem('User_ID', '' + a);
+              } catch (error) {
+                // Error saving data
+              }
+            }
+
+            props.user_id({
+              user_id: resjson.data[0].id,
+              farm_id: 0,
+              phone: data.phone_no,
+              password: data.password,
+              username: data.user_name,
+              code: 0,
+            });
+            props.navigation.navigate('dashboard');
+          }
+
+          alert(resjson.Message);
+        })
+
+        .catch(err => {
+          console.log('API Failed:', err);
+          alert('Failed to Connect to Server: ' + err);
+        });
+    }
   };
   const auto_login = async () => {
     try {
@@ -194,12 +189,12 @@ const App = props => {
           // flex: 1,
           flexDirection: 'column',
           justifyContent: 'space-between',
-          marginTop:50
+          marginTop: 50,
         }}>
         {/* <View style={[styles.triangleCorner]} /> */}
 
         <View style={{alignSelf: 'center'}}>
-          <Text style={[styles.green_h2,{marginBottom:0}]}>SIGN IN</Text>
+          <Text style={[styles.green_h2, {marginBottom: 0}]}>SIGN IN</Text>
           <Text style={[styles.green_h2_urdu]}>سائن ان کریں</Text>
 
           <TextInput
@@ -216,8 +211,10 @@ const App = props => {
             onChangeText={val => textInputChange(val, 2)}
           />
           <View style={{flexDirection: 'row'}}>
-            <Text style={{fontSize: 15, fontWeight: '800',marginTop:4}}>Remember Me (یاد رکھیں)</Text>
-            
+            <Text style={{fontSize: 15, fontWeight: '800', marginTop: 4}}>
+              Remember Me (یاد رکھیں)
+            </Text>
+
             <CheckBox
               style={{alignSelf: 'flex-start', borderRadius: 50}}
               value={isSelected}
@@ -228,7 +225,7 @@ const App = props => {
           <Text
             onPress={() => props.navigation.navigate('forgetpass')}
             style={[styles.green_h6]}>
-            Forget Password? 
+            Forget Password?
           </Text>
           <Text
             onPress={() => props.navigation.navigate('forgetpass')}
@@ -237,11 +234,11 @@ const App = props => {
           </Text>
         </View>
         <View>
-        <Button onPress={() => signup()} style={[styles.input_button]} full>
-          <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-            LOGIN (لاگ ان کریں)
-          </Text>
-        </Button>
+          <Button onPress={() => signup()} style={[styles.input_button]} full>
+            <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+              LOGIN (لاگ ان کریں)
+            </Text>
+          </Button>
         </View>
         <Text
           onPress={() => props.navigation.navigate('signup')}
@@ -255,11 +252,11 @@ const App = props => {
           onPress={() => props.navigation.navigate('signup')}
           style={[
             styles.green_h6,
-            {alignSelf: 'center', color: 'green',margin:0},
+            {alignSelf: 'center', color: 'green', margin: 0},
           ]}>
           نیا اکاؤنٹ بنائیں
         </Text>
-{/*  */}
+        {/*  */}
         {/* <View style={[styles.triangleCorner_bottom]} rotate={270} /> */}
       </View>
     </>

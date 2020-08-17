@@ -3,6 +3,7 @@ import Form_footer from '../components/form_footer';
 import Form3 from '../components/form_3';
 import URL from '../URL';
 import {connect} from 'react-redux';
+import SideBar from '../components/Sidebar';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {
   SafeArea_inputView,
@@ -15,9 +16,18 @@ import {
   Image,
   FlatList,
   Picker,
+  TouchableOpacity,
 } from 'react-native';
 
-import {Container, Content, Button, Footer, DatePicker} from 'native-base';
+import {
+  Container,
+  Content,
+  Button,
+  Footer,
+  DatePicker,
+  Drawer,
+  Fab,
+} from 'native-base';
 
 import {
   Header,
@@ -48,6 +58,8 @@ const form_3 = props => {
     ground_water_depth: [],
     date_round_water_irrigation: [],
     water_quality: [],
+    water_quality: [],
+    water_source_other: [],
     created_at: [],
     modified_at: [],
     gestureName: '',
@@ -70,6 +82,7 @@ const form_3 = props => {
       data.tube_well_size.push({tube_well_size: ''}),
       data.ground_water_depth.push({ground_water_depth: ''}),
       data.water_quality.push({water_quality: ''}),
+      data.water_source_other.push({water_source_other: ''}),
       data.date_round_water_irrigation.push({
         date_round_water_irrigation: new Date(),
       }),
@@ -121,6 +134,7 @@ const form_3 = props => {
         f_tube_well_size: data.tube_well_size[i].tube_well_size,
         f_ground_water_depth: data.ground_water_depth[i].ground_water_depth,
         f_water_quality: data.water_quality[i].water_quality,
+        f_water_source_other: data.water_source_other[i].water_source_other,
         f_date_round_water_irrigation:
           data.date_round_water_irrigation[i].date_round_water_irrigation,
         f_created_by: props.user_ids.farm_id,
@@ -143,7 +157,7 @@ const form_3 = props => {
 
         .then(resjson => {
           if (resjson.Message == 'New Irrigation Created Successfully') {
-            props.navigation.navigate('pesticide_form');
+            props.navigation.navigate('fertilizer_form');
           }
 
           alert(resjson.Message);
@@ -212,6 +226,10 @@ const form_3 = props => {
           props.flag.index
         ].date_round_water_irrigation = props.flag.value;
         break;
+      case 16:
+        data.water_source_other[props.flag.index].water_source_other =
+          props.flag.value;
+        break;
       default:
         break;
     }
@@ -243,6 +261,7 @@ const form_3 = props => {
     data.ground_water_depth.splice(props.flag.index, 1);
     data.water_quality.splice(props.flag.index, 1);
     data.date_round_water_irrigation.splice(props.flag.index, 1);
+    data.water_source_other.splice(props.flag.index, 1);
 
     if (data.rander_flag == 0) {
       this.renderForm();
@@ -299,51 +318,8 @@ const form_3 = props => {
       didmount: 1,
     });
   }
-  const onSwipeUp = gestureState => {
-    setData({
-      ...data,
-      bottomfooter: true,
-    });
-    console.log('s');
-  };
-  const onSwipeDown = gestureState => {
-    console.log('dddd');
-    setData({
-      ...data,
-      bottomfooter: false,
-    });
-  };
-  const config = {
-    velocityThreshold: 0.3,
-    directionalOffsetThreshold: 80,
-  };
-  const onSwipe = (gestureName, gestureState) => {
-    const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
-    // this.setState({gestureName: gestureName});
-    setData({
-      ...data,
-      gestureName: data.gestureName,
-    });
-    switch (gestureName) {
-      case SWIPE_UP:
-        setData({
-          ...data,
-          bottomfooter: true,
-        });
-
-        console.log('wool');
-        break;
-      case SWIPE_DOWN:
-        setData({
-          ...data,
-          bottomfooter: false,
-        });
-        break;
-    }
-  };
+  //1. add this bottom footer
   const bottom_footer = () => {
-    console.log('my dta');
-    console.log(data.bottomfooter);
     if (data.bottomfooter == true) {
       return data.footer ? (
         <View
@@ -352,9 +328,38 @@ const form_3 = props => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'white',
           }}>
-          <Form_footer form_no={5} nav={props} />
+          <Fab
+            active={false}
+            containerStyle={{
+              marginTop: -50,
+            }}
+            style={{
+              backgroundColor: 'white',
+              zIndex: 11,
+              width: 40,
+              height: 40,
+            }}
+            position="topLeft"
+            onPress={() =>
+              setData({
+                ...data,
+                bottomfooter: !data.bottomfooter,
+              })
+            }>
+            <Image
+              source={require('../assets/img/arow_up.png')}
+              style={{
+                width: 30,
+                height: 30,
+                resizeMode: 'contain',
+                transform: [{rotate: '180deg'}],
+              }}
+            />
+          </Fab>
+          <View>
+            <Form_footer form_no={5} nav={props} />
+          </View>
         </View>
       ) : (
         <View />
@@ -363,130 +368,186 @@ const form_3 = props => {
       return null;
     }
   };
+  //2. add this bottom before
+  const fabbuttonbefor = () => {
+    if (data.bottomfooter == false) {
+      return (
+        <Fab
+          active={false}
+          direction="up"
+          containerStyle={{}}
+          style={{backgroundColor: 'white', zIndex: 11, width: 40, height: 40}}
+          position="bottomRight"
+          onPress={() =>
+            setData({
+              ...data,
+              bottomfooter: !data.bottomfooter,
+            })
+          }>
+          <Image
+            source={require('../assets/img/arow_up.png')}
+            style={{
+              width: 30,
+              height: 30,
+              resizeMode: 'contain',
+            }}
+          />
+        </Fab>
+      );
+    }
+  };
+  const closeDrawer = () => {
+    this.drawer._root.close();
+  };
+  const openDrawer = () => {
+    // console.log("i am")
+    this.drawer._root.open();
+  };
   return (
-    <>
-      <GestureRecognizer
-        onSwipe={(direction, state) => onSwipe(direction, state)}
-        onSwipeUp={state => onSwipeUp(state)}
-        onSwipeDown={state => onSwipeDown(state)}
-        config={config}
-        style={{
-          flex: 1,
-        }}>
-        <ScrollView style={styles.scrollView}>
-          <View style={[styles.header]}>
-            <View
-              style={{
-                flex: 2,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}>
-                <Image
-                  source={require('../assets/img/menu.png')}
-                  style={{
-                    width: '30%',
-                    height: 20,
-                    resizeMode: 'stretch',
-                    marginLeft: 10,
-                  }}
-                />
-              </View>
-
+    <Drawer
+      ref={ref => {
+        this.drawer = ref;
+      }}
+      openDrawerOffset={0.3}
+      content={<SideBar nav={props} close={() => this.closeDrawer()} />}>
+      <Container>
+        <View style={{flex: 1}}>
+          {/* //3. call  this bottom before */}
+          {fabbuttonbefor()}
+          <ScrollView style={styles.scrollView}>
+            <View style={[styles.header]}>
               <View
                 style={{
                   flex: 2,
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}>
-                <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                  Irrigation
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}>
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
+                    onPress={() => openDrawer()}>
+                    <Image
+                      source={require('../assets/img/menu.png')}
+                      style={{
+                        width: '30%',
+                        height: 20,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={{
+                    flex: 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+                    Irrigation
+                  </Text>
+                  <Text
+                    style={{
+                      color: 'white',
+                      fontSize: 20,
+                      fontWeight: '800',
+                      marginBottom: 5,
+                    }}>
+                    آبپاشی
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: '10%',
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}>
+                  <View />
+                </View>
+              </View>
+            </View>
+
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}>
+              <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
+                {data.water_source.map((
+                  water_source,
+                  keys, //you can use  mandatory field here
+                ) => (
+                  <Form3
+                    index={keys + 1}
+                    f_water_source={data.water_source}
+                    f_flow_water_source={data.flow_water_source}
+                    f_bore_depth={data.bore_depth}
+                    f_type_water_source={data.type_water_source}
+                    f_ground_water_use={data.ground_water_use}
+                    f_water_depth={data.water_depth}
+                    f_water_width={data.water_width}
+                    f_bed_level_water_width={data.bed_level_water_width}
+                    f_vegetation={data.vegetation}
+                    f_canal_application={data.canal_application}
+                    f_irrigation_date={data.irrigation_date}
+                    f_tube_well_size={data.tube_well_size}
+                    f_ground_water_depth={data.ground_water_depth}
+                    f_water_quality={data.water_quality}
+                    f_water_source_other={data.water_source_other}
+                    f_date_round_water_irrigation={
+                      data.date_round_water_irrigation
+                    }
+                    index2={keys}
+                  />
+                ))}
+              </View>
+            </View>
+
+            <View>
+              <Button
+                onPress={() => renderForm()}
+                style={[styles.input_button]}
+                full>
+                <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                  Add form (معلومات شامل کریں)
                 </Text>
-              </View>
-              <View
-                style={{
-                  width: '10%',
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}>
-                <View />
-              </View>
+              </Button>
             </View>
-          </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}>
-            <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
-              {data.water_source.map((
-                water_source,
-                keys, //you can use  mandatory field here
-              ) => (
-                <Form3
-                  index={keys + 1}
-                  f_water_source={data.water_source}
-                  f_flow_water_source={data.flow_water_source}
-                  f_bore_depth={data.bore_depth}
-                  f_type_water_source={data.type_water_source}
-                  f_ground_water_use={data.ground_water_use}
-                  f_water_depth={data.water_depth}
-                  f_water_width={data.water_width}
-                  f_bed_level_water_width={data.bed_level_water_width}
-                  f_vegetation={data.vegetation}
-                  f_canal_application={data.canal_application}
-                  f_irrigation_date={data.irrigation_date}
-                  f_tube_well_size={data.tube_well_size}
-                  f_ground_water_depth={data.ground_water_depth}
-                  f_water_quality={data.water_quality}
-                  f_date_round_water_irrigation={
-                    data.date_round_water_irrigation
-                  }
-                  index2={keys}
-                />
-              ))}
+            <View style={{marginBottom: 8}}>
+              <Button
+                onPress={() => sendform()}
+                style={[styles.input_button, {marginBottom: 300}]}
+                full>
+                <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                  Submit (جمع کرائیں)
+                </Text>
+              </Button>
             </View>
-          </View>
 
-          <View>
-            <Button
-              onPress={() => renderForm()}
-              style={[styles.input_button]}
-              full>
-              <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-                ADD FORM
-              </Text>
-            </Button>
-          </View>
-
-          <View style={{marginBottom: 8}}>
-            <Button
-              onPress={() => sendform()}
-              style={[styles.input_button,{ marginBottom: 300}]}
-              full>
-              <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-                SUBMIT
-              </Text>
-            </Button>
-          </View>
-
-          {/* {
+            {/* {
             data.footer ? (
               <Form_footer form_no={5} nav={props} />
             ):(<View/>)
           } */}
-        </ScrollView>
-      </GestureRecognizer>
-      {bottom_footer()}
-    </>
+          </ScrollView>
+        </View>
+        {bottom_footer()}
+      </Container>
+    </Drawer>
   );
 };
 

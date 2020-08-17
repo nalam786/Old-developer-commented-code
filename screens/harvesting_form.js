@@ -3,6 +3,7 @@ import {Circle, Triangle} from 'react-native-shape';
 import Form_footer from '../components/form_footer';
 import URL from '../URL';
 import Form6 from '../components/form_6';
+import SideBar from '../components/Sidebar';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import {connect} from 'react-redux';
 
@@ -17,9 +18,18 @@ import {
   Image,
   FlatList,
   Picker,
+  TouchableOpacity,
 } from 'react-native';
 
-import {Container, Content, Button, Footer, DatePicker} from 'native-base';
+import {
+  Container,
+  Content,
+  Button,
+  Footer,
+  DatePicker,
+  Drawer,
+  Fab,
+} from 'native-base';
 
 import {
   Header,
@@ -135,7 +145,7 @@ const form_6 = props => {
 
         .then(resjson => {
           if (resjson.Message == 'New Harvesting Created Successfully') {
-            props.navigation.navigate('crop_health_form');
+            props.navigation.navigate('dashboard');
           }
 
           alert(resjson.Message);
@@ -241,51 +251,8 @@ const form_6 = props => {
       didmount: 1,
     });
   }
-  const onSwipeUp = gestureState => {
-    setData({
-      ...data,
-      bottomfooter: true,
-    });
-    console.log('s');
-  };
-  const onSwipeDown = gestureState => {
-    console.log('dddd');
-    setData({
-      ...data,
-      bottomfooter: false,
-    });
-  };
-  const config = {
-    velocityThreshold: 0.3,
-    directionalOffsetThreshold: 80,
-  };
-  const onSwipe = (gestureName, gestureState) => {
-    const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
-    // this.setState({gestureName: gestureName});
-    setData({
-      ...data,
-      gestureName: data.gestureName,
-    });
-    switch (gestureName) {
-      case SWIPE_UP:
-        setData({
-          ...data,
-          bottomfooter: true,
-        });
-
-        console.log('wool');
-        break;
-      case SWIPE_DOWN:
-        setData({
-          ...data,
-          bottomfooter: false,
-        });
-        break;
-    }
-  };
+  //1. add this bottom footer
   const bottom_footer = () => {
-    console.log('my dta');
-    console.log(data.bottomfooter);
     if (data.bottomfooter == true) {
       return data.footer ? (
         <View
@@ -294,9 +261,38 @@ const form_6 = props => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'white',
           }}>
-          <Form_footer form_no={6} nav={props} />
+          <Fab
+            active={false}
+            containerStyle={{
+              marginTop: -50,
+            }}
+            style={{
+              backgroundColor: 'white',
+              zIndex: 11,
+              width: 40,
+              height: 40,
+            }}
+            position="topLeft"
+            onPress={() =>
+              setData({
+                ...data,
+                bottomfooter: !data.bottomfooter,
+              })
+            }>
+            <Image
+              source={require('../assets/img/arow_up.png')}
+              style={{
+                width: 30,
+                height: 30,
+                resizeMode: 'contain',
+                transform: [{rotate: '180deg'}],
+              }}
+            />
+          </Fab>
+          <View>
+            <Form_footer form_no={6} nav={props} />
+          </View>
         </View>
       ) : (
         <View />
@@ -305,120 +301,166 @@ const form_6 = props => {
       return null;
     }
   };
+  //2. add this bottom before
+  const fabbuttonbefor = () => {
+    console.log('fabbuttonbefor');
+    console.log(data.bottomfooter);
+    if (data.bottomfooter == false) {
+      return (
+        <Fab
+          active={false}
+          direction="up"
+          containerStyle={{}}
+          style={{backgroundColor: 'white', zIndex: 11, width: 40, height: 40}}
+          position="bottomRight"
+          onPress={() =>
+            setData({
+              ...data,
+              bottomfooter: !data.bottomfooter,
+            })
+          }>
+          <Image
+            source={require('../assets/img/arow_up.png')}
+            style={{
+              width: 30,
+              height: 30,
+              resizeMode: 'contain',
+            }}
+          />
+        </Fab>
+      );
+    }
+  };
+  const closeDrawer = () => {
+    this.drawer._root.close();
+  };
+  const openDrawer = () => {
+    // console.log("i am")
+    this.drawer._root.open();
+  };
   return (
-    <>
-      <GestureRecognizer
-        onSwipe={(direction, state) => onSwipe(direction, state)}
-        onSwipeUp={state => onSwipeUp(state)}
-        onSwipeDown={state => onSwipeDown(state)}
-        config={config}
-        style={{
-          flex: 1,
-        }}>
-        <ScrollView style={styles.scrollView}>
-          <View style={[styles.header]}>
-            <View
-              style={{
-                flex: 2,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}>
-                <Image
-                  source={require('../assets/img/menu.png')}
-                  style={{
-                    width: '30%',
-                    height: 20,
-                    resizeMode: 'stretch',
-                    marginLeft: 10,
-                  }}
-                />
-              </View>
-
+    <Drawer
+      ref={ref => {
+        this.drawer = ref;
+      }}
+      openDrawerOffset={0.3}
+      content={<SideBar nav={props} close={() => this.closeDrawer()} />}>
+      <Container>
+        <View style={{flex: 1}}>
+          {/* //3. call  this bottom before */}
+          {fabbuttonbefor()}
+          <ScrollView style={styles.scrollView}>
+            <View style={[styles.header]}>
               <View
                 style={{
                   flex: 2,
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}>
-                <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                  Harvesting
-                </Text>
-              </View>
-              <View
-                style={{
-                  width: '10%',
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}>
-                <View />
-              </View>
-            </View>
-          </View>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}>
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
+                    onPress={() => openDrawer()}>
+                    <Image
+                      source={require('../assets/img/menu.png')}
+                      style={{
+                        width: '30%',
+                        height: 20,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}>
-            <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
-              {data.harvesting_area.map((harvesting_area, keys) => (
-                <Form6
-                  index={keys + 1}
-                  farm_id={data.farm_id}
-                  f_harvesting_area={data.harvesting_area}
-                  f_crop_yield={data.crop_yield}
-                  f_crop_qty={data.crop_qty}
-                  f_crop_qty_detail={data.crop_qty_detail}
-                  f_harvest_date={data.harvest_date}
-                  f_additional_info={data.additional_info}
-                  index2={keys}
-                />
-              ))}
+                <View
+                  style={{
+                    flex: 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+                    Harvesting
+                  </Text>
+                  <Text
+                    style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+                    فصل کی کٹائی
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: '10%',
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}>
+                  <View />
+                </View>
+              </View>
             </View>
-          </View>
-          <View>
-            <Button
-              onPress={() => renderForm()}
-              style={[styles.input_button]}
-              full>
-              <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-                ADD FORM
-              </Text>
-            </Button>
-          </View>
-          <View style={{marginBottom: 8}}>
-            <Button
-              onPress={() => sendform()}
-              style={[styles.input_button,{ marginBottom: 300}]}
-              full>
-              <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-                Submit
-              </Text>
-            </Button>
-          </View>
-          {/* {
+
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}>
+              <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
+                {data.harvesting_area.map((harvesting_area, keys) => (
+                  <Form6
+                    index={keys + 1}
+                    farm_id={data.farm_id}
+                    f_harvesting_area={data.harvesting_area}
+                    f_crop_yield={data.crop_yield}
+                    f_crop_qty={data.crop_qty}
+                    f_crop_qty_detail={data.crop_qty_detail}
+                    f_harvest_date={data.harvest_date}
+                    f_additional_info={data.additional_info}
+                    index2={keys}
+                  />
+                ))}
+              </View>
+            </View>
+            <View>
+              <Button
+                onPress={() => renderForm()}
+                style={[styles.input_button]}
+                full>
+                <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                  Add form (معلومات شامل کریں)
+                </Text>
+              </Button>
+            </View>
+            <View style={{marginBottom: 8}}>
+              <Button
+                onPress={() => sendform()}
+                style={[styles.input_button, {marginBottom: 300}]}
+                full>
+                <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                  Submit (جمع کرائیں)
+                </Text>
+              </Button>
+            </View>
+            {/* {
             data.footer ? (
               <Form_footer form_no={6} nav={props} />
             ):(<View/>)
           } */}
-        </ScrollView>
-      </GestureRecognizer>
-      {bottom_footer()}
-      {/* {
-            data.footer ? (
-              <View style={{position: 'absolute', left: 0, right: 0, bottom: 0,backgroundColor:"white"}} >
-      <Form_footer form_no={6} nav={props} /></View>
-            ):(<View/>)
-          } */}
-    </>
+          </ScrollView>
+        </View>
+        {bottom_footer()}
+      </Container>
+    </Drawer>
   );
 };
 

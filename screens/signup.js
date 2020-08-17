@@ -3,7 +3,6 @@ import {useState} from 'react';
 import URL from '../URL';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
-
 import {
   SafeAreaView,
   StyleSheet,
@@ -100,7 +99,10 @@ const signup = props => {
   const send_sms = mycode => {
     alert(data.phone_no);
     fetch(
-      'https://connect.jazzcmt.com/sendsms_url.html?Username=03040740644&Password=Flux_12345&From=WATERSPRINT&To='+data.phone_no+'&Message=Your infarmer OTP code is: '+mycode,
+      'https://connect.jazzcmt.com/sendsms_url.html?Username=03040740644&Password=Flux_12345&From=WATERSPRINT&To=' +
+        data.phone_no +
+        '&Message=Your infarmer OTP code is: ' +
+        mycode,
       {
         method: 'GET',
         headers: {
@@ -120,14 +122,17 @@ const signup = props => {
         alert('Unable to Send SMS to the requested number: ' + err);
       });
   };
-  const send_email = async mycode => {
+  const send_email = async (mycode, email) => {
+    // console.log('send email function');
+    // console.log(mycode);
+    // console.log(email);
     let F_Data = {
-      Email: data.email,
+      Email: email,
       code: mycode,
     };
 
     console.log('Get Farm API Calling: ', F_Data);
-
+    console.log(URL.url + 'users/Send_email');
     await fetch(URL.url + 'users/Send_email', {
       method: 'POST',
       headers: {
@@ -155,71 +160,73 @@ const signup = props => {
     }
 
     if (isSelected != true) {
-      return false;
+      // return false;
 
       alert('Please check the Terms and Conditions');
       return false;
     }
-    if (data.options == 1) {
-      if (data.email == '') {
-        alert('Please Enter Your Email');
+    // if (data.phone_no == '' && data.phone_no == '') {
+    //   alert('Please Enter Your Email Phoem No');
 
-        return false;
-      } else {
-        console.log(mycode);
-        send_email(mycode);
+    //   return false;
+    // }
+
+    if (data.input_phone == '') {
+      alert('Please Enter Your Email or Phone number');
+
+      return false;
+    } else {
+      console.log('i am here');
+      console.log(data.phone_no);
+      console.log(mycode);
+      if (data.phone_no.includes('@')) {
+        console.log('this is email');
+        send_email(mycode, data.phone_no);
         props.changeSignup({
-          email: data.email,
+          email: data.phone_no,
+          phone_code: data.phone_code,
+          //  phone: data.phone_no,
+          password: data.password,
+          username: data.user_name,
+          code: mycode,
+        });
+        props.navigation.navigate('otp', {
+          from: 'email',
+        });
+      } else {
+        console.log('this is phone');
+        send_sms(mycode, data.phone_no);
+        props.changeSignup({
+          // email: data.phone_no,
           phone_code: data.phone_code,
           phone: data.phone_no,
           password: data.password,
           username: data.user_name,
           code: mycode,
         });
-        props.navigation.navigate('otp');
-      }
-    } else if (data.options == 2) {
-      if (data.phone_no == '') {
-        alert('Please Enter Your Phoem No');
-
-        return false;
-      } else {
-        if (data.phone_code == '92') {
-          console.log(mycode);
-          send_sms(mycode);
-          props.changeSignup({
-            email: data.email,
-            phone_code: data.phone_code,
-            phone: data.phone_no,
-            password: data.password,
-            username: data.user_name,
-            code: mycode,
-          });
-          props.navigation.navigate('otp');
-        }
-      }
-    } else if (data.options == 3) {
-      if (data.phone_no == '' && data.phone_no == '') {
-        alert('Please Enter Your Phoem No');
-
-        return false;
-      } else {
-        if (data.phone_code == '92') {
-          console.log(mycode);
-          send_sms(mycode);
-          send_email(mycode);
-          props.changeSignup({
-            email: data.email,
-            phone_code: data.phone_code,
-            phone: data.phone_no,
-            password: data.password,
-            username: data.user_name,
-            code: mycode,
-          });
-          props.navigation.navigate('otp');
-        }
+        props.navigation.navigate('otp', {from: 'phone'});
       }
     }
+
+    // if (data.phone_no == '') {
+    //   alert('Please Enter Your Phoem number');
+
+    //   return false;
+    // } else {
+    //   if (data.phone_code == '92') {
+    //     console.log(mycode);
+    //     send_sms(mycode);
+    //     props.changeSignup({
+    //       email: data.email,
+    //       phone_code: data.phone_code,
+    //       phone: data.phone_no,
+    //       password: data.password,
+    //       username: data.user_name,
+    //       code: mycode,
+    //     });
+    //     props.navigation.navigate('otp');
+    //   }
+    // }
   };
   const country = async () => {
     // alert(isSelected)
@@ -260,182 +267,110 @@ const signup = props => {
   }
   return (
     <>
-      <KeyboardAvoidingView  >
-      <ScrollView>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-          }}>
-          {/* <View style={[styles.triangleCorner]} /> */}
+      <KeyboardAvoidingView>
+        <ScrollView>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+            {/* <View style={[styles.triangleCorner]} /> */}
 
-          <View style={{alignSelf: 'center' ,marginTop:50}}>
-            <Text style={[styles.green_h2,{marginBottom:0}]}>SIGN UP</Text>
-            <Text style={[styles.green_h2_urdu]}>سائن اپ</Text>
-            
-            <TextInput
-              placeholderTextColor="#272626"
-              onChangeText={val => textInputChange(val, 1)}
-              placeholder="Full Name (پورا نام)"
-              style={[styles.input_email]}
-            />
+            <View style={{alignSelf: 'center', marginTop: 50}}>
+              <Text style={[styles.green_h2, {marginBottom: 0}]}>SIGN UP</Text>
+              <Text style={[styles.green_h2_urdu]}>سائن اپ</Text>
 
-            {/* <View style={{flexDirection: 'row'}}> */}
-              {/* <View style={[styles.input_phone_code, {width: 120}]}> */}
-                {/* <Text>92</Text> */}
-                {/* <Picker
-                  onValueChange={(itemValue, itemIndex) =>
-                    textInputChange(itemValue, 2)
-                  }
-                  selectedValue={data.phone_code}>
-                  <Picker.Item label="Code" value="" />
-                  {data.country.map((
-                    country,
-                    keys, //you can use  mandatory field here
-                  ) => (
-                    <Picker.Item
-                      label={country.phonecode}
-                      value={country.phonecode}
-                    />
-                  ))}
-                </Picker> */}
-              {/* </View> */}
+              <TextInput
+                placeholderTextColor="#272626"
+                onChangeText={val => textInputChange(val, 1)}
+                placeholder="Full Name (پورا نام)"
+                style={[styles.input_email]}
+              />
+
               <TextInput
                 placeholderTextColor="#272626"
                 onChangeText={val => textInputChange(val, 3)}
-                placeholder="Mobile number  موبائل نمبر (92+)"
-                keyboardType="numeric"
-                maxLength={11}
+                placeholder="Mobile number Or Email موبائل نمبر  "
+                // keyboardType="numeric"
+                // maxLength={11}
                 style={[styles.input_phone]}
               />
-            {/* </View> */}
 
-            <TextInput
-              placeholderTextColor="#272626"
-              onChangeText={val => textInputChange(val, 4)}
-              placeholder="Email (ای میل)"
-              style={[styles.input_email]}
-            />
+              {/* <TextInput
+                placeholderTextColor="#272626"
+                onChangeText={val => textInputChange(val, 4)}
+                placeholder="Email (ای میل)"
+                style={[styles.input_email]}
+              /> */}
 
-            <TextInput
-              placeholderTextColor="#272626"
-              onChangeText={val => textInputChange(val, 5)}
-              secureTextEntry={true}
-              placeholder="Password (پاس ورڈ)"
-              style={[styles.input_]}
-            />
-            <View>
+              <TextInput
+                placeholderTextColor="#272626"
+                onChangeText={val => textInputChange(val, 5)}
+                secureTextEntry={true}
+                placeholder="Password (پاس ورڈ)"
+                style={[styles.input_]}
+              />
+              {/* <View>
               <Text>Receive OTP Code via:</Text>
               <Text>او ٹی پی کوڈ وصول کرنے کا ذریعہ:</Text>
 
-              <View
-                style={{
-                  flexDirection: 'row',
-                  alignSelf: 'center',
-                  marginTop: 15,
-                  marginBottom: 15,
-                }}>
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    alignSelf: 'center',
-                    flex: 1,
-                  }}>
-                  <CheckBox
-                    style={{alignSelf: 'center', borderRadius: 50}}
-                    value={1 == data.options}
-                    onValueChange={val => textInputChange(1, 6)}
-                  />
-                  <Text style={{alignSelf: 'center'}}>Email</Text>
-                  <Text style={{alignSelf: 'center'}}>ای میل </Text>
-                </View>
+                   </View> */}
 
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    alignSelf: 'center',
-                    flex: 1,
-                  }}>
-                  <CheckBox
-                    style={{alignSelf: 'center', borderRadius: 50}}
-                    value={2 == data.options}
-                    onValueChange={val => textInputChange(2, 6)}
-                  />
-                  <Text style={{alignSelf: 'center'}}>Mobile number</Text>
-                  <Text style={{alignSelf: 'center'}}>موبائل نمبر</Text>
-                </View>
-
-                <View
-                  style={{
-                    flexDirection: 'column',
-                    alignSelf: 'center',
-                    flex: 1,
-                  }}>
-                  <CheckBox
-                    style={{alignSelf: 'center', borderRadius: 50}}
-                    value={3 == data.options}
-                    onValueChange={val => textInputChange(3, 6)}
-                  />
-                  <Text style={{alignSelf: 'center'}}>Both</Text>
-                  <Text style={{alignSelf: 'center'}}>دونوں</Text>
+              <View style={{flexDirection: 'row'}}>
+                <CheckBox
+                  style={styles.checkbox}
+                  value={isSelected}
+                  onValueChange={setSelection}
+                />
+                <View>
+                  <Text style={[styles.green_h6, {marginTop: 6}]}>
+                    I agree with the terms and conditions
+                  </Text>
                 </View>
               </View>
-            </View>
-
-            <View style={{flexDirection: 'row'}}>
-              <CheckBox
-                style={styles.checkbox}
-                value={isSelected}
-                onValueChange={setSelection}
-              />
-              <View >
-                <Text style={[styles.green_h6,{marginTop:6}]}>
-                  I agree with the terms and conditions
-                </Text>
-                
-
-              </View>
-              
-            </View>
-            <Text style={[styles.green_h6,{marginTop:0,alignSelf:'flex-end',marginBottom:5}]}>
+              <Text
+                style={[
+                  styles.green_h6,
+                  {marginTop: 0, alignSelf: 'flex-end', marginBottom: 5},
+                ]}>
                 میں شرائط و ضوابط سے اتفاق کرتا ہوں
-                </Text>
-          </View>
+              </Text>
+            </View>
 
-          <Button onPress={() => signup()} style={[styles.input_button]} full>
-            <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-            SIGN UP (سائن اپ)
+            <Button onPress={() => signup()} style={[styles.input_button]} full>
+              <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                SIGN UP (سائن اپ)
+              </Text>
+            </Button>
+
+            <Text
+              onPress={() => props.navigation.navigate('signin')}
+              style={[
+                styles.green_h6,
+                {
+                  alignSelf: 'center',
+                  color: 'green',
+                  fontSize: 13,
+                  marginTop: 20,
+                },
+              ]}>
+              Already have an account?
             </Text>
-          </Button>
-
-          <Text
-            onPress={() => props.navigation.navigate('signin')}
-            style={[
-              styles.green_h6,
-              {
-                alignSelf: 'center',
-                color: 'green',
-                fontSize: 13,
-                marginTop: 20,
-              },
-            ]}>
-            Already have an account?
-          </Text>
-          <Text
-            onPress={() => props.navigation.navigate('signin')}
-            style={[
-              styles.green_h6,
-              {
-                alignSelf: 'center',
-                color: 'green',
-                fontSize: 13,
-              },
-            ]}>
-           کیا آپ پہلے سے اکاؤنٹ رکھتے ہیں؟
-          </Text>
-          {/* <View style={[styles.triangleCorner_bottom]} rotate={270} /> */}
-        </View>
+            <Text
+              onPress={() => props.navigation.navigate('signin')}
+              style={[
+                styles.green_h6,
+                {
+                  alignSelf: 'center',
+                  color: 'green',
+                  fontSize: 13,
+                },
+              ]}>
+              کیا آپ پہلے سے اکاؤنٹ رکھتے ہیں؟
+            </Text>
+            {/* <View style={[styles.triangleCorner_bottom]} rotate={270} /> */}
+          </View>
         </ScrollView>
       </KeyboardAvoidingView>
     </>

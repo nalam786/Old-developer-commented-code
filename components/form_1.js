@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import {useState} from 'react';
 import URL from '../URL';
 
 import {
@@ -12,48 +12,37 @@ import {
   StatusBar,
   Image,
   FlatList,
-  Picker
+  Picker,
 } from 'react-native';
 
-import {
-  Container,
-  Content,
-  Button,
-  Footer,
-  DatePicker
-} from 'native-base';
+import {Container, Content, Button, Footer, DatePicker} from 'native-base';
 
-import {
-  connect
-} from 'react-redux';
+import {connect} from 'react-redux';
 
 import {
   Header,
   LearnMoreLinks,
   Colors,
   DebugInstructions,
-  ReloadInstructions
+  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const form_1 = (props) => {
-
-  const [season, setSelectedValue] = useState("");
+const form_1 = props => {
+  const [season, setSelectedValue] = useState('');
   const [data, setData] = React.useState({
     farm_name: '',
     crop: '',
     sowing_date: new Date(),
-    area:props.area_,
+    area: props.area_,
     user_id: '',
     map: '',
-    didmount:0,
+    didmount: 0,
   });
-// alert(props.area_)
+  // alert(props.area_)
   const textInputChange = (v, no) => {
-
     console.log('value:', v, no);
 
     switch (no) {
-
       case 1:
         if (v.length !== 0) {
           data.farm_name = v;
@@ -128,12 +117,11 @@ const form_1 = (props) => {
   };
 
   const get_farms = async () => {
-
     let F_Data = {
-      f_user_id: props.user_ids.user_id
+      f_user_id: props.user_ids.user_id,
     };
 
-    console.log("Get Farm API Calling: ", F_Data);
+    console.log('Get Farm API Calling: ', F_Data);
 
     await fetch(URL.url + 'farms/farms_get_all', {
       method: 'POST',
@@ -141,17 +129,17 @@ const form_1 = (props) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ F_Data }),
+      body: JSON.stringify({F_Data}),
     })
       .then(res => res.json())
-      .then((resjson) => {
+      .then(resjson => {
         if (resjson.Message == 'All Farms Get Successfully') {
           console.log(resjson.data);
 
           let data = resjson.data.length;
           let id = resjson.data[data - 1].id;
 
-          props.user_id({ user_id: props.user_ids.user_id, farm_id: id })
+          props.user_id({user_id: props.user_ids.user_id, farm_id: id});
 
           console.log('Farm ID: ' + props.user_ids.farm_id);
 
@@ -159,13 +147,11 @@ const form_1 = (props) => {
         }
       })
       .catch(err => {
-        console.log('failed', err)
-
+        console.log('failed', err);
       });
   };
 
   const sendform = async () => {
-
     //get_farms();
 
     var d = new Date();
@@ -183,7 +169,12 @@ const form_1 = (props) => {
         date = y + '-0' + m + '-' + day;
       }
     }
-    if (data.farm_name == '' || data.crop == '' || data.sowing_date == '' || data.area == '') {
+    if (
+      data.farm_name == '' ||
+      data.crop == '' ||
+      data.sowing_date == '' ||
+      data.area == ''
+    ) {
       alert('Please fill all the fields');
       return false;
     }
@@ -193,16 +184,16 @@ const form_1 = (props) => {
       f_farm_name: data.farm_name,
       f_crop: data.crop,
       f_sowing_date: data.sowing_date,
-      f_area: data.area,
+      f_area: props.area_,
       f_season: season,
       f_map: props.map_cord.coordinates,
       f_created_by: props.user_ids.user_id,
       f_created_at: date,
       f_modified_by: props.user_ids.user_id,
-      f_modified_at: date
+      f_modified_at: date,
     };
 
-    console.log("Create Farms API Calling: ", F_Data);
+    console.log('Create Farms API Calling: ', F_Data);
 
     await fetch(URL.url + 'farms/farms_create', {
       method: 'POST',
@@ -210,59 +201,61 @@ const form_1 = (props) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ F_Data }),
+      body: JSON.stringify({F_Data}),
     })
       .then(res => res.json())
-      .then((resjson) => {
+      .then(resjson => {
         if (resjson.Message == 'New Farm Created Successfully') {
           get_farms();
         }
         alert(resjson.Message);
       })
       .catch(err => {
-        console.log('Failed', err)
-        alert('Failed' + err)
-
+        console.log('Failed', err);
+        alert('Failed' + err);
       });
-
-  }
+  };
   if (data.didmount == 0) {
-   let a=props.area_;
-    a=JSON.stringify(a)
+    let a = props.area_;
+    a = JSON.stringify(a);
     // this.renderForm();
     // get_landpreperation();
-    if(props.area_ !=0){
-    data.didmount = 1;
+    if (props.area_ != 0) {
+      data.didmount = 1;
 
-    setData({
-
-      ...data,
-      didmount: 1,
-      area:a,
-
-    });
-  }
+      setData({
+        ...data,
+        didmount: 1,
+        area: a,
+      });
+    }
   }
   return (
-
     <>
       {/* <StatusBar barStyle="dark" /> */}
       <ScrollView style={styles.scrollView}>
-
-        <View style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}>
-          <View style={{ alignSelf: "center", marginTop: 30, width: "95%" }} >
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}>
+          <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
             <Text>FARM NAME (فارم کانام):</Text>
-            <TextInput placeholderTextColor="#272626" onChangeText={(val) => textInputChange(val, 1)} value={data.farm_name} placeholder=" " style={[styles.input_email]} />
+            <TextInput
+              placeholderTextColor="#272626"
+              onChangeText={val => textInputChange(val, 1)}
+              value={data.farm_name}
+              placeholder=" "
+              style={[styles.input_email]}
+            />
             <Text>Crop (فصل):</Text>
-            <View style={[styles.input_email]} >
+            <View style={[styles.input_email]}>
               <Picker
-                onValueChange={(itemValue, itemIndex) => textInputChange(itemValue, 2)}
-                selectedValue={data.crop}
-              >
+                onValueChange={(itemValue, itemIndex) =>
+                  textInputChange(itemValue, 2)
+                }
+                selectedValue={data.crop}>
                 <Picker.Item label="" value="" />
                 <Picker.Item label="Wheat (گندم)" value="Wheat" />
                 <Picker.Item label="Rice (چاول)" value="Rice" />
@@ -273,11 +266,12 @@ const form_1 = (props) => {
             </View>
 
             <Text>Season (موسم):</Text>
-            <View style={[styles.input_email]} >
+            <View style={[styles.input_email]}>
               <Picker
-                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                selectedValue={season}
-              >
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedValue(itemValue)
+                }
+                selectedValue={season}>
                 <Picker.Item label="" value="" />
                 <Picker.Item label="Rabi (ربیع)" value="0" />
                 <Picker.Item label="Kharif (خریف)" value="1" />
@@ -285,67 +279,120 @@ const form_1 = (props) => {
                 <Picker.Item label="Other (دیگر)" value="3" />
               </Picker>
             </View>
-            <Text>Sowing date (بیج کی بوائی)</Text>
-            <View style={[styles.input_email, { flexDirection: 'row', justifyContent: 'space-between',backgroundColor:'#e3e3e3' }]} >
+            <Text>Showing date (بیج کی بوائی)</Text>
+            <View
+              style={[
+                styles.input_email,
+                {
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  backgroundColor: '#e3e3e3',
+                },
+              ]}>
+              <Content>
+                <DatePicker
+                  defaultDate={data.sowing_date}
+                  locale={'en'}
+                  timeZoneOffsetInMinutes={undefined}
+                  modalTransparent={false}
+                  animationType={'fade'}
+                  androidMode={'default'}
+                  placeHolderText=""
+                  textStyle={{color: 'green'}}
+                  onDateChange={val => textInputChange(val, 3)}
+                  disabled={false}
+                />
+              </Content>
+              <Image
+                source={require('../assets/img/calendar.png')}
+                style={{
+                  width: '12%',
+                  height: '80%',
+                  resizeMode: 'stretch',
+                  marginRight: 10,
+                }}
+              />
+            </View>
+
+            {/* <View
+              style={[
+                styles.input_email,
+                {
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  backgroundColor: '#e3e3e3',
+                },
+              ]}>
               <DatePicker
                 defaultDate={data.sowing_date}
-                locale={"en"}
+                locale={'en'}
                 timeZoneOffsetInMinutes={undefined}
                 modalTransparent={false}
-                animationType={"fade"}
-                androidMode={"default"}
+                animationType={'fade'}
+                androidMode={'default'}
                 placeHolderText=""
-                textStyle={{ color: "green" }}
-
-                onDateChange={(val) => textInputChange(val, 3)}
-
+                textStyle={{color: 'green'}}
+                onDateChange={val => textInputChange(val, 3)}
                 disabled={false}
-
               />
               <Image
                 source={require('../assets/img/calendar.png')}
-                style={{ width: '12%', height: '80%', resizeMode: 'stretch', marginRight: 10 }}
+                style={{
+                  width: '12%',
+                  height: '80%',
+                  resizeMode: 'stretch',
+                  marginRight: 10,
+                }}
               />
-            </View>
+            </View> */}
 
             <View>
-              <Button onPress={() => props.nav.navigation.navigate('farm_map')} style={[styles.input_button]} full >
-                <Text style={{ color: "white", fontSize: 15, fontWeight: '800' }} >Farm Map</Text>
+              <Button
+                onPress={() => props.nav.navigation.navigate('farm_map')}
+                style={[styles.input_button]}
+                full>
+                <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                  Map Farm ( فارم شامل کریں )
+                </Text>
               </Button>
             </View>
-            <Text style={{ marginTop:20 }}>AREA (ACRES)( رقبہ (ایکڑ</Text>
-            <TextInput placeholderTextColor="#272626" value={data.area} onChangeText={(val) => textInputChange(val, 4)} keyboardType="numeric" placeholder="" style={[styles.input_email]} />
-
+            <Text style={{marginTop: 20}}>AREA (ACRES)( رقبہ (ایکڑ</Text>
+            {/* <TextInput
+              placeholderTextColor="#272626"
+              value={props.area_}
+              onChangeText={val => textInputChange(val, 4)}
+              keyboardType="numeric"
+              placeholder=""
+              style={[styles.input_email]}
+            /> */}
+            <Text>{props.area_}</Text>
             <View>
               {/* <Button onPress={() => props.nav.navigation.navigate('farm_map')} style={[styles.input_button]} full >
                 <Text style={{ color: "white", fontSize: 15, fontWeight: '800' }} >Farm Map</Text>
               </Button> */}
             </View>
-
           </View>
-
         </View>
         <View>
-          <Button onPress={() => sendform()} style={[styles.input_button]} full >
-            <Text style={{ color: "white", fontSize: 15, fontWeight: '800' }} >Submit</Text>
+          <Button onPress={() => sendform()} style={[styles.input_button]} full>
+            <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+              Submit (جمع کرائیں)
+            </Text>
           </Button>
         </View>
-
       </ScrollView>
-
     </>
   );
 };
 
 const styles = StyleSheet.create({
-
   input_button: {
     height: 35,
     width: 300,
     backgroundColor: '#05422b',
     color: 'red',
-    alignSelf: "center",
-    margin: 0
+    alignSelf: 'center',
+    margin: 0,
   },
 
   box: {
@@ -353,17 +400,17 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 80
+    height: 80,
   },
 
   paragraph: {
     backgroundColor: '#359814',
-    fontSize: 8
+    fontSize: 8,
   },
 
   header: {
     backgroundColor: '#359814',
-    height: 70
+    height: 70,
   },
 
   cart: {
@@ -373,12 +420,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: '5%',
     paddingRight: '5%',
-    paddingVertical: '3%'
+    paddingVertical: '3%',
   },
 
   cartbody: {
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
 
   input_button: {
@@ -386,9 +433,9 @@ const styles = StyleSheet.create({
     width: 300,
     backgroundColor: '#05422b',
     color: 'red',
-    alignSelf: "center",
+    alignSelf: 'center',
     margin: 0,
-    marginTop: 30
+    marginTop: 30,
   },
 
   input_phone_code: {
@@ -400,7 +447,7 @@ const styles = StyleSheet.create({
     borderBottomColor: 'gray',
     borderWidth: 1,
     marginBottom: 30,
-    marginRight: 5
+    marginRight: 5,
   },
 
   input_phone: {
@@ -411,7 +458,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderBottomColor: 'gray',
     borderWidth: 1,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   input_email: {
@@ -424,7 +471,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 30,
     alignSelf: 'center',
-    paddingBottom:0,
+    paddingBottom: 0,
   },
 
   input_: {
@@ -435,57 +482,57 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderBottomColor: 'gray',
     borderWidth: 1,
-    marginBottom: 20
+    marginBottom: 20,
   },
 
   green_h6_start: {
     color: '#000',
     fontSize: 13,
     fontWeight: '400',
-    alignSelf: "flex-start"
+    alignSelf: 'flex-start',
   },
 
   green_h2_start: {
     color: '#000',
     fontWeight: '700',
     fontSize: 15,
-    alignSelf: "flex-start"
+    alignSelf: 'flex-start',
   },
 
   scrollView: {
     backgroundColor: Colors.lighter,
-    height: '100%'
+    height: '100%',
   },
 
   engine: {
     position: 'absolute',
-    right: 0
+    right: 0,
   },
 
   body: {
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
   },
 
   sectionContainer: {
     marginTop: 32,
-    paddingHorizontal: 24
+    paddingHorizontal: 24,
   },
 
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: Colors.black
+    color: Colors.black,
   },
 
   sectionDescription: {
     marginTop: 8,
     fontSize: 18,
     fontWeight: '400',
-    color: Colors.dark
+    color: Colors.dark,
   },
 
   highlight: {
-    fontWeight: '700'
+    fontWeight: '700',
   },
 
   footer: {
@@ -494,38 +541,35 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     padding: 4,
     paddingRight: 12,
-    textAlign: 'right'
-  }
-
+    textAlign: 'right',
+  },
 });
 
-const mapStateToProps = (state) => {
-
+const mapStateToProps = state => {
   return {
     flag: state.flag,
     signup: state.signup_redux,
     user_ids: state.user_id_redux,
     map_cord: state.map_redux,
-    area_:state.area_of_poligon,
-  }
+    area_: state.area_of_poligon,
+  };
+};
 
-}
-
-const mapDispatchToProps = (dispatch) => {
-
+const mapDispatchToProps = dispatch => {
   return {
-    changeFlag: (data) => {
-      dispatch({ type: 'CHANGE_FLAG', payload: data })
+    changeFlag: data => {
+      dispatch({type: 'CHANGE_FLAG', payload: data});
     },
-    changeSignup: (data) => {
-      dispatch({ type: 'SIGNUP_DATA', payload: data })
+    changeSignup: data => {
+      dispatch({type: 'SIGNUP_DATA', payload: data});
     },
-    user_id: (data) => {
-      dispatch({ type: 'USER_ID', payload: data })
-    }
+    user_id: data => {
+      dispatch({type: 'USER_ID', payload: data});
+    },
+  };
+};
 
-  }
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(form_1);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(form_1);

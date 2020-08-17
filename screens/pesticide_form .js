@@ -3,6 +3,8 @@ import Form_footer from '../components/form_footer';
 import Form4 from '../components/form_4';
 import URL from '../URL';
 import {connect} from 'react-redux';
+import SideBar from '../components/Sidebar';
+
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 import {
@@ -16,9 +18,18 @@ import {
   Image,
   FlatList,
   Picker,
+  TouchableOpacity,
 } from 'react-native';
 
-import {Container, Content, Button, Footer, DatePicker} from 'native-base';
+import {
+  Container,
+  Content,
+  Button,
+  Footer,
+  DatePicker,
+  Drawer,
+  Fab,
+} from 'native-base';
 
 import {
   Header,
@@ -133,7 +144,7 @@ const form_4 = props => {
 
         .then(resjson => {
           if (resjson.Message == 'New Pesticide Created Successfully') {
-            props.navigation.navigate('seed_form');
+            props.navigation.navigate('crop_health_form');
           }
 
           alert(resjson.Message);
@@ -242,51 +253,8 @@ const form_4 = props => {
       });
     }
   }
-  const onSwipeUp = gestureState => {
-    setData({
-      ...data,
-      bottomfooter: true,
-    });
-    console.log('s');
-  };
-  const onSwipeDown = gestureState => {
-    console.log('dddd');
-    setData({
-      ...data,
-      bottomfooter: false,
-    });
-  };
-  const config = {
-    velocityThreshold: 0.3,
-    directionalOffsetThreshold: 80,
-  };
-  const onSwipe = (gestureName, gestureState) => {
-    const {SWIPE_UP, SWIPE_DOWN, SWIPE_LEFT, SWIPE_RIGHT} = swipeDirections;
-    // this.setState({gestureName: gestureName});
-    setData({
-      ...data,
-      gestureName: data.gestureName,
-    });
-    switch (gestureName) {
-      case SWIPE_UP:
-        setData({
-          ...data,
-          bottomfooter: true,
-        });
-
-        console.log('wool');
-        break;
-      case SWIPE_DOWN:
-        setData({
-          ...data,
-          bottomfooter: false,
-        });
-        break;
-    }
-  };
+  //1. add this bottom footer
   const bottom_footer = () => {
-    console.log('my dta');
-    console.log(data.bottomfooter);
     if (data.bottomfooter == true) {
       return data.footer ? (
         <View
@@ -295,9 +263,38 @@ const form_4 = props => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'white',
           }}>
-          <Form_footer form_no={4} nav={props} />
+          <Fab
+            active={false}
+            containerStyle={{
+              marginTop: -50,
+            }}
+            style={{
+              backgroundColor: 'white',
+              zIndex: 11,
+              width: 40,
+              height: 40,
+            }}
+            position="topLeft"
+            onPress={() =>
+              setData({
+                ...data,
+                bottomfooter: !data.bottomfooter,
+              })
+            }>
+            <Image
+              source={require('../assets/img/arow_up.png')}
+              style={{
+                width: 30,
+                height: 30,
+                resizeMode: 'contain',
+                transform: [{rotate: '180deg'}],
+              }}
+            />
+          </Fab>
+          <View>
+            <Form_footer form_no={4} nav={props} />
+          </View>
         </View>
       ) : (
         <View />
@@ -306,123 +303,160 @@ const form_4 = props => {
       return null;
     }
   };
+  //2. add this bottom before
+  const fabbuttonbefor = () => {
+    if (data.bottomfooter == false) {
+      return (
+        <Fab
+          active={false}
+          direction="up"
+          containerStyle={{}}
+          style={{backgroundColor: 'white', zIndex: 11, width: 40, height: 40}}
+          position="bottomRight"
+          onPress={() =>
+            setData({
+              ...data,
+              bottomfooter: !data.bottomfooter,
+            })
+          }>
+          <Image
+            source={require('../assets/img/arow_up.png')}
+            style={{
+              width: 30,
+              height: 30,
+              resizeMode: 'contain',
+            }}
+          />
+        </Fab>
+      );
+    }
+  };
+  const closeDrawer = () => {
+    this.drawer._root.close();
+  };
+  const openDrawer = () => {
+    // console.log("i am")
+    this.drawer._root.open();
+  };
   return (
-    <>
-      <GestureRecognizer
-        onSwipe={(direction, state) => onSwipe(direction, state)}
-        onSwipeUp={state => onSwipeUp(state)}
-        onSwipeDown={state => onSwipeDown(state)}
-        config={config}
-        style={{
-          flex: 1,
-        }}>
-        <ScrollView style={styles.scrollView}>
-          <View style={[styles.header]}>
-            <View
-              style={{
-                flex: 2,
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}>
-                <Image
-                  source={require('../assets/img/menu.png')}
-                  style={{
-                    width: '30%',
-                    height: 20,
-                    resizeMode: 'stretch',
-                    marginLeft: 10,
-                  }}
-                />
-              </View>
-
-              {/* <View style={{width: '10%',flex:1,flexDirection: 'column',justifyContent: 'center',}} >
-                        <Image
-                        source={require('./menu.png')}
-                        style={{width: '100%', height: 30,resizeMode: 'stretch',marginLeft:10,}}
-                        />
-                  </View> */}
-
+    <Drawer
+      ref={ref => {
+        this.drawer = ref;
+      }}
+      openDrawerOffset={0.3}
+      content={<SideBar nav={props} close={() => this.closeDrawer()} />}>
+      <Container>
+        <View style={{flex: 1}}>
+          {/* //3. call  this bottom before */}
+          {fabbuttonbefor()}
+          <ScrollView style={styles.scrollView}>
+            <View style={[styles.header]}>
               <View
                 style={{
                   flex: 2,
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
                 }}>
-                <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                  Use Of Pesticides
-                </Text>
-              </View>
-              <View
-                style={{
-                  width: '10%',
-                  flex: 1,
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                }}>
-                <View />
-              </View>
-            </View>
-          </View>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}>
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
+                    onPress={() => openDrawer()}>
+                    <Image
+                      source={require('../assets/img/menu.png')}
+                      style={{
+                        width: '30%',
+                        height: 20,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
 
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-            }}>
-            <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
-              {data.use_reason.map((use_reason, keys) => (
-                <Form4
-                  index={keys + 1}
-                  farm_id={data.farm_id}
-                  f_use_reason={data.use_reason}
-                  f_chemical_per_acre={data.chemical_per_acre}
-                  f_date_of_application={data.date_of_application}
-                  f_pesticide_name={data.pesticide_name}
-                  f_pesticide_company={data.pesticide_company}
-                  f_crop_disease={data.crop_disease}
-                  index2={keys}
-                />
-              ))}
+                <View
+                  style={{
+                    flex: 2,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+                    Use of Pesticides
+                  </Text>
+                  <Text
+                    style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+                    زہر کا استعمال
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    width: '10%',
+                    flex: 1,
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}>
+                  <View />
+                </View>
+              </View>
             </View>
-          </View>
-          <View style={{marginTop: 50}}>
-            <Button
-              onPress={() => renderForm()}
-              style={[styles.input_button]}
-              full>
-              <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-                ADD FORM
-              </Text>
-            </Button>
-          </View>
-          <View style={{marginBottom: 8}}>
-            <Button
-              onPress={() => sendform()}
-              style={[styles.input_button,{ marginBottom: 300}]}
-              full>
-              <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-                Submit
-              </Text>
-            </Button>
-          </View>
-          {/* {data.footer ? <Form_footer form_no={4} nav={props} /> : <View />} */}
-        </ScrollView>
-      </GestureRecognizer>
-      {bottom_footer()}
-      {/* {
-            data.footer ? (
-              <View style={{position: 'absolute', left: 0, right: 0, bottom: 0,backgroundColor:"white"}} >
-      <Form_footer form_no={4} nav={props} /></View>
-            ):(<View/>)
-          } */}
-    </>
+
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+              }}>
+              <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
+                {data.use_reason.map((use_reason, keys) => (
+                  <Form4
+                    index={keys + 1}
+                    farm_id={data.farm_id}
+                    f_use_reason={data.use_reason}
+                    f_chemical_per_acre={data.chemical_per_acre}
+                    f_date_of_application={data.date_of_application}
+                    f_pesticide_name={data.pesticide_name}
+                    f_pesticide_company={data.pesticide_company}
+                    f_crop_disease={data.crop_disease}
+                    index2={keys}
+                  />
+                ))}
+              </View>
+            </View>
+            <View style={{marginTop: 50}}>
+              <Button
+                onPress={() => renderForm()}
+                style={[styles.input_button]}
+                full>
+                <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                  Add form (معلومات شامل کریں)
+                </Text>
+              </Button>
+            </View>
+            <View style={{marginBottom: 8}}>
+              <Button
+                onPress={() => sendform()}
+                style={[styles.input_button, {marginBottom: 300}]}
+                full>
+                <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
+                  Submit (جمع کرائیں)
+                </Text>
+              </Button>
+            </View>
+            {/* {data.footer ? <Form_footer form_no={4} nav={props} /> : <View />} */}
+          </ScrollView>
+        </View>
+        {bottom_footer()}
+      </Container>
+    </Drawer>
   );
 };
 

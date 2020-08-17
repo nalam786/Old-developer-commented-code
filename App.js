@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';      
+import {createStackNavigator} from '@react-navigation/stack';
 
 import splash from './screens/splash';
 import signup from './screens/signup';
@@ -12,10 +12,12 @@ import otp from './screens/otp';
 import dashboard from './screens/dashboard';
 import manageprofile from './screens/manageprofile';
 import feedback from './screens/feedback';
+import weather from './screens/weather';
 import allfarms from './screens/allfarms';
 import general_form from './screens/general_form';
 import land_preperation_form from './screens/land_preperation_form';
 import seed_form from './screens/seed_form';
+
 import pesticide_form from './screens/pesticide_form ';
 import fertilizer_form from './screens/fertilizer_form';
 import irrigation_form from './screens/irrigation_form ';
@@ -86,6 +88,7 @@ function App() {
         <Stack.Screen name="dashboard" component={dashboard} />
         <Stack.Screen name="manageprofile" component={manageprofile} />
         <Stack.Screen name="allfarms" component={allfarms} />
+
         <Stack.Screen name="farm_map" component={farm_map} />
         <Stack.Screen name="farm_map_edit" component={farm_map_edit} />
         <Stack.Screen name="general_form" component={general_form} />
@@ -96,11 +99,17 @@ function App() {
         <Stack.Screen name="seed_form" component={seed_form} />
         <Stack.Screen name="pesticide_form" component={pesticide_form} />
         <Stack.Screen name="fertilizer_form" component={fertilizer_form} />
-        {/* <Stack.Screen name="irrigation_form" component={irrigation_form} /> */}
+        <Stack.Screen name="irrigation_form" component={irrigation_form} />
         <Stack.Screen name="harvesting_form" component={harvesting_form} />
-        <Stack.Screen name="land_preperation_form_edit" component={land_preperation_form_edit} />
+        <Stack.Screen
+          name="land_preperation_form_edit"
+          component={land_preperation_form_edit}
+        />
         <Stack.Screen name="crop_health_form" component={crop_health_form} />
-        <Stack.Screen name="crop_health_report" component={crop_health_report} />
+        <Stack.Screen
+          name="crop_health_report"
+          component={crop_health_report}
+        />
         <Stack.Screen
           name="irrigation_schedule_form"
           component={irrigation_schedule_form}
@@ -132,6 +141,7 @@ function App() {
         />
 
         <Stack.Screen name="feedback" component={feedback} />
+        <Stack.Screen name="weather" component={weather} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,7 +1,6 @@
-
 import React from 'react';
-import { Circle, Triangle } from 'react-native-shape';
-import { Container, Content, Button, Footer,Drawer} from 'native-base';
+import {Circle, Triangle} from 'react-native-shape';
+import {Container, Content, Button, Footer, Drawer} from 'native-base';
 import SideBar from '../components/Sidebar';
 
 import {
@@ -15,7 +14,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
-  Linking
+  Linking,
 } from 'react-native';
 
 import {
@@ -29,118 +28,185 @@ import {
 const ProductsData1 = [
   {
     id: 1,
-    title: 'CREATE NEW FARM',
+    title: 'Create a new farm',
+    title_urdu: 'فارم شامل کریں',
     navigate: 'general_form',
     image: require('../assets/img/Add_Form.png'),
   },
   {
     id: 2,
-    title: 'ALL FARMS',
+    title: 'All farms',
+    title_urdu: 'تمام فارمز',
     navigate: 'allfarms',
     image: require('../assets/img/all_farm.png'),
   },
   {
     id: 3,
-    title: 'SUGGESTIONS',
+    title: 'FEEDBACK',
+    title_urdu: 'تعامل - بات چیت',
     navigate: 'feedback',
     image: require('../assets/img/suggestions.png'),
   },
   {
     id: 4,
     title: 'WEATHER',
-    navigate: 'dashboard',
+    title_urdu: 'موسم',
+    navigate: 'weather',
     image: require('../assets/img/weather.png'),
   },
-]
+];
 
-const Dashboard = (props) => {
-
-  renderItem1 = ({ item, index }) => {
+const Dashboard = props => {
+  renderItem1 = ({item, index}) => {
     let style = {};
     // console.log(props);
     if (index % NUM_COLUMNS1 !== 0) {
       style.borderLeftWidth = 3;
-      style.borderLeftColor = "black";
+      style.borderLeftColor = 'black';
     }
     return (
-      <TouchableOpacity onPress={() => props.navigation.navigate(item.navigate)} style={[styles.cart]} >
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate(item.navigate)}
+        style={[styles.cart]}>
         <View>
-
           <View>
             <Image
               source={item.image}
-              style={{ width: 80, height: 80, resizeMode: 'stretch', alignSelf: 'center', }}
+              style={{
+                width: 80,
+                height: 80,
+                resizeMode: 'stretch',
+                alignSelf: 'center',
+              }}
             />
           </View>
-
           <Text style={[styles.green_h2]}> {item.title} </Text>
+          <Text style={[styles.green_h2, {marginTop: 0}]}>
+            {' '}
+            {item.title_urdu}{' '}
+          </Text>
 
+          {/* <Text style={[styles.green_h2]}> {item.title} </Text> */}
         </View>
-        
       </TouchableOpacity>
     );
   };
 
-  separator1 = () => <View style={{ height: 20, }} />;
+  separator1 = () => <View style={{height: 20}} />;
 
   const NUM_COLUMNS1 = 2;
-const closeDrawer = () => {
-    this.drawer._root.close()
-}
-const openDrawer = () => {
-    // console.log("i am") 
-    this.drawer._root.open()
-};
+  const closeDrawer = () => {
+    this.drawer._root.close();
+  };
+  const openDrawer = () => {
+    // console.log("i am")
+    this.drawer._root.open();
+  };
   return (
     <Drawer
-            ref={(ref) => { this.drawer = ref; }}
-            openDrawerOffset={0.3}
-            content={<SideBar nav={props}  close={() => this.closeDrawer()} />}
-        >
+      ref={ref => {
+        this.drawer = ref;
+      }}
+      openDrawerOffset={0.3}
+      content={<SideBar nav={props} close={() => this.closeDrawer()} />}>
       <View style={[styles.header]}>
-        <View style={{ flex: 2, flexDirection: 'row', justifyContent: 'space-between', }}>
-        <TouchableOpacity style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', }} onPress={()=>openDrawer()} >
-          <View onPress={()=>openDrawer()} style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', }} >
-            <Image
-              source={require('../assets/img/menu.png')}
-              style={{ width: '30%', height: 30, resizeMode: 'stretch', marginLeft: 10, }}
-            />
-          </View>
-        </TouchableOpacity>
-          <View  style={{ flex: 2, justifyContent: 'center', alignItems: 'center', }} >
-            <Text  style={{ color: "white", fontSize: 20, fontWeight: '800' }} >  DASHBOARD</Text>
+        <View
+          style={{
+            flex: 2,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TouchableOpacity
+            style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
+            onPress={() => openDrawer()}>
+            <View
+              onPress={() => openDrawer()}
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={require('../assets/img/menu.png')}
+                style={{
+                  width: '30%',
+                  height: 30,
+                  resizeMode: 'stretch',
+                  marginLeft: 10,
+                }}
+              />
+            </View>
+          </TouchableOpacity>
+          <View
+            style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+            <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+              {' '}
+              DASHBOARD
+            </Text>
+            <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+              {' '}
+              ڈیش بورڈ
+            </Text>
           </View>
 
-          <View style={{ width: '10%', flex: 1, flexDirection: 'column', justifyContent: 'center', }} >
-            <View>
-            </View>  
+          <View
+            style={{
+              width: '10%',
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}>
+            <View />
           </View>
-          
-      </View>
+        </View>
       </View>
 
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
-        <View style={{ alignSelf: "center", marginTop: 30, }} >
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+        }}>
+        <View style={{alignSelf: 'center', marginTop: 30}}>
           <FlatList
             data={ProductsData1}
             renderItem={this.renderItem1}
             keyExtractor={this.keyExtractor}
             numColumns={NUM_COLUMNS1}
             ItemSeparatorComponent={this.separator1}
-
           />
         </View>
-
       </View>
-      <Footer style={{ backgroundColor: '#00432b', }} >
-        <View style={{ flexDirection: 'column', alignSelf: "center", }}>
-
-          <Text onPress={() => Linking.openURL('https://watersprint.io/category/publications/')} style={{ color: 'white', fontSize: 15, fontWeight: '400', marginTop: 20, alignSelf: "center" }} > معلومات براءے جدید فارمنگ</Text>
-          <Text onPress={() => Linking.openURL('https://watersprint.io/category/publications/')} style={{ color: 'white', fontSize: 15, fontWeight: '400', marginBottom: 10, alignSelf: "center" }} > Information about modern farming</Text>
+      <Footer style={{backgroundColor: '#00432b'}}>
+        <View style={{flexDirection: 'column', alignSelf: 'center'}}>
+          <Text
+            onPress={() =>
+              Linking.openURL('https://watersprint.io/category/publications/')
+            }
+            style={{
+              color: 'white',
+              fontSize: 15,
+              fontWeight: '400',
+              marginTop: 20,
+              alignSelf: 'center',
+            }}>
+            {' '}
+            معلومات برائے جدید فارمنگ
+          </Text>
+          <Text
+            onPress={() =>
+              Linking.openURL('https://watersprint.io/category/publications/')
+            }
+            style={{
+              color: 'white',
+              fontSize: 15,
+              fontWeight: '400',
+              marginBottom: 10,
+              alignSelf: 'center',
+            }}>
+            {' '}
+            Information about modern farming
+          </Text>
         </View>
       </Footer>
     </Drawer>
@@ -153,7 +219,6 @@ const styles = StyleSheet.create({
 
     height: 70,
     // marginTop:50,
-
   },
   cart: {
     height: 200,
@@ -173,10 +238,9 @@ const styles = StyleSheet.create({
     width: 300,
     backgroundColor: '#05422b',
     color: 'red',
-    alignSelf: "center",
+    alignSelf: 'center',
     margin: 0,
     marginTop: 30,
-
   },
   input_phone_code: {
     height: 35,
@@ -188,7 +252,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginBottom: 30,
     marginRight: 5,
-
   },
   input_phone: {
     height: 35,
@@ -224,13 +287,13 @@ const styles = StyleSheet.create({
     color: '#05422b',
     fontWeight: '400',
     fontSize: 13,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginTop: 40,
   },
   green_h6: {
     color: 'black',
     fontSize: 13,
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
   },
 
   scrollView: {
