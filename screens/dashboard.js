@@ -55,18 +55,18 @@ const ProductsData1 = [
     image: require('../assets/img/weather.png'),
   },
 ];
-
-const Dashboard = props => {
+class Dashboard extends React.Component {
+  // const Dashboard = props => {
   renderItem1 = ({item, index}) => {
     let style = {};
     // console.log(props);
-    if (index % NUM_COLUMNS1 !== 0) {
+    if (index % 2 !== 0) {
       style.borderLeftWidth = 3;
       style.borderLeftColor = 'black';
     }
     return (
       <TouchableOpacity
-        onPress={() => props.navigation.navigate(item.navigate)}
+        onPress={() => this.props.navigation.navigate(item.navigate)}
         style={[styles.cart]}>
         <View>
           <View>
@@ -94,124 +94,138 @@ const Dashboard = props => {
 
   separator1 = () => <View style={{height: 20}} />;
 
-  const NUM_COLUMNS1 = 2;
-  const closeDrawer = () => {
+  // const NUM_COLUMNS1 = 2;
+  // const closeDrawer = () => {
+  //   this.drawer._root.close();
+  // };
+  // const openDrawer = () => {
+  //   console.log('i am');
+  //   this.drawer._root.open();
+  // };
+  // NUM_COLUMNS1 = 2;
+  closeDrawer = () => {
     this.drawer._root.close();
   };
-  const openDrawer = () => {
-    // console.log("i am")
+  openDrawer = () => {
+    console.log('i am');
     this.drawer._root.open();
   };
-  return (
-    <Drawer
-      ref={ref => {
-        this.drawer = ref;
-      }}
-      openDrawerOffset={0.3}
-      content={<SideBar nav={props} close={() => this.closeDrawer()} />}>
-      <View style={[styles.header]}>
-        <View
-          style={{
-            flex: 2,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}>
-          <TouchableOpacity
-            style={{flex: 1, flexDirection: 'column', justifyContent: 'center'}}
-            onPress={() => openDrawer()}>
-            <View
-              onPress={() => openDrawer()}
+  render() {
+    return (
+      <Drawer
+        ref={ref => {
+          this.drawer = ref;
+        }}
+        openDrawerOffset={0.3}
+        content={<SideBar nav={this.props} close={() => this.closeDrawer()} />}>
+        <View style={[styles.header]}>
+          <View
+            style={{
+              flex: 2,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <TouchableOpacity
               style={{
                 flex: 1,
                 flexDirection: 'column',
                 justifyContent: 'center',
-              }}>
-              <Image
-                source={require('../assets/img/menu.png')}
+              }}
+              onPress={() => this.openDrawer()}>
+              <View
+                onPress={() => this.openDrawer()}
                 style={{
-                  width: '30%',
-                  height: 30,
-                  resizeMode: 'stretch',
-                  marginLeft: 10,
-                }}
-              />
+                  flex: 1,
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  source={require('../assets/img/menu.png')}
+                  style={{
+                    width: '30%',
+                    height: 30,
+                    resizeMode: 'stretch',
+                    marginLeft: 10,
+                  }}
+                />
+              </View>
+            </TouchableOpacity>
+            <View
+              style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+                {' '}
+                DASHBOARD
+              </Text>
+              <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
+                {' '}
+                ڈیش بورڈ
+              </Text>
             </View>
-          </TouchableOpacity>
-          <View
-            style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
-            <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-              {' '}
-              DASHBOARD
-            </Text>
-            <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-              {' '}
-              ڈیش بورڈ
-            </Text>
-          </View>
 
-          <View
-            style={{
-              width: '10%',
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}>
-            <View />
+            <View
+              style={{
+                width: '10%',
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}>
+              <View />
+            </View>
           </View>
         </View>
-      </View>
 
-      <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        }}>
-        <View style={{alignSelf: 'center', marginTop: 30}}>
-          <FlatList
-            data={ProductsData1}
-            renderItem={this.renderItem1}
-            keyExtractor={this.keyExtractor}
-            numColumns={NUM_COLUMNS1}
-            ItemSeparatorComponent={this.separator1}
-          />
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}>
+          <View style={{alignSelf: 'center', marginTop: 30}}>
+            <FlatList
+              data={ProductsData1}
+              renderItem={this.renderItem1}
+              keyExtractor={this.keyExtractor}
+              numColumns={2}
+              ItemSeparatorComponent={this.separator1}
+            />
+          </View>
         </View>
-      </View>
-      <Footer style={{backgroundColor: '#00432b'}}>
-        <View style={{flexDirection: 'column', alignSelf: 'center'}}>
-          <Text
-            onPress={() =>
-              Linking.openURL('https://watersprint.io/category/publications/')
-            }
-            style={{
-              color: 'white',
-              fontSize: 15,
-              fontWeight: '400',
-              marginTop: 20,
-              alignSelf: 'center',
-            }}>
-            {' '}
-            معلومات برائے جدید فارمنگ
-          </Text>
-          <Text
-            onPress={() =>
-              Linking.openURL('https://watersprint.io/category/publications/')
-            }
-            style={{
-              color: 'white',
-              fontSize: 15,
-              fontWeight: '400',
-              marginBottom: 10,
-              alignSelf: 'center',
-            }}>
-            {' '}
-            Information about modern farming
-          </Text>
-        </View>
-      </Footer>
-    </Drawer>
-  );
-};
+        <Footer style={{backgroundColor: '#00432b'}}>
+          <View style={{flexDirection: 'column', alignSelf: 'center'}}>
+            <Text
+              onPress={() =>
+                Linking.openURL('https://watersprint.io/category/publications/')
+              }
+              style={{
+                color: 'white',
+                fontSize: 15,
+                fontWeight: '400',
+                marginTop: 20,
+                alignSelf: 'center',
+              }}>
+              {' '}
+              معلومات برائے جدید فارمنگ
+            </Text>
+            <Text
+              onPress={() =>
+                Linking.openURL('https://watersprint.io/category/publications/')
+              }
+              style={{
+                color: 'white',
+                fontSize: 15,
+                fontWeight: '400',
+                marginBottom: 10,
+                alignSelf: 'center',
+              }}>
+              {' '}
+              Information about modern farming
+            </Text>
+          </View>
+        </Footer>
+      </Drawer>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   header: {

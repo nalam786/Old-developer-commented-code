@@ -239,6 +239,8 @@ const Feedback = props => {
     // props.navigation.navigate('dashboard');
   };
   const sendFeedback2 = async () => {
+    console.log('send');
+    console.log(JSON.stringify(JSON.stringify(data.photo.fileName)));
     handleUploadPhoto(1);
     // if (v.length !== 0) {
     var d = new Date();
@@ -260,7 +262,7 @@ const Feedback = props => {
       fb_form_id: 2,
       id: props.user_ids.user_id,
       fb_admin_response: '',
-      fb_image: '',
+      fb_image: data.photo.fileName,
       fb_notes: data.note,
       fb_crop: data.crop,
       fb_created_by: props.user_ids.user_id,
@@ -783,7 +785,13 @@ const Feedback = props => {
         )}
         {data.fb_list.map((list, keys) =>
           list.form_id == 3 ? (
-            <View style={{alignSelf: 'center', marginTop: 5, width: '95%'}}>
+            <View
+              style={{
+                alignSelf: 'center',
+                marginTop: 5,
+                width: '95%',
+                paddingBottom: 100,
+              }}>
               <Text style={{fontSize: 16, color: 'green', fontWeight: 'bold'}}>
                 Note (نوٹ)
               </Text>
@@ -796,7 +804,8 @@ const Feedback = props => {
               <Text style={{fontSize: 16, color: 'green', fontWeight: 'bold'}}>
                 Date (تاریخ)
               </Text>
-              <View style={{alignSelf: 'center', width: '90%'}}>
+              <View
+                style={{alignSelf: 'center', width: '90%', marginBottom: 50}}>
                 <Text
                   style={{fontSize: 13, fontWeight: 'bold', color: '#05422b'}}>
                   {list.created_at}

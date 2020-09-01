@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import URL from '../URL';
 import {Circle, Triangle} from 'react-native-shape';
@@ -30,7 +30,7 @@ const profile = props => {
   const [data, setData] = React.useState({
     didmount: 0,
     name: '',
-    phone: 0,
+    phone: '',
     email: '',
     password: '',
     c_password: '',
@@ -49,6 +49,44 @@ const profile = props => {
     cotton_cultivate_area: 0,
     note: '',
   });
+
+  const fetchuserdata = async () => {
+    console.log('userid', props.user_ids.user_id);
+    let data = {
+      f_user_id: props.user_ids.user_id,
+    };
+
+    console.log('Get Farm API Calling: ', data);
+
+    await fetch(URL.url + 'users/user_get', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({data}),
+    })
+      .then(res => res.json())
+      .then(resjson => {
+        console.log('saif', resjson.data[0].name);
+        setData({
+          ...data,
+          name: resjson.data[0].name,
+          email: resjson.data[0].email,
+          phone: resjson.data[0].phone,
+          password: resjson.data[0].password,
+        });
+        console.log('data', resjson);
+      })
+      .catch(err => {
+        console.log('failed', err);
+      });
+  };
+  useEffect(() => {
+    fetchuserdata();
+    console.log('mount it!');
+  }, []); // passing an empty array as second argument triggers the callback in useEffect only after the initial render thus replicating `componentDidMount` lifecycle behaviour
+
   const signup = async () => {
     // if (data.email == '' || data.password == '') {
     //   // alert('Please fill all the fields');
@@ -56,7 +94,7 @@ const profile = props => {
     // }
 
     let U_data = {
-      farm_id: 2, //props.user_ids.user_id,
+      farm_id: props.user_ids.user_id,
       name: data.name,
       phone: data.phone,
       email: data.email,
@@ -90,6 +128,7 @@ const profile = props => {
       .then(res => res.json())
 
       .then(async resjson => {
+        console.log(resjson);
         if (resjson.Message == 'Successfully_Login') {
           // props.navigation.navigate('dashboard');
         }
@@ -297,7 +336,7 @@ const profile = props => {
     this.drawer._root.close();
   };
   const openDrawer = () => {
-    // console.log("i am")
+    console.log('i am');
     this.drawer._root.open();
   };
   return (
@@ -306,7 +345,7 @@ const profile = props => {
         this.drawer = ref;
       }}
       openDrawerOffset={0.3}
-      content={<SideBar nav={props} close={() => this.closeDrawer()} />}>
+      content={<SideBar nav={this.props} close={() => closeDrawer()} />}>
       <ScrollView style={styles.scrollView}>
         <View style={[styles.header]}>
           <View
@@ -385,7 +424,7 @@ const profile = props => {
             <TextInput
               placeholderTextColor="#272626"
               onChangeText={val => textInputChange(val, 1)}
-              placeholder=""
+              placeholder={data.name}
               style={[styles.input_email]}
               keyboardType="default"
             />
@@ -396,7 +435,7 @@ const profile = props => {
               placeholderTextColor="#272626"
               keyboardType="numeric"
               onChangeText={val => textInputChange(val, 2)}
-              placeholder=""
+              placeholder={data.phone}
               style={[styles.input_email]}
               keyboardType="numeric"
             />
@@ -407,7 +446,7 @@ const profile = props => {
               placeholderTextColor="#272626"
               keyboardType="numeric"
               onChangeText={val => textInputChange(val, 4)}
-              placeholder=""
+              placeholder={data.email}
               style={[styles.input_email]}
               keyboardType="email-address"
             />
@@ -440,27 +479,18 @@ const profile = props => {
                     onValueChange={(itemValue, itemIndex) =>
                       textInputChange(itemValue, 7)
                     }>
-                    <Picker.Item label="Lok Sanjh  (لوک سانجھ)" value="0" />
+                    <Picker.Item label="REEDS (‏‎رییڈز)" value="0" />
+                    <Picker.Item label="SWRDO (ایس ڈبلیو آر ڈی او)" value="1" />
+
                     <Picker.Item
-                      label="Department of Agriculture Extension (محکمہ زراعت توسیع )"
-                      value="1"
-                    />
-                    <Picker.Item label="CABI (سی اے بی آئی)" value="2" />
-                    <Picker.Item
-                      label=" Indus Farmer Welfare (  انڈس فارمرویلفیئر)"
+                      label="Cotton Connect (کاٹن کونکٹ ‏)"
                       value="3"
                     />
-                    <Picker.Item label="IRDC (  آئی آر ڈی سی)" value="4" />
-                    <Picker.Item
-                      label="Kishtkar Development ( کشتکرڈویلپمنٹ )"
-                      value="5"
-                    />
-                    <Picker.Item
-                      label="Maryam Rural   ( مریم رورل)"
-                      value="6"
-                    />
-                    <Picker.Item label="WWF ( ڈبلیوڈبلیو ایف)" value="7" />
-                    <Picker.Item label="REEDS ( آرای ای ایس)" value="8" />
+                    <Picker.Item label="WWF (ڈبلیو ڈبلیو ایف)" value="4" />
+                    <Picker.Item label="CABI (کابی ‏)" value="5" />
+                    <Picker.Item label="LSF (ایل ایس ایف)" value="6" />
+                    <Picker.Item label="MRWO (ایم آر ڈبلیو او)" value="7" />
+                    <Picker.Item label="YAZMAN (یاذمان)" value="8" />
                     <Picker.Item label="Other ( دیگر)" value="9" />
                   </Picker>
                 </View>
@@ -622,7 +652,7 @@ const profile = props => {
               placeholderTextColor="#272626"
               secureTextEntry={true}
               onChangeText={val => textInputChange(val, 19)}
-              placeholder=""
+              placeholder={data.password}
               style={[styles.input_email]}
             />
             <View style={{marginTop: 20}}>
@@ -635,7 +665,7 @@ const profile = props => {
               placeholderTextColor="#272626"
               secureTextEntry={true}
               onChangeText={val => textInputChange(val, 20)}
-              placeholder=""
+              placeholder={data.password}
               style={[styles.input_email]}
             />
             <Button

@@ -390,11 +390,11 @@ const form_6 = props => {
                   }}>
                   <Text
                     style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                    Harvesting
+                    Harvesting / Picking
                   </Text>
                   <Text
                     style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                    فصل کی کٹائی
+                    چنائی/ کٹائی
                   </Text>
                 </View>
                 <View

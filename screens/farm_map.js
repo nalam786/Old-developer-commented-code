@@ -40,6 +40,7 @@ class PolygonCreator extends React.Component {
       creatingHole: false,
       area: 0,
     };
+    this.test_a = '';
   }
   calculateAreaInSquareMeters(x1, x2, y1, y2) {
     return (y1 * x2 - x1 * y2) / 2;
@@ -78,10 +79,11 @@ class PolygonCreator extends React.Component {
     };
 
     setTimeout(() => {
+      console.log('testing polygons 1', JSON.stringify(this.state.polygons));
       if (this.state.polygons[0] != undefined) {
         let b = 0;
         let locations = this.state.polygons[0].coordinates;
-
+        console.log('testing polygons 11', JSON.stringify(locations));
         let radius = 6371000;
 
         const diameter = radius * 2;
@@ -130,7 +132,11 @@ class PolygonCreator extends React.Component {
         this.props.area_of_poligon(acreArea);
         // alert(this.props.area_)
         //return areaCalc;
-
+        console.log(
+          'testing polygons 111',
+          JSON.stringify(this.state.polygons[0].coordinates),
+        );
+        temarr = [];
         this.state.polygons[0].coordinates.map((data, keys) =>
           temarr.push([data.longitude, data.latitude]),
         );
@@ -139,10 +145,13 @@ class PolygonCreator extends React.Component {
         console.log('-----------------');
         console.log(GeoJSON);
         let a = JSON.stringify(GeoJSON);
+        this.test_a = a;
         this.props.map({coordinates: a});
       }
-
-      this.props.navigation.navigate('general_form');
+      console.log('testing polygons 2', this.test_a);
+      this.props.navigation.navigate('general_form', {
+        coordinates_: this.test_a,
+      });
     }, 100);
   }
 
@@ -164,6 +173,7 @@ class PolygonCreator extends React.Component {
       {enableHighAccuracy: false, timeout: 20000},
     );
   }
+
   undo() {
     const {editing, creatingHole} = this.state;
     let a = [];
@@ -322,14 +332,13 @@ class PolygonCreator extends React.Component {
     const mapOptions = {
       scrollEnabled: true,
     };
-    console.log('edited');
-    console.log(this.state.polygons);
+
     // if (this.state.editing) {
     //   alert(22)
     //   mapOptions.scrollEnabled = true;
     //   // mapOptions.onPanDrag = e => this.onPress(e);
     // }
-    console.log('area', this.state.area);
+
     return (
       <View style={styles.container}>
         <MapView

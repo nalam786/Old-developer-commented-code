@@ -45,6 +45,7 @@ const form_2 = props => {
     footer: true,
     farm_id: [],
     prepared_field_irrigation: [],
+    field_preparation: [],
     soil_type: [],
     laser_levelled: [],
     levelled_date: [],
@@ -52,6 +53,20 @@ const form_2 = props => {
     irrigation_frequency: [],
     irrigation_time: [],
     farm_distance_watercourse: [],
+    watercourse_discharge: [],
+    ground_water_quality: [],
+    tubewellsize: [],
+    weed_eradication: [],
+    flow_watercourse: [],
+    depth_water_course: [],
+    width_watercourse_water: [],
+    far_from_outlet: [],
+    bore_depth: [],
+    ground_water_depth: [],
+    allocated_time_canal: [],
+    time_req_irrigation: [],
+    vegetation: [],
+
     created_at: [],
     modified_at: [],
     gestureName: '',
@@ -63,11 +78,25 @@ const form_2 = props => {
     data.prepared_field_irrigation.push({prepared_field_irrigation: 0});
     data.irrigation_time.push({irrigation_time: 0});
     data.soil_type.push({soil_type: ''});
+    data.weed_eradication.push({weed_eradication: ''});
     data.laser_levelled.push({laser_levelled: 1});
     data.levelled_date.push({levelled_date: ''});
     data.first_irrigation.push({first_irrigation: ''});
     data.irrigation_frequency.push({irrigation_frequency: 0});
     data.farm_distance_watercourse.push({farm_distance_watercourse: ''});
+    data.watercourse_discharge.push({watercourse_discharge: ''});
+    data.ground_water_quality.push({ground_water_quality: ''});
+    data.tubewellsize.push({tubewellsize: ''});
+    data.field_preparation.push({field_preparation: ''});
+    data.flow_watercourse.push({flow_watercourse: ''});
+    data.depth_water_course.push({depth_water_course: ''});
+    data.width_watercourse_water.push({width_watercourse_water: ''});
+    data.far_from_outlet.push({far_from_outlet: ''});
+    data.bore_depth.push({bore_depth: ''});
+    data.ground_water_depth.push({ground_water_depth: ''});
+    data.allocated_time_canal.push({allocated_time_canal: ''});
+    data.time_req_irrigation.push({time_req_irrigation: ''});
+    data.vegetation.push({vegetation: ''});
 
     setData({
       ...data,
@@ -76,6 +105,26 @@ const form_2 = props => {
   };
 
   const sendform = async () => {
+    // console.log(data.soil_type);
+    // console.log(data.weed_eradication);
+    //console.log(data.field_preparation);
+    // console.log(data.laser_levelled);
+    // console.log(data.watercourse_discharge);
+    // console.log(data.flow_watercourse);
+    // console.log(data.far_from_outlet);
+    //  console.log(data.tubewellsize);
+    //  console.log(data.bore_depth);
+    //  console.log(data.ground_water_depth);
+    //   console.log(data.ground_water_quality);
+    //   console.log(data.first_irrigation);
+    //  console.log(data.allocated_time_canal);
+    //  console.log(data.time_req_irrigation);
+    //   console.log(data.irrigation_frequency);
+
+    // console.log(data.depth_water_course);
+    //  console.log(data.width_watercourse_water);
+    //  console.log(data.vegetation);
+
     var d = new Date();
     var y = d.getFullYear();
     var m = d.getMonth();
@@ -103,9 +152,34 @@ const form_2 = props => {
       let F_data = {};
       let F_Data = {
         f_farm_id: props.user_ids.farm_id,
-        f_prepared_field_irrigation:
-          data.prepared_field_irrigation[i].prepared_field_irrigation,
+
         f_soil_type: data.soil_type[i].soil_type,
+        f_weed_eradication: data.weed_eradication[i].weed_eradication,
+        f_field_preparation: data.field_preparation[i].field_preparation,
+        f_laser_levelled: data.laser_levelled[i].field_preparation,
+        f_water_course_discharge:
+          data.watercourse_discharge[i].watercourse_discharge,
+        water_course_flow: data.flow_watercourse[i].flow_watercourse,
+        f_water_course_distance_outlet: data.far_from_outlet[i].far_from_outlet,
+        f_tubewell_size: data.tubewellsize[i].tubewellsize,
+
+        f_tubewell_bore_depth_ft: data.bore_depth[i].bore_depth,
+        f_groundwater_depth_ft: data.ground_water_depth[i].ground_water_depth,
+        f_groundwater_quality:
+          data.ground_water_quality[i].ground_water_quality,
+
+        f_first_irrigation: data.first_irrigation[i].first_irrigation,
+        f_canal_allocated_time_mins:
+          data.allocated_time_canal[i].canal_allocated_time_mins,
+        f_tubewell_irrigation_time_mins:
+          data.time_req_irrigation[i].time_req_irrigation,
+        f_irrigation_frequency:
+          data.irrigation_frequency[i].irrigation_frequency,
+        f_water_course_depth: data.depth_water_course[i].depth_water_course,
+        f_water_course_width:
+          data.width_watercourse_water[i].width_watercourse_water,
+        f_water_course_vegetation: data.vegetation[i].vegetation,
+
         f_irrigation_time: data.irrigation_time[i].irrigation_time,
         f_laser_levelled: data.laser_levelled[i].laser_levelled,
         f_levelled_date: data.levelled_date[i].levelled_date,
@@ -118,6 +192,8 @@ const form_2 = props => {
         f_created_at: date,
         f_modified_by: props.user_ids.farm_id,
         f_modified_at: date,
+        f_prepared_field_irrigation:
+          data.prepared_field_irrigation[i].prepared_field_irrigation,
       };
 
       console.log('Land Preperation Create API Calling', F_Data);
@@ -173,15 +249,70 @@ const form_2 = props => {
         data.irrigation_frequency[props.flag.index].irrigation_frequency =
           props.flag.value;
         break;
-      case 8:
-        data.irrigation_time[props.flag.index].irrigation_time =
-          props.flag.value;
-        break;
+
       case 7:
         data.farm_distance_watercourse[
           props.flag.index
         ].farm_distance_watercourse = props.flag.value;
         break;
+      case 8:
+        data.irrigation_time[props.flag.index].irrigation_time =
+          props.flag.value;
+        break;
+      case 9:
+        data.watercourse_discharge[props.flag.index].watercourse_discharge =
+          props.flag.value;
+        break;
+      case 10:
+        data.ground_water_quality[props.flag.index].ground_water_quality =
+          props.flag.value;
+        break;
+      case 11:
+        data.tubewellsize[props.flag.index].tubewellsize = props.flag.value;
+        break;
+      case 12:
+        data.weed_eradication[props.flag.index].weed_eradication =
+          props.flag.value;
+        break;
+      case 13:
+        data.field_preparation[props.flag.index].field_preparation =
+          props.flag.value;
+        break;
+      case 14:
+        data.flow_watercourse[props.flag.index].flow_watercourse =
+          props.flag.value;
+        break;
+      case 15:
+        data.depth_water_course[props.flag.index].depth_water_course =
+          props.flag.value;
+        break;
+      case 16:
+        data.width_watercourse_water[props.flag.index].width_watercourse_water =
+          props.flag.value;
+        break;
+      case 17:
+        data.far_from_outlet[props.flag.index].far_from_outlet =
+          props.flag.value;
+        break;
+      case 18:
+        data.bore_depth[props.flag.index].bore_depth = props.flag.value;
+        break;
+      case 19:
+        data.ground_water_depth[props.flag.index].ground_water_depth =
+          props.flag.value;
+        break;
+      case 20:
+        data.allocated_time_canal[props.flag.index].allocated_time_canal =
+          props.flag.value;
+        break;
+      case 21:
+        data.time_req_irrigation[props.flag.index].time_req_irrigation =
+          props.flag.value;
+        break;
+      case 22:
+        data.vegetation[props.flag.index].vegetation = props.flag.value;
+        break;
+
       default:
         break;
     }
@@ -206,6 +337,20 @@ const form_2 = props => {
     data.irrigation_frequency.splice(props.flag.index, 1);
     data.farm_distance_watercourse.splice(props.flag.index, 1);
     data.irrigation_time.splice(props.flag.index, 1);
+    data.watercourse_discharge.splice(props.flag.index, 1);
+    data.ground_water_quality.splice(props.flag.index, 1);
+    data.tubewellsize.splice(props.flag.index, 1);
+    data.weed_eradication.splice(props.flag.index, 1);
+    data.field_preparation.splice(props.flag.index, 1);
+    data.flow_watercourse.splice(props.flag.index, 1);
+    data.depth_water_course.splice(props.flag.index, 1);
+    data.width_watercourse_water.splice(props.flag.index, 1);
+    data.far_from_outlet.splice(props.flag.index, 1);
+    data.bore_depth.splice(props.flag.index, 1);
+    data.ground_water_depth.splice(props.flag.index, 1);
+    data.allocated_time_canal.splice(props.flag.index, 1);
+    data.time_req_irrigation.splice(props.flag.index, 1);
+    data.vegetation.splice(props.flag.index, 1);
 
     if (data.rander_flag == 0) {
       this.renderForm();
@@ -397,11 +542,11 @@ const form_2 = props => {
                   }}>
                   <Text
                     style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                    Land Preperation
+                    Farm info
                   </Text>
                   <Text
                     style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
-                    زمین کی تیاری
+                    بنیادی معلومات
                   </Text>
                 </View>
                 <View
@@ -437,7 +582,21 @@ const form_2 = props => {
                     f_first_irrigation={data.first_irrigation}
                     f_irrigation_frequency={data.irrigation_frequency}
                     f_farm_distance_watercourse={data.farm_distance_watercourse}
+                    f_watercourse_discharge={data.watercourse_discharge}
                     f_irrigation_time={data.irrigation_time}
+                    f_ground_water_quality={data.ground_water_quality}
+                    f_tubewellsize={data.tubewellsize}
+                    f_weed_eradication={data.weed_eradication}
+                    f_field_preparation={data.field_preparation}
+                    f_flow_watercourse={data.flow_watercourse}
+                    f_depth_water_course={data.depth_water_course}
+                    f_width_watercourse_water={data.width_watercourse_water}
+                    f_far_from_outlet={data.far_from_outlet}
+                    f_bore_depth={data.bore_depth}
+                    f_ground_water_depth={data.ground_water_depth}
+                    f_allocated_time_canal={data.allocated_time_canal}
+                    f_time_req_irrigation={data.time_req_irrigation}
+                    f_vegetation={data.vegetation}
                     index2={keys}
                   />
                 ))}

@@ -120,23 +120,27 @@ const form_3 = props => {
       F_Data = {
         f_farm_id: props.user_ids.farm_id,
         f_water_source: data.water_source[i].water_source,
-        f_flow_water_source: data.flow_water_source[i].flow_water_source,
-        f_bore_depth: data.bore_depth[i].bore_depth,
-        f_type_water_source: data.type_water_source[i].type_water_source,
         f_ground_water_use: data.ground_water_use[i].ground_water_use,
-        f_water_depth: data.water_depth[i].water_depth,
-        f_water_width: data.water_width[i].water_width,
-        f_bed_level_water_width:
-          data.bed_level_water_width[i].bed_level_water_width,
-        f_vegetation: data.vegetation[i].vegetation,
         f_canal_application: data.canal_application[i].canal_application,
-        f_irrigation_date: data.irrigation_date[i].irrigation_date,
-        f_tube_well_size: data.tube_well_size[i].tube_well_size,
-        f_ground_water_depth: data.ground_water_depth[i].ground_water_depth,
-        f_water_quality: data.water_quality[i].water_quality,
-        f_water_source_other: data.water_source_other[i].water_source_other,
+        f_canal_irrigation_date: data.irrigation_date[i].irrigation_date,
         f_date_round_water_irrigation:
           data.date_round_water_irrigation[i].date_round_water_irrigation,
+
+        // f_flow_water_source: data.flow_water_source[i].flow_water_source,
+        // f_bore_depth: data.bore_depth[i].bore_depth,
+        // f_type_water_source: data.type_water_source[i].type_water_source,
+
+        // f_water_depth: data.water_depth[i].water_depth,
+        // f_water_width: data.water_width[i].water_width,
+        // f_bed_level_water_width:
+        //   data.bed_level_water_width[i].bed_level_water_width,
+        // f_vegetation: data.vegetation[i].vegetation,
+
+        // f_tube_well_size: data.tube_well_size[i].tube_well_size,
+        // f_ground_water_depth: data.ground_water_depth[i].ground_water_depth,
+        // f_water_quality: data.water_quality[i].water_quality,
+        // f_water_source_other: data.water_source_other[i].water_source_other,
+
         f_created_by: props.user_ids.farm_id,
         f_created_at: date,
         f_modified_by: props.user_ids.farm_id,

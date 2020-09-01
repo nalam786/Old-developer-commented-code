@@ -49,8 +49,9 @@ class PolygonCreator extends React.Component {
   async fetchweather() {
     console.log('selected vaue');
     console.log(this.state.slectedform);
+    console.log(URL.url + 'weather/get_forecast');
     let W_data = {
-      farm_id: 8,
+      farm_id: this.state.slectedform,
     };
     await fetch(URL.url + 'weather/get_forecast', {
       method: 'POST',
@@ -94,7 +95,7 @@ class PolygonCreator extends React.Component {
   }
   farmlist = () => {
     return this.state.formdata.map((x, i) => {
-      return <Picker.Item label={x.farm_name} key={i} value={x.farm_name} />;
+      return <Picker.Item label={x.farm_name} key={i} value={x.id} />;
     });
   };
   openDrawer = () => {
@@ -202,16 +203,20 @@ class PolygonCreator extends React.Component {
                 color: 'grey',
               }}
               onValueChange={(itemValue, itemIndex) => {
-                this.setState({slectedform: itemValue});
+                this.setState({slectedform: itemValue}, () => {
+                  this.fetchweather();
+                });
                 this.fetchweather();
                 console.log('saif', itemIndex);
+
+                console.log('saif', itemValue);
               }}>
               {this.farmlist()}
             </Picker>
           </View>
           <View style={{flexDirection: 'row', margin: 10}}>
             <View style={{flex: 2}}>
-              <Text style={{fontSize: 22}}>Date</Text>
+              <Text style={{fontSize: 22, color: 'green'}}>Date</Text>
             </View>
             <View style={{flex: 1}}>
               <Image
@@ -292,7 +297,7 @@ class PolygonCreator extends React.Component {
             renderItem={({item}) => (
               <View style={{flexDirection: 'row', margin: 10, flex: 1}}>
                 <View style={{flex: 2}}>
-                  <Text>{item.forecast_date}</Text>
+                  <Text style={{color: 'green'}}>{item.forecast_date}</Text>
                 </View>
                 <View style={{flex: 1}}>
                   <Text>{item.t_min}</Text>

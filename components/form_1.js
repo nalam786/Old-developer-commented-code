@@ -142,7 +142,7 @@ const form_1 = props => {
           props.user_id({user_id: props.user_ids.user_id, farm_id: id});
 
           console.log('Farm ID: ' + props.user_ids.farm_id);
-
+          console.log('data_to_send', props);
           props.nav.navigation.navigate('land_preperation_form');
         }
       })
@@ -152,7 +152,8 @@ const form_1 = props => {
   };
 
   const sendform = async () => {
-    //get_farms();
+    console.log('testing polygons 3');
+    console.log(JSON.stringify(props.nav.route.params.coordinates_));
 
     var d = new Date();
     var y = d.getFullYear();
@@ -186,7 +187,9 @@ const form_1 = props => {
       f_sowing_date: data.sowing_date,
       f_area: props.area_,
       f_season: season,
+      // f_map: props.map_cord.coordinates,
       f_map: props.map_cord.coordinates,
+
       f_created_by: props.user_ids.user_id,
       f_created_at: date,
       f_modified_by: props.user_ids.user_id,

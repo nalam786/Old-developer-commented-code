@@ -47,6 +47,8 @@ const form_7 = props => {
     crop_height: [],
     plants_distance: [],
     leaf_width: [],
+    nodetonode: [],
+
     crop_health: [],
     check_date: [],
     note: [],
@@ -82,6 +84,7 @@ const form_7 = props => {
     data.crop_height.push({crop_height: ''});
     data.plants_distance.push({plants_distance: ''});
     data.leaf_width.push({leaf_width: ''});
+    data.nodetonode.push({nodetonode: ''});
     data.crop_health.push({crop_health: ''});
     data.check_date.push({check_date: date});
     data.note.push({note: ''});
@@ -119,12 +122,14 @@ const form_7 = props => {
     }
 
     for (let i = 0; i < data.crop_height.length; i++) {
+      console.log(data.pic[i].pic);
       let F_data = {};
       let F_Data = {
         f_farm_id: props.user_ids.farm_id,
         f_crop_height: data.crop_height[i].crop_height,
         f_plants_distance: data.plants_distance[i].plants_distance,
         f_leaf_width: data.leaf_width[i].leaf_width,
+        f_nodetonode: data.nodetonode[i].nodetonode,
         f_crop_health: data.crop_health[i].crop_health,
         f_check_date: data.check_date[i].check_date,
         f_note: data.note[i].note,
@@ -198,6 +203,9 @@ const form_7 = props => {
       case 8:
         data.date[props.flag.index].date = props.flag.value;
         break;
+      case 9:
+        data.nodetonode[props.flag.index].nodetonode = props.flag.value;
+        break;
 
       default:
         break;
@@ -218,6 +226,7 @@ const form_7 = props => {
     data.crop_height.splice(props.flag.index, 1);
     data.plants_distance.splice(props.flag.index, 1);
     data.leaf_width.splice(props.flag.index, 1);
+    data.nodetonode.splice(props.flag.index, 1);
     data.crop_health.splice(props.flag.index, 1);
     data.check_date.splice(props.flag.index, 1);
     data.note.splice(props.flag.index, 1);
@@ -446,6 +455,7 @@ const form_7 = props => {
                     f_crop_height={data.crop_height}
                     f_plants_distance={data.plants_distance}
                     f_leaf_width={data.leaf_width}
+                    f_nodetonode={data.nodetonode}
                     f_crop_health={data.crop_health}
                     f_check_date={data.check_date}
                     f_note={data.note}

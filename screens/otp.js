@@ -137,14 +137,14 @@ const OTP = props => {
           user_name: props.signup.username,
           email: props.signup.email,
           password: props.signup.password,
-          //phone_no: '',
+          phone_no: 0,
           phone_code: props.signup.phone_code,
         };
       } else {
         console.log('2 else');
         U_data = {
           user_name: props.signup.username,
-          //  email: '',
+          email: '',
           password: props.signup.password,
           phone_no: props.signup.phone,
           phone_code: props.signup.phone_code,

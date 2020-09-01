@@ -15,6 +15,7 @@ import {
   FlatList,
   Picker,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import {
@@ -65,32 +66,38 @@ const Allfarms = props => {
     farm_info: [],
     didmount: 0,
   });
-
+  console.log('I am here');
   const del_farms = async id => {
-    console.log(id);
-    let F_Data = {
+    // const filteredData = data.farm_info.filter(item => item.id !== id);
+    // try {
+    //   setData({
+    //     ...data,
+    //     farm_info: filteredData,
+    //   });
+    // } catch (e) {}
+    Alert.alert('Successfully Deleated');
+    let data = {
       f_farms_id: id,
     };
 
-    console.log('All Farms API Calling: ', F_Data);
-    await fetch(URL.url + 'farms/farm_delete', {
+    fetch(URL.url + 'farms/farm_delete', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({F_Data}),
+      body: JSON.stringify({data}),
     })
       .then(res => res.json())
       .then(resjson => {
-        if (resjson.Message == 'All Farms Get Successfully') {
-          data.farm_info = resjson.data;
+        try {
           setData({
             ...data,
-            farm_info: resjson.data,
+            farm_info: filteredData,
           });
-        }
-        console.log(data.farm_info);
+        } catch (e) {}
+        get_farms();
+        console.log(JSON.stringify(resjson));
       })
       .catch(err => {
         console.log('Failed to Get Farms: ', err);
@@ -98,6 +105,7 @@ const Allfarms = props => {
   };
 
   const get_farms = async () => {
+    console.log('getting', props.user_ids.user_id);
     let F_Data = {
       f_user_id: props.user_ids.user_id,
     };
@@ -218,20 +226,28 @@ const Allfarms = props => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <View
-            onPress={() => props.navigation.navigate('crop_health_report')}
+          <TouchableOpacity
+            // onPress={
+            //   (() => props.navigation.navigate('crop_health_report'),
+            //   {farm_id: 1})
+            // }
+            onPress={() => {
+              props.navigation.navigate('crop_health_report', {
+                farm_id_: item.id,
+              });
+            }}
             style={[styles.box, {backgroundColor: '#359814'}]}>
             <Text
-              onPress={() => props.navigation.navigate('crop_health_report')}
+              // onPress={() => props.navigation.navigate('crop_health_report')}
               style={{color: '#fff'}}>
               رپورٹ دیکھیں{' '}
             </Text>
             <Text
-              onPress={() => props.navigation.navigate('crop_health_report')}
+              // onPress={() => props.navigation.navigate('crop_health_report')}
               style={{color: '#fff'}}>
               VIEW REPORT{' '}
             </Text>
-          </View>
+          </TouchableOpacity>
           <View
             onPress={() => edit_form(item.id)}
             style={[

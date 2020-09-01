@@ -28,17 +28,18 @@ import expected_yield_form from './screens/expected_yield_form';
 import form_footer from './components/form_footer';
 import crop_health_report from './screens/crop_health_report';
 import farm_map from './screens/farm_map';
-import farm_map_edit from './screens/edit_form/farm_map_edit';
+//import farm_map_edit from './screens/edit_form/farm_map_edit';
 import test_footer from './screens/test_footer';
 
 // edit
-import general_form_edit from './screens/edit_form/general_form';
-import land_preperation_form_edit from './screens/edit_form/land_preperation_form';
-import seed_form_edit from './screens/edit_form/seed_form';
-import pesticide_form_edit from './screens/edit_form/pesticide_form ';
-import irrigation_form_edit from './screens/edit_form/irrigation_form ';
-import harvesting_form_edit from './screens/edit_form/harvesting_form';
-import crop_health_form_edit from './screens/edit_form/crop_health_form';
+// import general_form_edit from './screens/edit_form/general_form';
+// import land_preperation_form_edit from './screens/edit_form/land_preperation_form';
+// import seed_form_edit from './screens/edit_form/seed_form';
+// import pesticide_form_edit from './screens/edit_form/pesticide_form ';
+// import fertilizer_form_edit from './screens/edit_form/fertilizer_form_edit';
+// import irrigation_form_edit from './screens/edit_form/irrigation_form ';
+// import harvesting_form_edit from './screens/edit_form/harvesting_form';
+// import crop_health_form_edit from './screens/edit_form/crop_health_form';
 
 const Stack = createStackNavigator();
 
@@ -90,7 +91,7 @@ function App() {
         <Stack.Screen name="allfarms" component={allfarms} />
 
         <Stack.Screen name="farm_map" component={farm_map} />
-        <Stack.Screen name="farm_map_edit" component={farm_map_edit} />
+        {/* <Stack.Screen name="farm_map_edit" component={farm_map_edit} /> */}
         <Stack.Screen name="general_form" component={general_form} />
         <Stack.Screen
           name="land_preperation_form"
@@ -101,10 +102,10 @@ function App() {
         <Stack.Screen name="fertilizer_form" component={fertilizer_form} />
         <Stack.Screen name="irrigation_form" component={irrigation_form} />
         <Stack.Screen name="harvesting_form" component={harvesting_form} />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="land_preperation_form_edit"
           component={land_preperation_form_edit}
-        />
+        /> */}
         <Stack.Screen name="crop_health_form" component={crop_health_form} />
         <Stack.Screen
           name="crop_health_report"
@@ -120,17 +121,23 @@ function App() {
         />
         <Stack.Screen name="form_footer" component={form_footer} />
 
-        <Stack.Screen name="general_form_edit" component={general_form_edit} />
+        {/* <Stack.Screen name="general_form_edit" component={general_form_edit} /> */}
 
-        <Stack.Screen name="seed_form_edit" component={seed_form_edit} />
-        <Stack.Screen
+        {/* <Stack.Screen name="seed_form_edit" component={seed_form_edit} /> */}
+        {/* <Stack.Screen
           name="pesticide_form_edit"
           component={pesticide_form_edit}
         />
+
         <Stack.Screen
           name="irrigation_form_edit"
           component={irrigation_form_edit}
         />
+        <Stack.Screen
+          name="fertilizer_form_edit"
+          component={fertilizer_form_edit}
+        />
+
         <Stack.Screen
           name="harvesting_form_edit"
           component={harvesting_form_edit}
@@ -138,7 +145,7 @@ function App() {
         <Stack.Screen
           name="crop_health_form_edit"
           component={crop_health_form_edit}
-        />
+        /> */}
 
         <Stack.Screen name="feedback" component={feedback} />
         <Stack.Screen name="weather" component={weather} />

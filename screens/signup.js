@@ -123,16 +123,11 @@ const signup = props => {
       });
   };
   const send_email = async (mycode, email) => {
-    // console.log('send email function');
-    // console.log(mycode);
-    // console.log(email);
     let F_Data = {
       Email: email,
       code: mycode,
     };
 
-    console.log('Get Farm API Calling: ', F_Data);
-    console.log(URL.url + 'users/Send_email');
     await fetch(URL.url + 'users/Send_email', {
       method: 'POST',
       headers: {
@@ -143,7 +138,7 @@ const signup = props => {
     })
       .then(res => res.json())
       .then(resjson => {
-        alert(resjson.Message);
+        //   alert(resjson.Message);
         console.log(resjson);
       })
       .catch(err => {

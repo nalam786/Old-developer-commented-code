@@ -1,7 +1,7 @@
 import React from 'react';
 import URL from '../URL';
 import {useState} from 'react';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Alert} from 'react-native';
 import {connect} from 'react-redux';
 
 import {
@@ -100,6 +100,8 @@ const App = props => {
               code: 0,
             });
             props.navigation.navigate('dashboard');
+          } else {
+            Alert.alert('Password Incorrect');
           }
 
           // alert(resjson.Message);
@@ -143,9 +145,11 @@ const App = props => {
               code: 0,
             });
             props.navigation.navigate('dashboard');
+          } else {
+            Alert.alert('Password Incorrect');
           }
 
-          alert(resjson.Message);
+          //   alert(resjson.Message);
         })
 
         .catch(err => {

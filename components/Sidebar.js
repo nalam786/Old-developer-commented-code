@@ -55,9 +55,12 @@ export default class Sidebar extends Component {
             alignSelf: 'center',
             color: 'white',
             fontSize: 17,
-            marginTop: 40,
+            padding: 20,
+            marginTop: 10,
+            width: '100%',
+            textAlign: 'center',
           }}>
-          Manage profile
+          Manage profile (اپ ڈیٹ پروفائل)
         </Text>
         <View
           style={{
@@ -75,9 +78,11 @@ export default class Sidebar extends Component {
             alignSelf: 'center',
             color: 'white',
             fontSize: 17,
-            marginTop: 40,
+            padding: 20,
+            width: '100%',
+            textAlign: 'center',
           }}>
-          Home
+          Home (ہوم)
         </Text>
         <View
           style={{
@@ -95,9 +100,11 @@ export default class Sidebar extends Component {
             alignSelf: 'center',
             color: 'white',
             fontSize: 17,
-            marginTop: 40,
+            padding: 20,
+            width: '100%',
+            textAlign: 'center',
           }}>
-          All farms
+          All farms (تمام فارمز)
         </Text>
         <View
           style={{
@@ -115,10 +122,13 @@ export default class Sidebar extends Component {
             alignSelf: 'center',
             color: 'white',
             fontSize: 17,
-            marginTop: 40,
+            padding: 20,
+            width: '100%',
+            textAlign: 'center',
           }}>
-          Feedback
+          Feedback (بات چیت)
         </Text>
+
         <View
           style={{
             color: 'white',
@@ -136,10 +146,15 @@ export default class Sidebar extends Component {
             alignSelf: 'center',
             color: 'white',
             fontSize: 17,
-            marginTop: 20,
+            padding: 20,
+            width: '100%',
+            textAlign: 'center',
           }}>
-          logout
+          Logout (لاگ آوٹ)
         </Text>
+        <View style={{position: 'absolute', bottom: 0}}>
+          <Text style={{margin: 30, color: 'white'}}>Version 1.1</Text>
+        </View>
       </View>
     );
   }

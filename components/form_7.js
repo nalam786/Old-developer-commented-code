@@ -37,11 +37,11 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 const form_7 = props => {
-  // const [data, setData] = React.useState({
-  //   photo: '',
+  const [data, setData] = React.useState({
+    photo: '',
 
-  //   avatarSource: '',
-  // });
+    avatarSource: '',
+  });
   const options = {
     title: 'Select Avatar',
     customButtons: [{name: 'fb', title: 'Choose Photo from Facebook'}],
@@ -95,13 +95,21 @@ const form_7 = props => {
         console.log('User tapped custom button: ', response.customButton);
       } else {
         console.log('image picked');
-
+        console.log(response.uri);
+        console.log('image picked');
         const source = {uri: response.uri};
-        setData({
-          ...data,
-          photo: response,
-          avatarSource: source,
-        });
+        setData(
+          {
+            ...data,
+            photo: response,
+            avatarSource: source,
+          },
+          function() {
+            changeData(source, 7, index2);
+            console.log('nice', JSON.stringify(photo));
+          },
+        );
+
         //  handleUploadPhoto(1);
       }
     });
@@ -215,8 +223,8 @@ const form_7 = props => {
             style={[styles.input_email]}
           />
           <View>
-            <Text style={styles.q_text}>Crop’s leaf width (average feet)</Text>
-            <Text style={styles.q_text}>فصل کے پتے کی چوڑائی (فیٹ )</Text>
+            <Text style={styles.q_text}>Crops's leaf average width (inch)</Text>
+            <Text style={styles.q_text}>فصل کے پتے کی اوسط چوڑائی (انچ )</Text>
           </View>
           <TextInput
             placeholderTextColor="#272626"
@@ -224,6 +232,20 @@ const form_7 = props => {
             onBlur={() => blur()}
             onChangeText={val => changeData(val, 3, index2)}
             value={props.f_leaf_width[index2].leaf_width}
+            placeholder=""
+            keyboardType="numeric"
+            style={[styles.input_email]}
+          />
+          <View>
+            <Text style={styles.q_text}>Node to node distance (inch)</Text>
+            <Text style={styles.q_text}>نوڈ سے نوڈ کا فاصلہ (انچ میں)</Text>
+          </View>
+          <TextInput
+            placeholderTextColor="#272626"
+            onFocus={() => focus()}
+            onBlur={() => blur()}
+            onChangeText={val => changeData(val, 9, index2)}
+            value={props.f_nodetonode[index2].nodetonode}
             placeholder=""
             keyboardType="numeric"
             style={[styles.input_email]}
@@ -261,7 +283,9 @@ const form_7 = props => {
                 style={{borderRadius: 50}}
               />
             </View>
-            <Text style={{marginTop: 6.5}}>Unhealthy (غیر صحت بخش) </Text>
+            <Text style={{marginTop: 6.5}}>
+              Moderate stressed (درمیانہ دباؤ){' '}
+            </Text>
           </View>
 
           <View style={{flexDirection: 'row', marginTop: 15}}>
@@ -272,9 +296,7 @@ const form_7 = props => {
                 style={{borderRadius: 50}}
               />
             </View>
-            <Text style={{marginTop: 6.5}}>
-              Under severe pressure (سخت دباؤ میں)
-            </Text>
+            <Text style={{marginTop: 6.5}}>Highly stressed (سخت دباؤ میں)</Text>
           </View>
           <View style={{flexDirection: 'row', marginTop: 15}}>
             <View>
@@ -317,7 +339,7 @@ const form_7 = props => {
               resizeMode: 'center',
             }}
             source={
-              props.avatarSource
+              data.avatarSource
               // != null
               //   ? this.state.avatarSource
               //   : Add_image
@@ -356,10 +378,8 @@ const form_7 = props => {
           />
 
           <View>
-            <Text style={styles.q_text}>
-              Date (Checking crop health/height)
-            </Text>
-            <Text style={styles.q_text}>تاریخ (فصل کی صحت/اونچائی وغیرہ) </Text>
+            <Text style={styles.q_text}>Date of Health CheckUp</Text>
+            <Text style={styles.q_text}>(تاریخ (فصل کے معائینہ کی) </Text>
           </View>
           <View
             style={[

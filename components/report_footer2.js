@@ -17,9 +17,10 @@ import {
 } from 'react-native';
 
 const form_footer = props => {
-  console.log('in footer and ', props.farm_id_);
+  console.log('in footer 2 ', props.temp);
   const [farmid, setfarmid] = useState(props.farm_id_);
 
+  console.log('final', farmid);
   return (
     <>
       <View style={[styles.footer]}>
@@ -141,14 +142,14 @@ const form_footer = props => {
             <View
               onPress={() =>
                 props.nav.navigation.navigate('expected_yield_form', {
-                  farm_id: props,
+                  farm_id: props.temp,
                 })
               }
               style={[styles.footer_box, {backgroundColor: '#359814'}]}>
               <Text
                 onPress={() =>
                   props.nav.navigation.navigate('expected_yield_form', {
-                    farm_id: props,
+                    farm_id: props.temp,
                   })
                 }
                 style={[styles.footer_box_data]}>
@@ -158,7 +159,7 @@ const form_footer = props => {
               <Text
                 onPress={() =>
                   props.nav.navigation.navigate('expected_yield_form', {
-                    farm_id: props,
+                    farm_id: props.temp,
                   })
                 }
                 style={[styles.footer_box_data]}>
@@ -170,14 +171,14 @@ const form_footer = props => {
             <View
               onPress={() =>
                 props.nav.navigation.navigate('expected_crop_yield_form', {
-                  farm_id: props.farm_id_,
+                  farm_id: props.temp,
                 })
               }
               style={[styles.footer_box]}>
               <Text
                 onPress={() =>
                   props.nav.navigation.navigate('expected_crop_yield_form', {
-                    farm_id: props.farm_id_,
+                    farm_id: props.temp,
                   })
                 }
                 style={[styles.footer_box_data]}>
@@ -187,7 +188,7 @@ const form_footer = props => {
               <Text
                 onPress={() =>
                   props.nav.navigation.navigate('expected_crop_yield_form', {
-                    farm_id: props.farm_id_,
+                    farm_id: props.temp,
                   })
                 }
                 style={[styles.footer_box_data]}>

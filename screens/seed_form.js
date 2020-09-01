@@ -113,11 +113,12 @@ const form_5 = props => {
       let F_data = {};
       let F_Data = {
         f_farm_id: props.user_ids.farm_id,
-        f_removal_of_herbs: data.removal_of_herbs[i].removal_of_herbs,
+        // f_removal_of_herbs: data.removal_of_herbs[i].removal_of_herbs,
         f_seed_variety: data.seed_variety[i].seed_variety,
         f_qty_per_acre: data.qty_per_acre[i].qty_per_acre,
         f_sowing_date: data.sowing_date[i].sowing_date,
         f_seed_compamy: data.sowing_date[i].seed_compamy,
+
         f_created_by: props.user_ids.farm_id,
         f_created_at: date,
         f_modified_by: props.user_ids.farm_id,

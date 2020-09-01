@@ -17,9 +17,10 @@ import {
 } from 'react-native';
 
 const form_footer = props => {
-  console.log('in footer and ', props.farm_id_);
+  console.log('in footer 3 ', props.temp);
   const [farmid, setfarmid] = useState(props.farm_id_);
 
+  console.log('final', farmid);
   return (
     <>
       <View style={[styles.footer]}>

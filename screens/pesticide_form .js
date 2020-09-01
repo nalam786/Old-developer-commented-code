@@ -51,6 +51,7 @@ const form_4 = props => {
     pesticide_name: [],
     pesticide_company: [],
     crop_disease: [],
+    insects_disease: [],
     created_at: [],
     modified_at: [],
     gestureName: '',
@@ -81,6 +82,7 @@ const form_4 = props => {
     data.pesticide_name.push({pesticide_name: ''});
     data.pesticide_company.push({pesticide_company: ''});
     data.crop_disease.push({crop_disease: ''});
+    data.insects_disease.push({insects_disease: ''});
 
     setData({
       ...data,
@@ -122,6 +124,7 @@ const form_4 = props => {
         f_pesticide_name: data.pesticide_name[i].pesticide_name,
         f_pesticide_company: data.pesticide_company[i].pesticide_company,
         f_crop_disease: data.crop_disease[i].crop_disease,
+        f_insects_disease: data.crop_disease[i].insects_disease,
         f_created_by: props.user_ids.farm_id,
         f_created_at: date,
         f_modified_by: props.user_ids.farm_id,
@@ -180,6 +183,11 @@ const form_4 = props => {
       case 6:
         data.crop_disease[props.flag.index].crop_disease = props.flag.value;
         break;
+      case 7:
+        data.insects_disease[props.flag.index].insects_disease =
+          props.flag.value;
+        break;
+
       default:
         break;
     }
@@ -202,6 +210,7 @@ const form_4 = props => {
     data.pesticide_name.splice(props.flag.index, 1);
     data.pesticide_company.splice(props.flag.index, 1);
     data.crop_disease.splice(props.flag.index, 1);
+    data.insects_disease.splice(props.flag.index, 1);
 
     if (data.rander_flag == 0) {
       this.renderForm();
@@ -426,6 +435,7 @@ const form_4 = props => {
                     f_pesticide_name={data.pesticide_name}
                     f_pesticide_company={data.pesticide_company}
                     f_crop_disease={data.crop_disease}
+                    f_insects_disease={data.insects_disease}
                     index2={keys}
                   />
                 ))}

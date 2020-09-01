@@ -144,8 +144,6 @@ const form_4 = props => {
             </Text>
           </View>
 
-          
-
           <View style={{marginTop: 2}}>
             <View>
               <Text style={styles.q_text}>Fertilizer type</Text>
@@ -167,51 +165,98 @@ const form_4 = props => {
             <View style={[styles.border_bottom]} />
           </View>
 
-          <View style={{marginTop:20,}} >
+          <View style={{marginTop: 20}}>
+            <View>
+              <Text style={styles.q_text}>Fertilizer name</Text>
+              <Text style={styles.q_text}>کھاد کا نام</Text>
+            </View>
+            <Picker
+              onValueChange={(itemValue, itemIndex) =>
+                changeData(itemValue, 6, index2)
+              }
+              selectedValue={props.f_fertilizer_name[index2].fertilizer_name}>
+              <Picker.Item label="CAN (گوارہ)" value="1" />
+              <Picker.Item label="DAP (ڈی اے پی)" value="2" />
+              <Picker.Item label="Urea (یوریا)" value="3" />
+              <Picker.Item label="SSP (ایس ایس پی)" value="4" />
+              <Picker.Item label="TSP (ٹی ایس پی)" value="5" />
+              <Picker.Item label="Nitrophos (نائٹروفاس)" value="6" />
+              <Picker.Item
+                label="Ammonium sulphate (ایمونیم سلفیٹ)"
+                value="7"
+              />
+              <Picker.Item
+                label="Ammonium nitrate (ایمونیم نائٹریٹ)"
+                value="9"
+              />
+              <Picker.Item
+                label="Potassium sulphate (پوٹاشیم سلفیٹ)"
+                value="11"
+              />
+              <Picker.Item
+                label="Potassium chloride (پوٹاشیم کلورائد)"
+                value="13"
+              />
+              <Picker.Item
+                label="Potassium phosphate MB  ( پوٹاشیم فاسفیٹ مونو)"
+                value="15"
+              />
+              <Picker.Item label="Farm yard manure (گوبر)" value="17" />
+              <Picker.Item label="Green manure (سبز کھاد)" value="18" />
+              <Picker.Item
+                label="Other organic fertiliser (دوسری نامیاتی کھاد)"
+                value="19"
+              />
+              <Picker.Item label="Boron (بوران)" value="21" />
+              <Picker.Item label="Zinc (زنک)" value="22" />
+              <Picker.Item
+                label="Other [N, P, K] ([دیگر [این، پی، کے ) "
+                value="23"
+              />
+
+              <Picker.Item label="None (کوئی نہیں)" value="25" />
+            </Picker>
+            <View style={[styles.border_bottom]} />
             <View>
               <Text style={styles.q_text}>Fertilizer company</Text>
               <Text style={styles.q_text}>کھاد کی کمپنی</Text>
             </View>
-            <Picker 
-             onValueChange={(itemValue, itemIndex) => changeData(itemValue,5,index2)}
-             selectedValue={props.f_fertilizer_company[index2].fertilizer_company}
-            >
-              <Picker.Item label="Fauji Fertilizer  (فوجی فرٹيلائزر )" value="1" />
-              <Picker.Item label="Fatima Fertilizer  (فاطمہ فرٹيلائزر )" value="2" />
-              <Picker.Item label="Engro Fertilizer (اينگرو فرٹيلائزر)" value="3" />
+            <Picker
+              onValueChange={(itemValue, itemIndex) =>
+                changeData(itemValue, 5, index2)
+              }
+              selectedValue={
+                props.f_fertilizer_company[index2].fertilizer_company
+              }>
+              <Picker.Item
+                label="Fauji Fertilizer  (فوجی فرٹيلائزر )"
+                value="1"
+              />
+              <Picker.Item
+                label="Fatima Fertilizer  (فاطمہ فرٹيلائزر )"
+                value="2"
+              />
+              <Picker.Item
+                label="Engro Fertilizer (اينگرو فرٹيلائزر)"
+                value="3"
+              />
               <Picker.Item label="Sitara Group (ستارہ گروپ)" value="4" />
               <Picker.Item label="Jaffar Brothers (جعفر برادرز)" value="5" />
               <Picker.Item label="Tara Fertilizer (تارا فرٹيلائزر)" value="6" />
-            
+              <Picker.Item label=" Other (دیگر )" value="7" />
             </Picker>
-            <View style={[styles.border_bottom]} ></View>
-        </View> 
-        <View style={{marginTop:20,}} >
-            <View>
-              <Text style={styles.q_text}>Fertilizer name</Text>
-              <Text style={styles.q_text}>کھاد کا نام</Text>
-            </View> 
-            <Picker 
-             onValueChange={(itemValue, itemIndex) => changeData(itemValue,6,index2)}
-             selectedValue={props.f_fertilizer_name[index2].fertilizer_name}
-            >
-              <Picker.Item label="Urea (یوریا)" value="1" />
-              <Picker.Item label="DAP (ڈی اے پی)" value="2" />
-              <Picker.Item label="MOP (ایم آو پی )" value="3" />
-              <Picker.Item label="SOP (ایس او پی)" value="4" />
-              <Picker.Item label="Boron (بوران)" value="5" />
-              <Picker.Item label="Zinc (زنک)" value="6" />
-            
-            </Picker>
-            <View style={[styles.border_bottom]} ></View>
-        </View> 
+          </View>
+          <View style={{marginTop: 20}}>
+            <View style={[styles.border_bottom]} />
+          </View>
           <View>
-            
-            
             <Text style={styles.q_text}>
-              Amount of fertilizer used per acre
+              Amount of fertilizer used per acre (Kg)
             </Text>
-            <Text style={styles.q_text}>کھاد کی مقدار فی ایکڑ</Text>
+            <Text style={styles.q_text}>
+              {' '}
+              کھاد کی مقدار فی ایکڑ ( کلوگرام){' '}
+            </Text>
           </View>
           <TextInput
             placeholderTextColor="#272626"
@@ -224,31 +269,48 @@ const form_4 = props => {
             style={[styles.input_email]}
           />
 
-          
           <View>
-
-          <Text style={styles.q_text}>Application date</Text>
-          <Text style={styles.q_text}>تاریخ (کھاد لگانے کی)</Text>
-        </View>
-        <View style={[styles.input_email,{marginTop:20,flexDirection:'row',justifyContent:'space-between',backgroundColor:'gray',height:'5%'}]} >
-          
+            <Text style={styles.q_text}>Application date</Text>
+            <Text style={styles.q_text}>تاریخ (کھاد لگانے کی)</Text>
+          </View>
+          <View
+            style={[
+              styles.input_email,
+              {
+                marginTop: 20,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                backgroundColor: 'gray',
+                height: '5%',
+              },
+            ]}>
             <DatePicker
-                  defaultDate={new Date(props.f_application_date[index2].application_date)}
-                  locale={"en"}
-                  timeZoneOffsetInMinutes={undefined}
-                  modalTransparent={false}
-                  animationType={"fade"}
-                  androidMode={"default"}
-                  placeHolderText={""+props.f_application_date[index2].application_date}
-                  textStyle={{ color: "#fff" }}
-                  onDateChange={(val) => setDate(val,3,index2)}
-                  disabled={false}
-                  />
-                   <Image
-                          source={require('../assets/img/calendar.png')}
-                          style={{width: '12%', height:'80%',resizeMode: 'stretch',marginRight:10,marginTop:3}}
-                  />
-        </View>
+              defaultDate={
+                new Date(props.f_application_date[index2].application_date)
+              }
+              locale={'en'}
+              timeZoneOffsetInMinutes={undefined}
+              modalTransparent={false}
+              animationType={'fade'}
+              androidMode={'default'}
+              placeHolderText={
+                '' + props.f_application_date[index2].application_date
+              }
+              textStyle={{color: '#fff'}}
+              onDateChange={val => setDate(val, 3, index2)}
+              disabled={false}
+            />
+            <Image
+              source={require('../assets/img/calendar.png')}
+              style={{
+                width: '12%',
+                height: '80%',
+                resizeMode: 'stretch',
+                marginRight: 10,
+                marginTop: 3,
+              }}
+            />
+          </View>
         </View>
       </View>
     </>
