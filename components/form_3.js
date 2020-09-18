@@ -79,31 +79,31 @@ const form_3 = props => {
   };
   // console.log(props.f_water_source);
 
-  const setDate = (value, s_key, index) => {
-    var d = new Date(value);
-    var y = d.getFullYear();
-    var m = d.getMonth();
-    var day = d.getDate();
-    var date = '';
+  // const setDate = (value, s_key, index) => {
+  //   var d = new Date(value);
+  //   var y = d.getFullYear();
+  //   var m = Number(d.getMonth()) + 1;
+  //   var day = d.getDate();
+  //   var date = '';
 
-    if (day < 10 && m < 10) {
-      date = y + '-0' + m + '-0' + day;
-    } else {
-      if (day < 10) {
-        date = y + '-' + m + '-0' + day;
-      }
-      if (m < 10) {
-        date = y + '-0' + m + '-' + day;
-      }
-    }
+  //   if (day < 10 && m < 10) {
+  //     date = y + '-0' + m + '-0' + day;
+  //   } else {
+  //     if (day < 10) {
+  //       date = y + '-' + m + '-0' + day;
+  //     }
+  //     if (m < 10) {
+  //       date = y + '-0' + m + '-' + day;
+  //     }
+  //   }
 
-    props.changeFlag({
-      flag: 'irrigation_create',
-      s_key: s_key,
-      index: index,
-      value: date,
-    });
-  };
+  //   props.changeFlag({
+  //     flag: 'irrigation_create',
+  //     s_key: s_key,
+  //     index: index,
+  //     value: date,
+  //   });
+  // };
 
   const {
     f_water_source,
@@ -269,7 +269,10 @@ const form_3 = props => {
                   },
                 ]}>
                 <DatePicker
-                  // defaultDate={f_irrigation_date[index2].irrigation_date}
+                  //defaultDate={new Date(data.sowing_date)}
+                  defaultDate={
+                    new Date(f_irrigation_date[index2].irrigation_date)
+                  }
                   locale={'en'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}
@@ -335,10 +338,13 @@ const form_3 = props => {
                   },
                 ]}>
                 <DatePicker
-                  // defaultDate={
-                  //   f_date_round_water_irrigation[index2]
-                  //     .date_round_water_irrigation
-                  // }
+                  defaultDate={
+                    new Date(
+                      f_date_round_water_irrigation[
+                        index2
+                      ].date_round_water_irrigation,
+                    )
+                  }
                   locale={'en'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}

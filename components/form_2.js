@@ -273,7 +273,7 @@ const form_2 = props => {
                 ]}>
                 <DatePicker
                   style={{backgroundColor: 'red'}}
-                  defaultDate={props.f_levelled_date[index2].levelled_date}
+                  // defaultDate={props.f_levelled_date[index2].levelled_date}
                   locale={'en'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}

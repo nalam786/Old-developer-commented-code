@@ -103,7 +103,7 @@ const form_7 = props => {
     data.crop_health_id.push({crop_health_id: 0});
     data.farm_id.push({farm_id: ''});
     data.crop_height.push({crop_height: ''});
-    data.nodetonode.push({nodetonode: ''});
+    data.nodetonode.push({nodetonode: 0});
     data.plants_distance.push({plants_distance: ''});
     data.leaf_width.push({leaf_width: ''});
     data.crop_health.push({crop_health: ''});

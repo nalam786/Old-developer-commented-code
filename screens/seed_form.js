@@ -117,7 +117,7 @@ const form_5 = props => {
         f_seed_variety: data.seed_variety[i].seed_variety,
         f_qty_per_acre: data.qty_per_acre[i].qty_per_acre,
         f_sowing_date: data.sowing_date[i].sowing_date,
-        f_seed_company: data.sowing_date[i].seed_company,
+        f_seed_compamy: data.seed_company[i].seed_company,
 
         f_created_by: props.user_ids.farm_id,
         f_created_at: date,

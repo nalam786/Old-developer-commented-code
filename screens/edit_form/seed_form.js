@@ -89,7 +89,7 @@ const form_5 = props => {
             data.removal_of_herbs.push({removal_of_herbs: ''});
             data.seed_variety.push({seed_variety: element.seed_variety});
             data.qty_per_acre.push({qty_per_acre: element.qty_per_acre});
-            data.seed_company.push({seed_company: element.seed_company});
+            data.seed_company.push({seed_company: element.seed_compamy});
             data.sowing_date.push({sowing_date: element.sowing_date});
           });
           setData({

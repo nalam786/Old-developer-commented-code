@@ -47,49 +47,49 @@ class PolygonCreator extends React.Component {
       note: '',
       polygons2: [],
       arr1_unhealty: [],
-      t1: [
-        [
-          {latitude: 31.514954748, longitude: 74.345027581},
-          {latitude: 31.512888044, longitude: 74.345726674},
-          {latitude: 31.509217897, longitude: 74.342062566},
-          {latitude: 31.512753759, longitude: 74.338520877},
-          {latitude: 31.514954748, longitude: 74.345027581},
-        ],
-        [
-          {latitude: 31.517694357, longitude: 74.362598062},
-          {latitude: 31.515995506, longitude: 74.362680767},
-          {latitude: 31.508519597, longitude: 74.354178952},
-          {latitude: 31.512888044, longitude: 74.345726674},
-          {latitude: 31.514954748, longitude: 74.345027581},
-          {latitude: 31.517155737, longitude: 74.351534285},
-          {latitude: 31.517694357, longitude: 74.362598062},
-        ],
-        [
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.508519597, longitude: 74.354178952},
-          {latitude: 31.515995506, longitude: 74.362680767},
-          {latitude: 31.511512574, longitude: 74.368033893},
-          {latitude: 31.504792172, longitude: 74.362405948},
-          {latitude: 31.505237104, longitude: 74.354005102},
-        ],
-      ],
-      t2: [
-        [
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-        ],
-        [
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-          {latitude: 31.505237104, longitude: 74.354005102},
-        ],
-      ],
+      // t1: [
+      //   [
+      //     {latitude: 31.514954748, longitude: 74.345027581},
+      //     {latitude: 31.512888044, longitude: 74.345726674},
+      //     {latitude: 31.509217897, longitude: 74.342062566},
+      //     {latitude: 31.512753759, longitude: 74.338520877},
+      //     {latitude: 31.514954748, longitude: 74.345027581},
+      //   ],
+      //   [
+      //     {latitude: 31.517694357, longitude: 74.362598062},
+      //     {latitude: 31.515995506, longitude: 74.362680767},
+      //     {latitude: 31.508519597, longitude: 74.354178952},
+      //     {latitude: 31.512888044, longitude: 74.345726674},
+      //     {latitude: 31.514954748, longitude: 74.345027581},
+      //     {latitude: 31.517155737, longitude: 74.351534285},
+      //     {latitude: 31.517694357, longitude: 74.362598062},
+      //   ],
+      //   [
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.508519597, longitude: 74.354178952},
+      //     {latitude: 31.515995506, longitude: 74.362680767},
+      //     {latitude: 31.511512574, longitude: 74.368033893},
+      //     {latitude: 31.504792172, longitude: 74.362405948},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //   ],
+      // ],
+      // t2: [
+      //   [
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //   ],
+      //   [
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //     {latitude: 31.505237104, longitude: 74.354005102},
+      //   ],
+      // ],
     };
   }
   componentDidMount() {
