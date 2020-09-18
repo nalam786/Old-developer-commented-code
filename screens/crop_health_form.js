@@ -129,7 +129,7 @@ const form_7 = props => {
         f_crop_height: data.crop_height[i].crop_height,
         f_plants_distance: data.plants_distance[i].plants_distance,
         f_leaf_width: data.leaf_width[i].leaf_width,
-        f_nodetonode: data.nodetonode[i].nodetonode,
+        f_nodes_distance_in: data.nodetonode[i].nodetonode,
         f_crop_health: data.crop_health[i].crop_health,
         f_check_date: data.check_date[i].check_date,
         f_note: data.note[i].note,
@@ -398,6 +398,23 @@ const form_7 = props => {
                       flexDirection: 'column',
                       justifyContent: 'center',
                     }}
+                    onPress={() => props.navigation.navigate('dashboard')}>
+                    <Image
+                      source={require('../assets/img/home.png')}
+                      style={{
+                        width: '30%',
+                        height: 30,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
                     onPress={() => openDrawer()}>
                     <Image
                       source={require('../assets/img/menu.png')}
@@ -408,7 +425,7 @@ const form_7 = props => {
                         marginLeft: 10,
                       }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
 
                 <View

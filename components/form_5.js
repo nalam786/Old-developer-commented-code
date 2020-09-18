@@ -77,7 +77,7 @@ const form_5 = props => {
   const setDate = (value, s_key, index) => {
     var d = new Date(value);
     var y = d.getFullYear();
-    var m = d.getMonth();
+    var m = Number(d.getMonth() + 1);
     var day = d.getDate();
     var date = '';
 
@@ -105,7 +105,7 @@ const form_5 = props => {
     f_seed_variety,
     f_qty_per_acre,
     f_sowing_data,
-    f_seed_compamy,
+    f_seed_company,
     index2,
   } = props;
 
@@ -118,11 +118,35 @@ const form_5 = props => {
           justifyContent: 'space-between',
         }}>
         <View style={{alignSelf: 'center', marginTop: 30, width: '95%'}}>
-          {/* <View style={[{marginTop:20,flexDirection:'row',justifyContent:'space-between'}]} >
-            <Text style={{marginBottom:40,color:'green',fontSize:25,fontWeight:'bold', }} >Form:{props.index} </Text>
-            <Text onPress={ ()=> removeData(2,100,props.index2) } style={{marginBottom:40,color:'green',fontSize:25,fontWeight:'bold', }} >X </Text>
+          <View
+            style={[
+              {
+                marginTop: 20,
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              },
+            ]}>
+            <Text
+              style={{
+                marginBottom: 40,
+                color: 'green',
+                fontSize: 25,
+                fontWeight: 'bold',
+              }}>
+              Form:{props.index}{' '}
+            </Text>
+            <Text
+              onPress={() => removeData(2, 100, props.index2)}
+              style={{
+                marginBottom: 40,
+                color: 'green',
+                fontSize: 25,
+                fontWeight: 'bold',
+              }}>
+              X{' '}
+            </Text>
           </View>
-          
+          {/*      
           <Text style={styles.q_text}>Removal of herbs</Text>
           <Text style={styles.q_text}>جڑی بوٹیوں کی تلفی</Text>
           
@@ -290,7 +314,7 @@ const form_5 = props => {
             <View>
               <Picker
                 onValueChange={val => changeData(val, 5, index2)}
-                selectedValue={props.f_seed_compamy[index2].seed_compamy}>
+                selectedValue={props.f_seed_company[index2].seed_company}>
                 <Picker.Item
                   label="Punjab Seed Corp (پنجاب سيڈ کارپوریشن)"
                   value="0"

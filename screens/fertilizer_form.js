@@ -358,7 +358,7 @@ const form_4 = props => {
                     flexDirection: 'column',
                     justifyContent: 'center',
                   }}>
-                  <TouchableOpacity
+                  {/* <TouchableOpacity
                     style={{
                       flex: 1,
                       flexDirection: 'column',
@@ -370,6 +370,23 @@ const form_4 = props => {
                       style={{
                         width: '30%',
                         height: 20,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity> */}
+                  <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
+                    onPress={() => props.navigation.navigate('dashboard')}>
+                    <Image
+                      source={require('../assets/img/home.png')}
+                      style={{
+                        width: '30%',
+                        height: 30,
                         resizeMode: 'stretch',
                         marginLeft: 10,
                       }}

@@ -204,7 +204,7 @@ class Dashboard extends React.Component {
                 alignSelf: 'center',
               }}>
               {' '}
-              معلومات برائے جدید فارمنگ
+              آن لائن تربیت برائے جدید فارمنگ
             </Text>
             <Text
               onPress={() =>
@@ -218,7 +218,7 @@ class Dashboard extends React.Component {
                 alignSelf: 'center',
               }}>
               {' '}
-              Information about modern farming
+              Online training for sustainable farming
             </Text>
           </View>
         </Footer>

@@ -2,7 +2,7 @@ import React from 'react';
 import Form_footer from '../components/report_footer2';
 import URL from '../URL';
 navigator.geolocation = require('@react-native-community/geolocation');
-
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   StyleSheet,
   View,
@@ -44,9 +44,18 @@ class PolygonCreator extends React.Component {
       note: '',
     };
   }
-  componentDidMount() {
-    this.signup();
-  }
+  componentDidMount = async () => {
+    try {
+      const value = await AsyncStorage.getItem('farm_id');
+      if (value !== null) {
+        // We have data!!
+        console.log('twin', value);
+        this.signup(value);
+      }
+    } catch (error) {
+      // Error retrieving data
+    }
+  };
   finish() {
     this.setState({
       polygons: this.state.polygons2,
@@ -76,10 +85,10 @@ class PolygonCreator extends React.Component {
       {enableHighAccuracy: true, timeout: 20000},
     );
   }
-  signup = async () => {
+  signup = async value => {
     console.log('in irrigation', this.props);
     let R_data = {
-      f_farm_id: this.props.route.params.farm_id,
+      f_farm_id: value,
     };
 
     console.log('Login API Calling', R_data);

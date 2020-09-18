@@ -2,7 +2,7 @@ import React from 'react';
 import Form_footer from '../components/report_footer';
 import URL from '../URL';
 navigator.geolocation = require('@react-native-community/geolocation');
-
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   StyleSheet,
   View,
@@ -41,9 +41,55 @@ class PolygonCreator extends React.Component {
         longitudeDelta: LONGITUDE_DELTA,
       },
       polygons: [],
-      colors: ['red', 'green', 'orange', 'yellow'],
+      polygons_unhealthy: [],
+      colors: 'green',
+      colors2: 'red',
       note: '',
       polygons2: [],
+      arr1_unhealty: [],
+      t1: [
+        [
+          {latitude: 31.514954748, longitude: 74.345027581},
+          {latitude: 31.512888044, longitude: 74.345726674},
+          {latitude: 31.509217897, longitude: 74.342062566},
+          {latitude: 31.512753759, longitude: 74.338520877},
+          {latitude: 31.514954748, longitude: 74.345027581},
+        ],
+        [
+          {latitude: 31.517694357, longitude: 74.362598062},
+          {latitude: 31.515995506, longitude: 74.362680767},
+          {latitude: 31.508519597, longitude: 74.354178952},
+          {latitude: 31.512888044, longitude: 74.345726674},
+          {latitude: 31.514954748, longitude: 74.345027581},
+          {latitude: 31.517155737, longitude: 74.351534285},
+          {latitude: 31.517694357, longitude: 74.362598062},
+        ],
+        [
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.508519597, longitude: 74.354178952},
+          {latitude: 31.515995506, longitude: 74.362680767},
+          {latitude: 31.511512574, longitude: 74.368033893},
+          {latitude: 31.504792172, longitude: 74.362405948},
+          {latitude: 31.505237104, longitude: 74.354005102},
+        ],
+      ],
+      t2: [
+        [
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+        ],
+        [
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+          {latitude: 31.505237104, longitude: 74.354005102},
+        ],
+      ],
     };
   }
   componentDidMount() {
@@ -79,6 +125,14 @@ class PolygonCreator extends React.Component {
     );
   }
   fetchdata = async () => {
+    try {
+      await AsyncStorage.setItem(
+        'farm_id',
+        this.props.route.params.farm_id_ + '',
+      );
+    } catch (error) {
+      // Error saving data
+    }
     let R_data = {
       f_farm_id: this.props.route.params.farm_id_,
     };
@@ -96,45 +150,98 @@ class PolygonCreator extends React.Component {
       .then(res => res.json())
 
       .then(async resjson => {
-        console.log('wow', resjson.data[0].map);
+        console.log('check', resjson.data[0].map);
+        if (resjson.data[0].map_unhealthy == undefined) {
+          var str = resjson.data[0].map;
+          var regex = /[+-]?\d+(\.\d+)?/g;
+          var arr1 = [];
 
-        var str = resjson.data[0].map;
-        // '[{"geometry":{"type":"Polygon","coordinates":[[[74.34919975697994,31.5294936603615],[74.3760047480464,31.528747772424754],[74.36107188463211,31.506432395088108],[74.34919975697994,31.5294936603615]]]}},{"geometry":{"type":"Polygon","coordinates":[[[74.34151623398066,31.532158803603252],[74.3581972271204,31.53588461836935],[74.3518253043294,31.521825876874768],[74.34151623398066,31.532158803603252]]]}}]';
-        var regex = /[+-]?\d+(\.\d+)?/g;
-        var arr1 = [];
+          var split_strings_1 = str.split('}},');
 
-        var split_strings_1 = str.split('}},');
-
-        console.log(split_strings_1);
-        for (var str1 of split_strings_1) {
-          var split_strings_2 = str1.split('],');
-          var arr2 = [];
-          for (var str2 of split_strings_2) {
-            var floats = str2.match(regex).map(function(v) {
-              return parseFloat(v);
-            });
-            var json = {latitude: floats[1], longitude: floats[0]};
-            arr2.push(json);
+          for (var str1 of split_strings_1) {
+            var split_strings_2 = str1.split('],');
+            var arr2 = [];
+            for (var str2 of split_strings_2) {
+              var floats = str2.match(regex).map(function(v) {
+                return parseFloat(v);
+              });
+              var json = {latitude: floats[1], longitude: floats[0]};
+              arr2.push(json);
+            }
+            arr1.push(arr2);
           }
-          arr1.push(arr2);
-        }
-        console.log('cook', arr1[0][0].latitude);
-        this.setState({
-          polygons: [],
-          polygons: arr1,
-          polygons2: arr1,
-          note: resjson.data[0].notes,
-          latitude_: arr1[0][0].latitude,
-          longitude_: arr1[0][0].longitude,
-          region: {
-            latitude: arr1[0][0].latitude,
-            longitude: arr1[0][0].longitude,
+          this.setState({
+            polygons: [],
+            polygons: arr1,
+            polygons2: arr1,
+            polygons_unhealthy: arr1,
+            note: resjson.data[0].notes,
+            latitude_: arr1[0][0].latitude,
+            longitude_: arr1[0][0].longitude,
+            region: {
+              latitude: arr1[0][0].latitude,
+              longitude: arr1[0][0].longitude,
 
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-          },
-        });
-        // }
+              latitudeDelta: LATITUDE_DELTA,
+              longitudeDelta: LONGITUDE_DELTA,
+            },
+          });
+        } else {
+          var str = resjson.data[0].map;
+          var regex = /[+-]?\d+(\.\d+)?/g;
+          var arr1 = [];
+
+          var split_strings_1 = str.split('}},');
+
+          for (var str1 of split_strings_1) {
+            var split_strings_2 = str1.split('],');
+            var arr2 = [];
+            for (var str2 of split_strings_2) {
+              var floats = str2.match(regex).map(function(v) {
+                return parseFloat(v);
+              });
+              var json = {latitude: floats[1], longitude: floats[0]};
+              arr2.push(json);
+            }
+            arr1.push(arr2);
+          }
+
+          var str_unhealty = resjson.data[0].map_unhealthy;
+          var regex_unhealty = /[+-]?\d+(\.\d+)?/g;
+          var arr1_unhealty = [];
+
+          var split_strings_1_unhealty = str_unhealty.split('}},');
+
+          for (var str1_unhealty of split_strings_1_unhealty) {
+            var split_strings_2_unhealty = str1_unhealty.split('],');
+            var arr2_unhealty = [];
+            for (var str2_unhealty of split_strings_2_unhealty) {
+              var floats = str2_unhealty.match(regex_unhealty).map(function(v) {
+                return parseFloat(v);
+              });
+              var json = {latitude: floats[1], longitude: floats[0]};
+              arr2_unhealty.push(json);
+            }
+            arr1_unhealty.push(arr2_unhealty);
+          }
+
+          this.setState({
+            polygons: [],
+            polygons: arr1,
+            polygons2: arr1,
+            polygons_unhealthy: arr1_unhealty,
+            note: resjson.data[0].notes,
+            latitude_: arr1[0][0].latitude,
+            longitude_: arr1[0][0].longitude,
+            region: {
+              latitude: arr1[0][0].latitude,
+              longitude: arr1[0][0].longitude,
+
+              latitudeDelta: LATITUDE_DELTA,
+              longitudeDelta: LONGITUDE_DELTA,
+            },
+          });
+        }
       })
 
       .catch(err => {
@@ -143,11 +250,10 @@ class PolygonCreator extends React.Component {
   };
 
   render() {
-    console.log('notes', this.state.region);
     const mapOptions = {
       scrollEnabled: true,
     };
-    // console.log(this.state.polygons);
+
     return (
       <View>
         <View style={{height: '50%'}}>
@@ -163,29 +269,40 @@ class PolygonCreator extends React.Component {
             showsUserLocation={true}
             followUserLocation={true}
             {...mapOptions}>
-            {this.state.polygons.map(
-              (polygon, index) => (
-                console.log(JSON.stringify(this.state.polygons)),
-                (
-                  <Polygon
-                    key={5}
-                    coordinates={polygon}
-                    // holes={polygon.holes}
-                    strokeColor={this.state.colors[index]}
-                    fillColor={this.state.colors[index]}
-                    strokeWidth={2}
-                    onPress={() => {
-                      if (this.state.colors[index] == 'red') {
-                        Alert.alert('Unhealthy');
-                      } else {
-                        Alert.alert('Healthy');
-                      }
-                    }}
-                    tappable={true}
-                  />
-                )
-              ),
-            )}
+            {this.state.polygons_unhealthy.map((polygon, index) => (
+              <Polygon
+                key={5}
+                coordinates={polygon}
+                strokeColor={this.state.colors2}
+                fillColor={this.state.colors2}
+                strokeWidth={2}
+                onPress={() => {
+                  if (this.state.colors2 == 'red') {
+                    Alert.alert('Unhealthy (غیر صحت مند)');
+                  } else {
+                    Alert.alert('healthy (صحت مند)');
+                  }
+                }}
+                tappable={true}
+              />
+            ))}
+            {this.state.polygons.map((polygon, index) => (
+              <Polygon
+                key={5}
+                coordinates={polygon}
+                strokeColor={this.state.colors}
+                fillColor={this.state.colors}
+                strokeWidth={2}
+                onPress={() => {
+                  if (this.state.colors2 == 'red') {
+                    Alert.alert('healthy (صحت مند)');
+                  } else {
+                    Alert.alert('Unhealthy (غیر صحت مند)');
+                  }
+                }}
+                tappable={true}
+              />
+            ))}
           </MapView>
           {/* <View style={styles.buttonContainer}> */}
           <TouchableOpacity

@@ -75,7 +75,7 @@ const form_4 = props => {
   const setDate = (value, s_key, index) => {
     var d = new Date(value);
     var y = d.getFullYear();
-    var m = d.getMonth();
+    var m = Number(d.getMonth() + 1);
     var day = d.getDate();
     var date = '';
 
@@ -545,8 +545,12 @@ const form_4 = props => {
               style={{flexDirection: 'column', alignSelf: 'center', flex: 1}}>
               <CheckBox
                 style={{alignSelf: 'center', borderRadius: 50}}
-                value={0 == props.f_chemical_per_acre[index2].chemical_per_acre}
-                onValueChange={val => changeData(0, 2, index2)}
+                value={
+                  0 ==
+                  props.f_chemical_per_acre_measure[index2]
+                    .chemical_per_acre_measure
+                }
+                onValueChange={val => changeData(0, 8, index2)}
               />
               <Text style={{alignSelf: 'center'}}>ml (ملی لیٹر)</Text>
             </View>
@@ -555,8 +559,12 @@ const form_4 = props => {
               style={{flexDirection: 'column', alignSelf: 'center', flex: 1}}>
               <CheckBox
                 style={{alignSelf: 'center', borderRadius: 50}}
-                value={1 == props.f_chemical_per_acre[index2].chemical_per_acre}
-                onValueChange={val => changeData(1, 2, index2)}
+                value={
+                  1 ==
+                  props.f_chemical_per_acre_measure[index2]
+                    .chemical_per_acre_measure
+                }
+                onValueChange={val => changeData(1, 8, index2)}
               />
               <Text style={{alignSelf: 'center'}}>gm (ملی گرام)</Text>
             </View>

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import MapView, {MAP_TYPES, Polygon, ProviderPropType} from 'react-native-maps';
 
 import {connect} from 'react-redux';
@@ -341,6 +341,39 @@ class PolygonCreator extends React.Component {
 
     return (
       <View style={styles.container}>
+        <View
+          style={{position: 'absolute', width: width, zIndex: 9999, top: 0}}>
+          <GooglePlacesAutocomplete
+            styles={{
+              listView: {
+                // position: 'absolute',
+                marginTop: 40,
+                backgroundColor: 'white',
+                elevation: 1,
+              },
+            }}
+            fetchDetails={true}
+            placeholder="Search"
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              console.log('ones', data);
+              console.log('twos', details.geometry.location.lat);
+              var initialRegion = {
+                latitude: details.geometry.location.lat,
+                longitude: details.geometry.location.lng,
+                latitudeDelta: 0.0922,
+                longitudeDelta: LATITUDE_DELTA * ASPECT_RATIO,
+              };
+              this.setState({
+                region: initialRegion,
+              });
+            }}
+            query={{
+              key: 'AIzaSyAf8gxg-sUhwyo3CM_27oD3C1kR5Mv4PCw',
+              language: 'en',
+            }}
+          />
+        </View>
         <MapView
           region={this.state.region}
           provider={this.props.provider}
@@ -427,6 +460,7 @@ class PolygonCreator extends React.Component {
             styles.bubble,
             styles.button,
             {
+              paddingTop: 10,
               width: '100%',
               backgroundColor: 'rgba(000,000,000,0.7)',
               borderRadius: 0,
@@ -443,7 +477,7 @@ class PolygonCreator extends React.Component {
             style={[
               styles.bubble,
               styles.button,
-              {position: 'absolute', right: 0, top: '5%', borderRadius: 100},
+              {position: 'absolute', right: 0, top: '10%', borderRadius: 100},
             ]}
             // style={{position: 'absolute', right: 10, top: "50%"}} cccc
           >

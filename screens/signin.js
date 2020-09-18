@@ -244,6 +244,7 @@ const App = props => {
             </Text>
           </Button>
         </View>
+
         <Text
           onPress={() => props.navigation.navigate('signup')}
           style={[
@@ -260,6 +261,14 @@ const App = props => {
           ]}>
           نیا اکاؤنٹ بنائیں
         </Text>
+        {/* <Text
+          onPress={() => props.navigation.navigate('slider')}
+          style={[
+            styles.green_h6,
+            {alignSelf: 'center', color: 'green', margin: 0},
+          ]}>
+          How to use this app
+        </Text> */}
         {/*  */}
         {/* <View style={[styles.triangleCorner_bottom]} rotate={270} /> */}
       </View>

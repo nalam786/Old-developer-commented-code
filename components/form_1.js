@@ -68,8 +68,10 @@ const form_1 = props => {
       case 3:
         if (v.length !== 0) {
           var d = new Date(v);
+          console.log('pool', d);
           var y = d.getFullYear();
           var m = d.getMonth();
+          m = m + 1;
           var day = d.getDate();
           var date = '';
           if (day < 10 && m < 10) {
@@ -82,7 +84,7 @@ const form_1 = props => {
               date = y + '-0' + m + '-' + day;
             }
           }
-          console.log(date);
+          console.log('finalized', date);
           data.sowing_date = date;
         }
         setData({
@@ -117,6 +119,7 @@ const form_1 = props => {
   };
 
   const get_farms = async () => {
+    console.log('in add farm');
     let F_Data = {
       f_user_id: props.user_ids.user_id,
     };
@@ -134,12 +137,23 @@ const form_1 = props => {
       .then(res => res.json())
       .then(resjson => {
         if (resjson.Message == 'All Farms Get Successfully') {
-          console.log(resjson.data);
+          console.log('tata', resjson.data);
+          // for(let a =0;a<resjson.data.length;a++)
+          // {
 
-          let data = resjson.data.length;
-          let id = resjson.data[data - 1].id;
+          // }
 
-          props.user_id({user_id: props.user_ids.user_id, farm_id: id});
+          let last_id = Math.max.apply(
+            Math,
+            resjson.data.map(function(o) {
+              return o.id;
+            }),
+          );
+
+          // let data = resjson.data.length;
+          // let id = resjson.data[data - 1].id;
+          // console.log('super', id);
+          props.user_id({user_id: props.user_ids.user_id, farm_id: last_id});
 
           console.log('Farm ID: ' + props.user_ids.farm_id);
           console.log('data_to_send', props);
@@ -262,7 +276,7 @@ const form_1 = props => {
                 <Picker.Item label="" value="" />
                 <Picker.Item label="Wheat (گندم)" value="Wheat" />
                 <Picker.Item label="Rice (چاول)" value="Rice" />
-                <Picker.Item label="Cotton (روئی)" value="Cotton" />
+                <Picker.Item label="Cotton (کپاس)" value="Cotton" />
                 <Picker.Item label="Soybean (سویا بین)" value="Soybean" />
                 <Picker.Item label="Other (دیگر)" value="Other" />
               </Picker>
@@ -282,7 +296,7 @@ const form_1 = props => {
                 <Picker.Item label="Other (دیگر)" value="3" />
               </Picker>
             </View>
-            <Text>Showing date (بیج کی بوائی)</Text>
+            <Text>Sowing date (بیج کی بوائی)</Text>
             <View
               style={[
                 styles.input_email,

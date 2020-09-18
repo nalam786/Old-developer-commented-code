@@ -47,6 +47,7 @@ const form_4 = props => {
     farm_id: [],
     use_reason: [],
     chemical_per_acre: [],
+    chemical_per_acre_measure: [],
     date_of_application: [],
     pesticide_name: [],
     pesticide_company: [],
@@ -78,6 +79,7 @@ const form_4 = props => {
     data.farm_id.push({farm_id: ''});
     data.use_reason.push({use_reason: ''});
     data.chemical_per_acre.push({chemical_per_acre: ''});
+    data.chemical_per_acre_measure.push({chemical_per_acre_measure: ''});
     data.date_of_application.push({date_of_application: date});
     data.pesticide_name.push({pesticide_name: ''});
     data.pesticide_company.push({pesticide_company: ''});
@@ -120,6 +122,8 @@ const form_4 = props => {
         f_farm_id: props.user_ids.farm_id,
         f_use_reason: data.use_reason[i].use_reason,
         f_chemical_per_acre: data.chemical_per_acre[i].chemical_per_acre,
+        // f_chemical_per_acre_measure:
+        //   data.chemical_per_acre_measure[i].chemical_per_acre_measure,
         f_date_of_application: data.date_of_application[i].date_of_application,
         f_pesticide_name: data.pesticide_name[i].pesticide_name,
         f_pesticide_company: data.pesticide_company[i].pesticide_company,
@@ -190,6 +194,11 @@ const form_4 = props => {
 
       default:
         break;
+      case 8:
+        data.chemical_per_acre_measure[
+          props.flag.index
+        ].chemical_per_acre_measure = props.flag.value;
+        break;
     }
 
     props.changeFlag({
@@ -206,6 +215,7 @@ const form_4 = props => {
     data.farm_id.splice(props.flag.index, 1);
     data.use_reason.splice(props.flag.index, 1);
     data.chemical_per_acre.splice(props.flag.index, 1);
+    data.chemical_per_acre_measure.splice(props.flag.index, 1);
     data.date_of_application.splice(props.flag.index, 1);
     data.pesticide_name.splice(props.flag.index, 1);
     data.pesticide_company.splice(props.flag.index, 1);
@@ -378,6 +388,23 @@ const form_4 = props => {
                       flexDirection: 'column',
                       justifyContent: 'center',
                     }}
+                    onPress={() => props.navigation.navigate('dashboard')}>
+                    <Image
+                      source={require('../assets/img/home.png')}
+                      style={{
+                        width: '30%',
+                        height: 30,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
                     onPress={() => openDrawer()}>
                     <Image
                       source={require('../assets/img/menu.png')}
@@ -388,7 +415,7 @@ const form_4 = props => {
                         marginLeft: 10,
                       }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
 
                 <View
@@ -431,6 +458,7 @@ const form_4 = props => {
                     farm_id={data.farm_id}
                     f_use_reason={data.use_reason}
                     f_chemical_per_acre={data.chemical_per_acre}
+                    f_chemical_per_acre_measure={data.chemical_per_acre_measure}
                     f_date_of_application={data.date_of_application}
                     f_pesticide_name={data.pesticide_name}
                     f_pesticide_company={data.pesticide_company}

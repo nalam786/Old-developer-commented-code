@@ -78,13 +78,13 @@ const form_3 = props => {
       data.bed_level_water_width.push({bed_level_water_width: ''}),
       data.vegetation.push({vegetation: ''}),
       data.canal_application.push({canal_application: ''}),
-      data.irrigation_date.push({irrigation_date: new Date()}),
+      data.irrigation_date.push({irrigation_date: '2020-08-16'}),
       data.tube_well_size.push({tube_well_size: ''}),
       data.ground_water_depth.push({ground_water_depth: ''}),
       data.water_quality.push({water_quality: ''}),
       data.water_source_other.push({water_source_other: ''}),
       data.date_round_water_irrigation.push({
-        date_round_water_irrigation: new Date(),
+        date_round_water_irrigation: '2020-08-16',
       }),
       setData({
         ...data,
@@ -114,7 +114,7 @@ const form_3 = props => {
       //   return false;
       // }
     }
-    alert(data.water_source.length);
+    //  alert(data.water_source.length);
     for (let i = 0; i < data.water_source.length; i++) {
       let F_data = {};
       F_Data = {
@@ -438,6 +438,23 @@ const form_3 = props => {
                       flexDirection: 'column',
                       justifyContent: 'center',
                     }}
+                    onPress={() => props.navigation.navigate('dashboard')}>
+                    <Image
+                      source={require('../assets/img/home.png')}
+                      style={{
+                        width: '30%',
+                        height: 30,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
                     onPress={() => openDrawer()}>
                     <Image
                       source={require('../assets/img/menu.png')}
@@ -448,7 +465,7 @@ const form_3 = props => {
                         marginLeft: 10,
                       }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
 
                 <View

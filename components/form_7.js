@@ -117,7 +117,7 @@ const form_7 = props => {
   const setDate = (value, s_key, index) => {
     var d = new Date(value);
     var y = d.getFullYear();
-    var m = d.getMonth();
+    var m = Number(d.getMonth() + 1);
     var day = d.getDate();
     var date = '';
 

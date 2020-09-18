@@ -16,6 +16,7 @@ import {
   Image,
   TouchableOpacity,
   Picker,
+  Alert,
 } from 'react-native';
 
 import {
@@ -46,7 +47,8 @@ const profile = props => {
     no_of_male_member: 0,
     no_of_femail_member: 0,
     octal_cultivate_area: 0,
-    cotton_cultivate_area: 0,
+    // cotton_cultivate_area: 0,
+    cotton_cultivate_area_: 0,
     note: '',
   });
 
@@ -75,8 +77,23 @@ const profile = props => {
           email: resjson.data[0].email,
           phone: resjson.data[0].phone,
           password: resjson.data[0].password,
+          c_password: resjson.data[0].password,
+          farmer_code: resjson.data[0].farmer_code,
+          lg_code: resjson.data[0].lg_code,
+          lead_farmer_name: resjson.data[0].l_farmer_name,
+          village: resjson.data[0].village_name,
+          no_of_male_member: resjson.data[0].no_of_male,
+          no_of_female: resjson.data[0].no_of_female,
+          pu_manager_name: resjson.data[0].pu_manager,
+          ff_name: resjson.data[0].ff_name,
+          octal_cultivate_area: resjson.data[0].cultivated_area,
+          // cotton_cultivate_area: resjson.data[0].cottom_area,
+          cotton_cultivate_area_: resjson.data[0].cottom_area,
+          affiliation: resjson.data[0].affiliation,
+          bci_partner: resjson.data[0].bci,
         });
         console.log('data', resjson);
+        console.log('data2', resjson.data[0].no_of_male);
       })
       .catch(err => {
         console.log('failed', err);
@@ -88,6 +105,7 @@ const profile = props => {
   }, []); // passing an empty array as second argument triggers the callback in useEffect only after the initial render thus replicating `componentDidMount` lifecycle behaviour
 
   const signup = async () => {
+    console.log('zig', data.farmer_code);
     // if (data.email == '' || data.password == '') {
     //   // alert('Please fill all the fields');
     //   return false;
@@ -96,7 +114,7 @@ const profile = props => {
     let U_data = {
       farm_id: props.user_ids.user_id,
       name: data.name,
-      phone: data.phone,
+      phone_no: data.phone,
       email: data.email,
       password: data.password,
       affiliation: data.affiliation,
@@ -109,10 +127,12 @@ const profile = props => {
       ff_name: data.ff_name,
       pu_manager_name: data.pu_manager_name,
       no_of_male_member: data.no_of_male_member,
-      no_of_femail_member: data.no_of_femail_member,
+      no_of_femail_member: data.no_of_female,
       octal_cultivate_area: data.octal_cultivate_area,
-      cotton_cultivate_area: data.cotton_cultivate_area,
+      // cotton_cultivate_area: data.cotton_cultivate_area,
+      cotton_cultivate_area: data.cotton_cultivate_area_,
       note: data.note,
+      farmer_code: data.farmer_code,
     };
 
     console.log('Login API Calling', U_data);
@@ -129,9 +149,10 @@ const profile = props => {
 
       .then(async resjson => {
         console.log(resjson);
-        if (resjson.Message == 'Successfully_Login') {
-          // props.navigation.navigate('dashboard');
-        }
+        // if (resjson.Message == 'Successfully_Login') {
+        Alert.alert('Profile Updated Successfully');
+        // props.navigation.navigate('dashboard');
+        // }
 
         // alert(resjson.Message);
       })
@@ -144,191 +165,230 @@ const profile = props => {
   const textInputChange = (v, no) => {
     switch (no) {
       case 1:
-        if (v.length !== 0) {
-          data.name = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          name: v,
+        });
+        data.name = v;
+        // }
         console.log('name:', data.name);
         break;
 
       case 2:
-        if (v.length !== 0) {
-          data.phone = v;
-        }
+        // if (v.length !== 0) {
+        data.phone = v;
         setData({
           ...data,
           phone: v,
         });
+        // }
+
         console.log('phone:', data.phone);
         break;
 
       case 3:
-        if (v.length !== 0) {
-          data.note = v;
-        }
+        // if (v.length !== 0) {
+        data.note = v;
+        // }
         console.log('note:', data.note);
         break;
 
       case 4:
-        if (v.length !== 0) {
-          data.email = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          email: v,
+        });
+        data.email = v;
+        // }
         console.log(/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(data.email));
         break;
       case 5:
-        if (v.length !== 0) {
-          data.password = v;
-        }
+        // if (v.length !== 0) {
+        data.password = v;
+        // }
         console.log('password:', data.password);
         break;
       case 6:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            affiliation: v,
-          });
-          data.affiliation = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          affiliation: v,
+        });
+        data.affiliation = v;
+        // }
         console.log('password:', data.affiliation);
         break;
       case 7:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            bci_partner: v,
-          });
-          data.bci_partner = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          bci_partner: v,
+        });
+        data.bci_partner = v;
+        // }
         console.log('password:', data.bci_partner);
         break;
       case 8:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            bci_partner_note: v,
-          });
-          data.bci_partner_note = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          bci_partner_note: v,
+        });
+        data.bci_partner_note = v;
+        // }
         console.log('password:', data.bci_partner_note);
         break;
       case 9:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            farmer_code: v,
-          });
-          data.farmer_code = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          farmer_code: v,
+        });
+        data.farmer_code = v;
+        // }
         console.log('password:', data.farmer_code);
         break;
       case 10:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            lg_code: v,
-          });
-          data.lg_code = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          lg_code: v,
+        });
+        data.lg_code = v;
+        // }
         console.log('password:', data.lg_code);
         break;
       case 11:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            lead_farmer_name: v,
-          });
-          data.lead_farmer_name = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          lead_farmer_name: v,
+        });
+        data.lead_farmer_name = v;
+        // }
         console.log('password:', data.lead_farmer_name);
         break;
       case 12:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            village: v,
-          });
-          data.village = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          village: v,
+        });
+        data.village = v;
+        // }
         console.log('password:', data.village);
         break;
       case 13:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            ff_name: v,
-          });
-          data.ff_name = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          ff_name: v,
+        });
+        data.ff_name = v;
+        // }
         console.log('password:', data.ff_name);
         break;
       case 14:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            pu_manager_name: v,
-          });
-          data.pu_manager_name = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          pu_manager_name: v,
+        });
+        data.pu_manager_name = v;
+        // }
         console.log('password:', data.pu_manager_name);
         break;
       case 15:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            no_of_male_member: v,
-          });
-          data.no_of_male_member = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          no_of_male_member: v,
+        });
+        data.no_of_male_member = v;
+        // }
         console.log('password:', data.no_of_male_member);
         break;
       case 16:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            no_of_femail_member: v,
-          });
-          data.no_of_femail_member = v;
-        }
-        console.log('password:', data.no_of_femail_member);
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          no_of_female: v,
+        });
+        data.no_of_female = v;
+        // }
+        console.log('password:', data.no_of_female);
         break;
       case 17:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            octal_cultivate_area: v,
-          });
-          data.octal_cultivate_area = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          octal_cultivate_area: v,
+        });
+        data.octal_cultivate_area = v;
+        // }
         console.log('password:', data.octal_cultivate_area);
         break;
-      case 18:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            cotton_cultivate_area: v,
-          });
-          data.cotton_cultivate_area = v;
-        }
-        console.log('password:', data.cotton_cultivate_area);
-        break;
+      // case 18:
+      //   if (v.length !== 0) {
+      //     setData({
+      //       ...data,
+      //       cotton_cultivate_area: v,
+      //     });
+      //     data.cotton_cultivate_area = v;
+      //   }
+      //   console.log('password:', data.cotton_cultivate_area);
+      //   break;
       case 19:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            password: v,
-          });
-          data.password = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          password: v,
+        });
+        data.password = v;
+        // }
         console.log('password:', data.password);
         break;
       case 20:
-        if (v.length !== 0) {
-          setData({
-            ...data,
-            c_password: v,
-          });
-          data.c_password = v;
-        }
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          c_password: v,
+        });
+        data.c_password = v;
+        // }
         console.log('password:', data.c_password);
+        break;
+      case 21:
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          village: v,
+        });
+        data.village = v;
+        // }
+        console.log('password:', data.village);
+        break;
+      case 22:
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          cotton_cultivate_area_: v,
+        });
+        data.cotton_cultivate_area_ = v;
+        // }
+        console.log('password:', data.cotton_cultivate_area_);
+        break;
+      case 23:
+        // if (v.length !== 0) {
+        setData({
+          ...data,
+          farmer_code: v,
+        });
+        data.farmer_code = v;
+        // }
+        console.log('password:', data.farmer_code);
         break;
     }
   };
@@ -339,13 +399,14 @@ const profile = props => {
     console.log('i am');
     this.drawer._root.open();
   };
+  console.log('finser', data.no_of_male_member);
   return (
     <Drawer
       ref={ref => {
         this.drawer = ref;
       }}
       openDrawerOffset={0.3}
-      content={<SideBar nav={this.props} close={() => closeDrawer()} />}>
+      content={<SideBar nav={props} close={() => closeDrawer()} />}>
       <ScrollView style={styles.scrollView}>
         <View style={[styles.header]}>
           <View
@@ -424,29 +485,32 @@ const profile = props => {
             <TextInput
               placeholderTextColor="#272626"
               onChangeText={val => textInputChange(val, 1)}
-              placeholder={data.name}
+              // placeholder={data.name}
+              value={data.name}
               style={[styles.input_email]}
               keyboardType="default"
             />
             <View style={{marginTop: 20}}>
-              <Text style={styles.q_text}>mobile phone (موبائل فون نمبر)</Text>
+              <Text style={styles.q_text}>Mobile phone (موبائل فون نمبر)</Text>
             </View>
             <TextInput
               placeholderTextColor="#272626"
               keyboardType="numeric"
               onChangeText={val => textInputChange(val, 2)}
-              placeholder={data.phone}
+              // placeholder={data.phone}
+              value={data.phone}
               style={[styles.input_email]}
               keyboardType="numeric"
             />
             <View style={{marginTop: 20}}>
-              <Text style={styles.q_text}> E mail ( ای میل )</Text>
+              <Text style={styles.q_text}> Email ( ای میل )</Text>
             </View>
             <TextInput
               placeholderTextColor="#272626"
               keyboardType="numeric"
               onChangeText={val => textInputChange(val, 4)}
-              placeholder={data.email}
+              // placeholder={data.email}
+              value={data.email}
               style={[styles.input_email]}
               keyboardType="email-address"
             />
@@ -455,7 +519,7 @@ const profile = props => {
             </View>
             <View style={{marginTop: 20}}>
               <Picker
-                selectedValue={data.affiliation}
+                selectedValue={data.affiliation + ''}
                 onValueChange={(itemValue, itemIndex) =>
                   textInputChange(itemValue, 6)
                 }>
@@ -475,7 +539,7 @@ const profile = props => {
                 </View>
                 <View style={{marginTop: 20}}>
                   <Picker
-                    selectedValue={data.bci_partner}
+                    selectedValue={data.bci_partner + ''}
                     onValueChange={(itemValue, itemIndex) =>
                       textInputChange(itemValue, 7)
                     }>
@@ -511,22 +575,24 @@ const profile = props => {
                 ) : (
                   <View />
                 )}
-                <View style={{marginTop: 20}}>
+                {/* <View style={{marginTop: 20}}>
                   <Text style={styles.q_text}> Farmer Code ( کسان کوڈ )</Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
-                  onChangeText={val => textInputChange(val, 9)}
-                  placeholder=""
+                  onChangeText={val => textInputChange(val, 23)}
+                  // placeholder={data.farmer_code}
+                  placeholder={data.farmer_code + ''}
                   style={[styles.input_email]}
-                />
+                /> */}
                 <View style={{marginTop: 20}}>
                   <Text style={styles.q_text}> LG Code ( ایل جی کوٹ )</Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
                   onChangeText={val => textInputChange(val, 10)}
-                  placeholder=""
+                  // placeholder={data.lg_code + ''}
+                  value={data.lg_code + ''}
                   style={[styles.input_email]}
                 />
                 <View style={{marginTop: 20}}>
@@ -537,7 +603,8 @@ const profile = props => {
                 <TextInput
                   placeholderTextColor="#272626"
                   onChangeText={val => textInputChange(val, 11)}
-                  placeholder=""
+                  // placeholder={data.lead_farmer_name}
+                  value={data.lead_farmer_name}
                   style={[styles.input_email]}
                 />
                 <View style={{marginTop: 20}}>
@@ -548,83 +615,88 @@ const profile = props => {
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
-                  onChangeText={val => textInputChange(val, 12)}
-                  placeholder=""
+                  onChangeText={val => textInputChange(val, 21)}
+                  // placeholder={data.village}
+                  value={data.village}
                   style={[styles.input_email]}
                 />
                 <View style={{marginTop: 20}}>
-                  <Text style={styles.q_text}> Name of FF ( FF کا نام )</Text>
+                  <Text style={styles.q_text}> Name of FF ( کا نام FF)</Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
                   onChangeText={val => textInputChange(val, 13)}
-                  placeholder=""
+                  // placeholder={data.ff_name}
+                  value={data.ff_name}
                   style={[styles.input_email]}
                 />
                 <View style={{marginTop: 20}}>
                   <Text style={styles.q_text}>
                     {' '}
-                    Name of PU Manager( مینجر کانام PU, )
+                    Name of PU Manager ( مینجر کانام PU )
                   </Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
                   onChangeText={val => textInputChange(val, 14)}
-                  placeholder=""
+                  // placeholder={data.pu_manager_name}
+                  value={data.pu_manager_name}
                   style={[styles.input_email]}
                 />
                 <View style={{marginTop: 20}}>
                   <Text style={styles.q_text}>
-                    {' '}
-                    No. of male members of the family working on farm( کسانکوڈ )
+                    No. of male members of the family working ( خاندان کے مرد
+                    ورکرز کی تعداد )
                   </Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
                   onChangeText={val => textInputChange(val, 15)}
-                  placeholder=""
+                  // placeholder={data.no_of_male_member + ''}
+                  value={data.no_of_male_member + ''}
                   style={[styles.input_email]}
-                  keyboardType="numeric"
                 />
                 <View style={{marginTop: 20}}>
                   <Text style={styles.q_text}>
-                    {' '}
-                    No. of female members of the family working on farm( کسانکوڈ
-                    )
+                    No. of female members of the family working on farm ( خاندان
+                    کی خاتون ورکرز کی تعداد )
                   </Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
                   onChangeText={val => textInputChange(val, 16)}
-                  placeholder=""
+                  // placeholder={data.no_of_female + ''}
+                  value={data.no_of_female + ''}
                   style={[styles.input_email]}
                   keyboardType="numeric"
                 />
                 <View style={{marginTop: 20}}>
                   <Text style={styles.q_text}>
-                    {' '}
-                    otal cultivated area (Acre)( کسانکوڈ )
+                    Total cultivated area (Acre) ( کل رقبہ کاشت (ایکڑ) )
                   </Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
                   onChangeText={val => textInputChange(val, 17)}
-                  placeholder=""
+                  // placeholder={data.octal_cultivate_area + ''}
+                  value={data.octal_cultivate_area + ''}
                   style={[styles.input_email]}
                   keyboardType="numeric"
                 />
                 <View style={{marginTop: 20}}>
                   <Text style={styles.q_text}>
                     {' '}
-                    Cotton cultivated area during this year (Acre)( کسانکوڈ )
+                    Cotton cultivated area during this year (Acre)( موجودہ رقبہ
+                    کاشت کپاس (ایکڑ) )
                   </Text>
                 </View>
                 <TextInput
                   placeholderTextColor="#272626"
-                  onChangeText={val => textInputChange(val, 18)}
-                  placeholder=""
+                  onChangeText={val => textInputChange(val, 22)}
+                  // placeholder={data.cotton_cultivate_area_ + ''}
+                  value={data.cotton_cultivate_area_ + ''}
                   style={[styles.input_email]}
-                  keyboardType="numeric"
+                  // keyboardType="numeric"
                 />
               </View>
             ) : (
@@ -646,26 +718,28 @@ const profile = props => {
               <View />
             )}
             <View style={{marginTop: 20}}>
-              <Text style={styles.q_text}> Password( پاس ورڈ )</Text>
+              <Text style={styles.q_text}> Password ( پاس ورڈ )</Text>
             </View>
             <TextInput
               placeholderTextColor="#272626"
               secureTextEntry={true}
               onChangeText={val => textInputChange(val, 19)}
-              placeholder={data.password}
+              // placeholder={data.password}
+              value={data.password}
               style={[styles.input_email]}
             />
             <View style={{marginTop: 20}}>
               <Text style={styles.q_text}>
                 {' '}
-                Confirm password( پاس ورڈ کی تصدیق کریں )
+                Confirm Password ( پاس ورڈ کی تصدیق کریں )
               </Text>
             </View>
             <TextInput
               placeholderTextColor="#272626"
               secureTextEntry={true}
               onChangeText={val => textInputChange(val, 20)}
-              placeholder={data.password}
+              // placeholder={data.password}
+              value={data.c_password}
               style={[styles.input_email]}
             />
             <Button
@@ -673,8 +747,7 @@ const profile = props => {
               style={[styles.input_button, {marginBottom: 40}]}
               full>
               <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
-                {' '}
-                UPDATE PROFILE
+                UPDATE PROFILE (پروفائل اپ ڈیٹ کریں)
               </Text>
             </Button>
           </View>

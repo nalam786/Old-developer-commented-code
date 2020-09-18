@@ -43,7 +43,7 @@ const form_2 = props => {
     props.changeFlag({flag: 2, s_key: s_key, index: index2, value: value});
   };
 
-  // console.log(props.f_prepared_field_irrigation);
+  console.log('tester', props.f_test);
   const focus = () => {
     props.changeFlag({
       flag: 'hide/show_footer',
@@ -65,7 +65,7 @@ const form_2 = props => {
   const setDate = (value, s_key, index) => {
     var d = new Date(value);
     var y = d.getFullYear();
-    var m = d.getMonth();
+    var m = Number(d.getMonth() + 1);
     var day = d.getDate();
     var date = '';
 
@@ -363,13 +363,14 @@ const form_2 = props => {
                 <Text style={styles.q_text}>Type/Lining of water course</Text>
                 <Text style={styles.q_text}>نہری کھالےکی قسم/لائننگ</Text>
               </View>
-              <View style={{marginTop: 20, height: '1.5%'}}>
+              <View style={{marginTop: 20, height: '5%'}}>
                 <Picker
                   onValueChange={(itemValue, itemIndex) =>
-                    changeData(itemValue, 4, index2)
+                    changeData(itemValue, 23, index2)
                   }
                   selectedValue={
-                    props.f_watercourse_discharge[index2].watercourse_discharge
+                    props.f_type_lining_water_course[index2]
+                      .type_lining_water_course
                   }>
                   <Picker.Item label="Earthen مٹی" value="0" />
                   <Picker.Item label="Brick lined اینٹوں کی پرت" value="1" />
@@ -433,10 +434,8 @@ const form_2 = props => {
                 placeholderTextColor="#272626"
                 onFocus={() => focus()}
                 onBlur={() => blur()}
-                onChangeText={val => changeData(val, 8, index2)}
-                value={
-                  props.f_watercourse_discharge[index2].watercourse_discharge
-                }
+                onChangeText={val => changeData(val, 26, index2)}
+                value={props.f_test[index2].test}
                 placeholder=""
                 keyboardType="numeric"
                 style={[styles.input_email]}
@@ -504,8 +503,8 @@ const form_2 = props => {
               style={{flexDirection: 'column', alignSelf: 'center', flex: 1}}>
               <CheckBox
                 style={{alignSelf: 'center', borderRadius: 50}}
-                value={0 == props.f_tubewellsize[index2].tubewellsize}
-                onValueChange={val => changeData(0, 11, index2)}
+                value={0 == props.f_tubewellsize_2[index2].tubewellsize_2}
+                onValueChange={val => changeData(0, 24, index2)}
               />
               <Text style={{alignSelf: 'center'}}>Cusecs ( کیوسک)</Text>
             </View>
@@ -514,8 +513,8 @@ const form_2 = props => {
               style={{flexDirection: 'column', alignSelf: 'center', flex: 1}}>
               <CheckBox
                 style={{alignSelf: 'center', borderRadius: 50}}
-                value={1 == props.f_tubewellsize[index2].tubewellsize}
-                onValueChange={val => changeData(1, 11, index2)}
+                value={1 == props.f_tubewellsize_2[index2].tubewellsize_2}
+                onValueChange={val => changeData(1, 24, index2)}
               />
               <Text style={{alignSelf: 'center'}}>HP (ہارس پاور)</Text>
             </View>
@@ -583,7 +582,30 @@ const form_2 = props => {
               },
             ]}>
             <DatePicker
-              defaultDate={props.f_first_irrigation[index2].first_irrigation}
+              // {...console.log(data.sowing_date)}
+              //defaultDate={new Date(data.sowing_date)}
+              // minimumDate={new Date(2018, 1, 1)}
+              // maximumDate={new Date(2018, 12, 31)}
+              value={
+                new Date(props.f_first_irrigation[index2].first_irrigation)
+              }
+              locale={'en'}
+              timeZoneOffsetInMinutes={undefined}
+              modalTransparent={false}
+              animationType={'fade'}
+              androidMode={'default'}
+              placeHolderText={
+                '' + props.f_first_irrigation[index2].first_irrigation
+              }
+              textStyle={{color: 'green'}}
+              // placeHolderTextStyle={{ color: "#d3d3d3" }}
+              // onDateChange={(date) => textInputChange(date,3)}
+              onDateChange={val => setDate(val, 5, props.index2)}
+              disabled={false}
+            />
+            {/* <DatePicker
+              {...console.log(data.sowing_date)}
+              //defaultDate={props.f_first_irrigation[index2].first_irrigation}
               locale={'en'}
               timeZoneOffsetInMinutes={undefined}
               modalTransparent={false}
@@ -593,7 +615,8 @@ const form_2 = props => {
               textStyle={{color: '#fff'}}
               onDateChange={val => setDate(val, 5, props.index2)}
               disabled={false}
-            />
+            /> */}
+
             <Image
               source={require('../assets/img/calendar.png')}
               style={{
@@ -673,7 +696,7 @@ const form_2 = props => {
             <Text style={styles.q_text} />
           </View>
 
-          <View style={[styles.border_bottom]} />
+          {/* <View style={[styles.border_bottom]} /> */}
         </View>
       </View>
     </>

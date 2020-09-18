@@ -47,7 +47,7 @@ const form_5 = props => {
     removal_of_herbs: [],
     seed_variety: [],
     qty_per_acre: [],
-    seed_compamy: [],
+    seed_company: [],
     sowing_date: [],
     created_at: [],
     modified_at: [],
@@ -76,7 +76,7 @@ const form_5 = props => {
     data.removal_of_herbs.push({removal_of_herbs: ''});
     data.seed_variety.push({seed_variety: ''});
     data.qty_per_acre.push({qty_per_acre: ''});
-    data.seed_compamy.push({seed_compamy: ''});
+    data.seed_company.push({seed_company: ''});
     data.sowing_date.push({sowing_date: date});
 
     setData({
@@ -117,7 +117,7 @@ const form_5 = props => {
         f_seed_variety: data.seed_variety[i].seed_variety,
         f_qty_per_acre: data.qty_per_acre[i].qty_per_acre,
         f_sowing_date: data.sowing_date[i].sowing_date,
-        f_seed_compamy: data.sowing_date[i].seed_compamy,
+        f_seed_company: data.sowing_date[i].seed_company,
 
         f_created_by: props.user_ids.farm_id,
         f_created_at: date,
@@ -170,7 +170,7 @@ const form_5 = props => {
         break;
         break;
       case 5:
-        data.seed_compamy[props.flag.index].seed_compamy = props.flag.value;
+        data.seed_company[props.flag.index].seed_company = props.flag.value;
         break;
       default:
         break;
@@ -192,7 +192,7 @@ const form_5 = props => {
     data.seed_variety.splice(props.flag.index, 1);
     data.qty_per_acre.splice(props.flag.index, 1);
     data.sowing_date.splice(props.flag.index, 1);
-    data.seed_compamy.splice(props.flag.index, 1);
+    data.seed_company.splice(props.flag.index, 1);
 
     if (data.rander_flag == 0) {
       this.renderForm();
@@ -360,6 +360,23 @@ const form_5 = props => {
                       flexDirection: 'column',
                       justifyContent: 'center',
                     }}
+                    onPress={() => props.navigation.navigate('dashboard')}>
+                    <Image
+                      source={require('../assets/img/home.png')}
+                      style={{
+                        width: '30%',
+                        height: 30,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
                     onPress={() => openDrawer()}>
                     <Image
                       source={require('../assets/img/menu.png')}
@@ -370,7 +387,7 @@ const form_5 = props => {
                         marginLeft: 10,
                       }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
 
                 <View
@@ -418,7 +435,7 @@ const form_5 = props => {
                     f_seed_variety={data.seed_variety}
                     f_qty_per_acre={data.qty_per_acre}
                     f_sowing_date={data.sowing_date}
-                    f_seed_compamy={data.seed_compamy}
+                    f_seed_company={data.seed_company}
                     index2={keys}
                   />
                 ))}

@@ -2,6 +2,7 @@ import React from 'react';
 import Form_footer from '../components/form_footer';
 import Form2 from '../components/form_2';
 import URL from '../URL';
+import dateParser from '../components/Utils/Parser';
 import {connect} from 'react-redux';
 import SideBar from '../components/Sidebar';
 
@@ -47,6 +48,8 @@ const form_2 = props => {
     prepared_field_irrigation: [],
     field_preparation: [],
     soil_type: [],
+    test: [],
+    type_lining_water_course: [],
     laser_levelled: [],
     levelled_date: [],
     first_irrigation: [],
@@ -56,6 +59,7 @@ const form_2 = props => {
     watercourse_discharge: [],
     ground_water_quality: [],
     tubewellsize: [],
+    tubewellsize_2: [],
     weed_eradication: [],
     flow_watercourse: [],
     depth_water_course: [],
@@ -66,7 +70,7 @@ const form_2 = props => {
     allocated_time_canal: [],
     time_req_irrigation: [],
     vegetation: [],
-
+    bed_level: [],
     created_at: [],
     modified_at: [],
     gestureName: '',
@@ -78,15 +82,19 @@ const form_2 = props => {
     data.prepared_field_irrigation.push({prepared_field_irrigation: 0});
     data.irrigation_time.push({irrigation_time: 0});
     data.soil_type.push({soil_type: ''});
+    data.test.push({test: ''});
+    data.bed_level.push({bed_level: 0});
+    data.type_lining_water_course.push({type_lining_water_course: ''});
     data.weed_eradication.push({weed_eradication: ''});
     data.laser_levelled.push({laser_levelled: 1});
     data.levelled_date.push({levelled_date: ''});
-    data.first_irrigation.push({first_irrigation: ''});
+    data.first_irrigation.push({first_irrigation: '2020-08-16'});
     data.irrigation_frequency.push({irrigation_frequency: 0});
     data.farm_distance_watercourse.push({farm_distance_watercourse: ''});
     data.watercourse_discharge.push({watercourse_discharge: ''});
     data.ground_water_quality.push({ground_water_quality: ''});
     data.tubewellsize.push({tubewellsize: ''});
+    data.tubewellsize_2.push({tubewellsize_2: ''});
     data.field_preparation.push({field_preparation: ''});
     data.flow_watercourse.push({flow_watercourse: ''});
     data.depth_water_course.push({depth_water_course: ''});
@@ -105,29 +113,10 @@ const form_2 = props => {
   };
 
   const sendform = async () => {
-    // console.log(data.soil_type);
-    // console.log(data.weed_eradication);
-    //console.log(data.field_preparation);
-    // console.log(data.laser_levelled);
-    // console.log(data.watercourse_discharge);
-    // console.log(data.flow_watercourse);
-    // console.log(data.far_from_outlet);
-    //  console.log(data.tubewellsize);
-    //  console.log(data.bore_depth);
-    //  console.log(data.ground_water_depth);
-    //   console.log(data.ground_water_quality);
-    //   console.log(data.first_irrigation);
-    //  console.log(data.allocated_time_canal);
-    //  console.log(data.time_req_irrigation);
-    //   console.log(data.irrigation_frequency);
-
-    // console.log(data.depth_water_course);
-    //  console.log(data.width_watercourse_water);
-    //  console.log(data.vegetation);
-
     var d = new Date();
     var y = d.getFullYear();
-    var m = d.getMonth();
+    var m = Number(d.getMonth()) + 1;
+    console.log('monthy', m);
     var day = d.getDate();
     var date = '';
     if (day < 10 && m < 10) {
@@ -149,28 +138,35 @@ const form_2 = props => {
     }
 
     for (let i = 0; i < data.prepared_field_irrigation.length; i++) {
+      console.log('test me', data.allocated_time_canal[i].allocated_time_canal);
       let F_data = {};
       let F_Data = {
         f_farm_id: props.user_ids.farm_id,
 
         f_soil_type: data.soil_type[i].soil_type,
+        f_water_course_width_bedlevel: data.test[i].test,
+        // f_water_course_width_bedlevel: data.bed_level[i].bed_level,
+        f_type_lining_water_course:
+          data.type_lining_water_course[i].type_lining_water_course,
         f_weed_eradication: data.weed_eradication[i].weed_eradication,
         f_field_preparation: data.field_preparation[i].field_preparation,
         f_laser_levelled: data.laser_levelled[i].field_preparation,
         f_water_course_discharge:
           data.watercourse_discharge[i].watercourse_discharge,
-        water_course_flow: data.flow_watercourse[i].flow_watercourse,
+        f_water_course_flow: data.flow_watercourse[i].flow_watercourse,
         f_water_course_distance_outlet: data.far_from_outlet[i].far_from_outlet,
         f_tubewell_size: data.tubewellsize[i].tubewellsize,
-
+        f_tubewellsize_2: data.tubewellsize_2[i].tubewellsize_2,
         f_tubewell_bore_depth_ft: data.bore_depth[i].bore_depth,
         f_groundwater_depth_ft: data.ground_water_depth[i].ground_water_depth,
         f_groundwater_quality:
           data.ground_water_quality[i].ground_water_quality,
-
-        f_first_irrigation: data.first_irrigation[i].first_irrigation,
+        f_tubewell_size_type: data.tubewellsize_2[i].tubewellsize_2,
+        f_first_irrigation: dateParser(
+          data.first_irrigation[i].first_irrigation,
+        ),
         f_canal_allocated_time_mins:
-          data.allocated_time_canal[i].canal_allocated_time_mins,
+          data.allocated_time_canal[i].allocated_time_canal,
         f_tubewell_irrigation_time_mins:
           data.time_req_irrigation[i].time_req_irrigation,
         f_irrigation_frequency:
@@ -183,7 +179,7 @@ const form_2 = props => {
         f_irrigation_time: data.irrigation_time[i].irrigation_time,
         f_laser_levelled: data.laser_levelled[i].laser_levelled,
         f_levelled_date: data.levelled_date[i].levelled_date,
-        f_first_irrigation: data.first_irrigation[i].first_irrigation,
+        // f_first_irrigation: data.first_irrigation[i].first_irrigation,
         f_irrigation_frequency:
           data.irrigation_frequency[i].irrigation_frequency,
         f_farm_distance_watercourse:
@@ -194,6 +190,8 @@ const form_2 = props => {
         f_modified_at: date,
         f_prepared_field_irrigation:
           data.prepared_field_irrigation[i].prepared_field_irrigation,
+        f_water_course_type:
+          data.type_lining_water_course[i].type_lining_water_course,
       };
 
       console.log('Land Preperation Create API Calling', F_Data);
@@ -270,6 +268,7 @@ const form_2 = props => {
       case 11:
         data.tubewellsize[props.flag.index].tubewellsize = props.flag.value;
         break;
+
       case 12:
         data.weed_eradication[props.flag.index].weed_eradication =
           props.flag.value;
@@ -315,6 +314,19 @@ const form_2 = props => {
 
       default:
         break;
+      case 23:
+        data.type_lining_water_course[
+          props.flag.index
+        ].type_lining_water_course = props.flag.value;
+        break;
+      case 24:
+        data.tubewellsize_2[props.flag.index].tubewellsize_2 = props.flag.value;
+        break;
+      case 25:
+        data.bed_level[props.flag.index].bed_level = props.flag.index;
+        break;
+      case 26:
+        data.test[props.flag.index].test = props.flag.value;
     }
 
     props.changeFlag({
@@ -331,6 +343,9 @@ const form_2 = props => {
     data.farm_id.splice(props.flag.index, 1);
     data.prepared_field_irrigation.splice(props.flag.index, 1);
     data.soil_type.splice(props.flag.index, 1);
+    data.test.splice(props.flag.index, 1);
+    data.bed_level.splice(props.flag.index, 1);
+    data.type_lining_water_course.splice(props.flag.index, 1);
     data.laser_levelled.splice(props.flag.index, 1);
     data.levelled_date.splice(props.flag.index, 1);
     data.first_irrigation.splice(props.flag.index, 1);
@@ -340,6 +355,7 @@ const form_2 = props => {
     data.watercourse_discharge.splice(props.flag.index, 1);
     data.ground_water_quality.splice(props.flag.index, 1);
     data.tubewellsize.splice(props.flag.index, 1);
+    data.tubewellsize_2.splice(props.flag.index, 1);
     data.weed_eradication.splice(props.flag.index, 1);
     data.field_preparation.splice(props.flag.index, 1);
     data.flow_watercourse.splice(props.flag.index, 1);
@@ -490,13 +506,14 @@ const form_2 = props => {
     // console.log("i am")
     this.drawer._root.open();
   };
+
   return (
     <Drawer
       ref={ref => {
         this.drawer = ref;
       }}
       openDrawerOffset={0.3}
-      content={<SideBar nav={props} close={() => this.closeDrawer()} />}>
+      content={<SideBar nav={props} close={() => closeDrawer()} />}>
       <Container>
         <View style={{flex: 1}}>
           {/* //3. call  this bottom before */}
@@ -521,6 +538,23 @@ const form_2 = props => {
                       flexDirection: 'column',
                       justifyContent: 'center',
                     }}
+                    onPress={() => props.navigation.navigate('dashboard')}>
+                    <Image
+                      source={require('../assets/img/home.png')}
+                      style={{
+                        width: '30%',
+                        height: 30,
+                        resizeMode: 'stretch',
+                        marginLeft: 10,
+                      }}
+                    />
+                  </TouchableOpacity>
+                  {/* <TouchableOpacity
+                    style={{
+                      flex: 1,
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                    }}
                     onPress={() => openDrawer()}>
                     <Image
                       source={require('../assets/img/menu.png')}
@@ -531,7 +565,7 @@ const form_2 = props => {
                         marginLeft: 10,
                       }}
                     />
-                  </TouchableOpacity>
+                  </TouchableOpacity> */}
                 </View>
 
                 <View
@@ -577,6 +611,9 @@ const form_2 = props => {
                     farm_id={data.farm_id}
                     f_prepared_field_irrigation={data.prepared_field_irrigation}
                     f_soil_type={data.soil_type}
+                    f_test={data.test}
+                    f_bed_level={data.bed_level}
+                    f_type_lining_water_course={data.type_lining_water_course}
                     f_laser_levelled={data.laser_levelled}
                     f_levelled_date={data.levelled_date}
                     f_first_irrigation={data.first_irrigation}
@@ -586,6 +623,7 @@ const form_2 = props => {
                     f_irrigation_time={data.irrigation_time}
                     f_ground_water_quality={data.ground_water_quality}
                     f_tubewellsize={data.tubewellsize}
+                    f_tubewellsize_2={data.tubewellsize_2}
                     f_weed_eradication={data.weed_eradication}
                     f_field_preparation={data.field_preparation}
                     f_flow_watercourse={data.flow_watercourse}
@@ -603,7 +641,7 @@ const form_2 = props => {
               </View>
             </View>
 
-            <View>
+            <View style={({paddingTop: 70}, {marginTop: 300})}>
               <Button
                 onPress={() => renderForm()}
                 style={[styles.input_button]}
@@ -617,7 +655,7 @@ const form_2 = props => {
             <View>
               <Button
                 onPress={() => sendform()}
-                style={[styles.input_button, {marginBottom: 300}]}
+                style={[styles.input_button, {marginBottom: 200}]}
                 full>
                 <Text style={{color: 'white', fontSize: 15, fontWeight: '800'}}>
                   Submit (جمع کرائیں)

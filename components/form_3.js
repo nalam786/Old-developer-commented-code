@@ -261,7 +261,7 @@ const form_3 = props => {
                 style={[
                   styles.input_email,
                   {
-                    height: '4%',
+                    height: '10%',
                     marginTop: 20,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -269,7 +269,7 @@ const form_3 = props => {
                   },
                 ]}>
                 <DatePicker
-                  defaultDate={f_irrigation_date[index2].irrigation_date}
+                  // defaultDate={f_irrigation_date[index2].irrigation_date}
                   locale={'en'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}
@@ -326,7 +326,7 @@ const form_3 = props => {
                 style={[
                   styles.input_email,
                   {
-                    height: '4%',
+                    height: '15%',
                     marginTop: 20,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -335,10 +335,10 @@ const form_3 = props => {
                   },
                 ]}>
                 <DatePicker
-                  defaultDate={
-                    f_date_round_water_irrigation[index2]
-                      .date_round_water_irrigation
-                  }
+                  // defaultDate={
+                  //   f_date_round_water_irrigation[index2]
+                  //     .date_round_water_irrigation
+                  // }
                   locale={'en'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}
@@ -395,7 +395,7 @@ const form_3 = props => {
                 style={[
                   styles.input_email,
                   {
-                    height: '4%',
+                    height: '10%',
                     marginTop: 20,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -403,7 +403,7 @@ const form_3 = props => {
                   },
                 ]}>
                 <DatePicker
-                  defaultDate={f_irrigation_date[index2].irrigation_date}
+                  // defaultDate={f_irrigation_date[index2].irrigation_date}
                   locale={'en'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}
@@ -455,7 +455,7 @@ const form_3 = props => {
                 style={[
                   styles.input_email,
                   {
-                    height: '4%',
+                    height: '10%',
                     marginTop: 20,
                     flexDirection: 'row',
                     justifyContent: 'space-between',
@@ -464,10 +464,10 @@ const form_3 = props => {
                   },
                 ]}>
                 <DatePicker
-                  defaultDate={
-                    f_date_round_water_irrigation[index2]
-                      .date_round_water_irrigation
-                  }
+                  // defaultDate={
+                  //   f_date_round_water_irrigation[index2]
+                  //     .date_round_water_irrigation
+                  // }
                   locale={'en'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}

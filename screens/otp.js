@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import URL from '../URL';
 
+import OTPTextView from 'react-native-otp-textinput';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,6 +13,7 @@ import {
   StatusBar,
   Image,
   CheckBox,
+  Alert,
 } from 'react-native';
 
 import {
@@ -36,6 +38,7 @@ const OTP = props => {
     collect_val3: '',
     collect_val4: '',
     collect_val5: '',
+    code: '',
   });
 
   const shift = (v, a) => {
@@ -117,16 +120,16 @@ const OTP = props => {
     }
   };
 
-  const register = async () => {
-    var mycode =
-      data.collect_val1 +
-      data.collect_val2 +
-      data.collect_val3 +
-      data.collect_val4 +
-      data.collect_val5;
+  const register = async mycode => {
+    // var mycode =
+    //   data.collect_val1 +
+    //   data.collect_val2 +
+    //   data.collect_val3 +
+    //   data.collect_val4 +
+    //   data.collect_val5;
 
-    alert('OTP Correctly Added');
-    console.log(props.signup.code);
+    // console.log(props.signup.code);
+    // console.log(mycode);
     console.log(mycode);
     if (props.signup.code == mycode) {
       console.log('i am inside if');
@@ -202,10 +205,31 @@ const OTP = props => {
           <Text style={[styles.green_h6]}>
             اپنا 5 ہندسوں کا سکیورٹی کوڈ درج کریں{' '}
           </Text>
+          <OTPTextView
+            // ref={e => (this.input1 = e)}
+            containerStyle={styles.textInputContainer}
+            handleTextChange={
+              text => register(text)
+              // setData(
+              //   {
+              //     ...data,
+              //     code: text,
+              //   },
 
+              // )
+            }
+            inputCount={5}
+            keyboardType="numeric"
+          />
           <View style={{flexDirection: 'row', alignSelf: 'center'}}>
-            <TextInput
+            {/* <TextInput
+              ref={input1 => (data.textInput1 = input1)}
               autoFocus={true}
+              onKeyPress={({nativeEvent}) => {
+                nativeEvent.key === 'Backspace'
+                  ? data.TextInput2.focus()
+                  : null;
+              }}
               onChangeText={text => shift(text, 1)}
               keyboardType="numeric"
               maxLength={1}
@@ -218,6 +242,10 @@ const OTP = props => {
               onChangeText={text => shift(text, 2)}
               keyboardType="numeric"
               maxLength={1}
+              autoFocus={true}
+              // onKeyPress={({nativeEvent}) => {
+              //   nativeEvent.key === 'Backspace' ? data.TextInput.focus() : null;
+              // }}
               placeholderTextColor="#272626"
               placeholder="*"
               style={[styles.input_phone_code]}
@@ -230,6 +258,11 @@ const OTP = props => {
               placeholderTextColor="#272626"
               placeholder="*"
               style={[styles.input_phone_code]}
+              onKeyPress={({nativeEvent}) => {
+                nativeEvent.key === 'Backspace'
+                  ? data.textInput2.focus()
+                  : null;
+              }}
             />
             <TextInput
               ref={input4 => (data.textInput4 = input4)}
@@ -239,6 +272,11 @@ const OTP = props => {
               placeholderTextColor="#272626"
               placeholder="*"
               style={[styles.input_phone_code]}
+              onKeyPress={({nativeEvent}) => {
+                nativeEvent.key === 'Backspace'
+                  ? data.textInput3.focus()
+                  : null;
+              }}
             />
             <TextInput
               ref={input5 => (data.textInput5 = input5)}
@@ -247,8 +285,13 @@ const OTP = props => {
               maxLength={1}
               placeholderTextColor="#272626"
               placeholder="*"
+              onKeyPress={({nativeEvent}) => {
+                nativeEvent.key === 'Backspace'
+                  ? data.textInput4.focus()
+                  : null;
+              }}
               style={[styles.input_phone_code]}
-            />
+            /> */}
           </View>
         </View>
 

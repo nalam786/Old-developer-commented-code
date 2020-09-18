@@ -17,7 +17,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-
+import {SearchBar, Icon} from 'react-native-elements';
 import {
   Header,
   LearnMoreLinks,
@@ -65,6 +65,9 @@ const Allfarms = props => {
   const [data, setData] = React.useState({
     farm_info: [],
     didmount: 0,
+    searchText: '',
+    data: [],
+    filteredData: [],
   });
   console.log('I am here');
   const del_farms = async id => {
@@ -105,6 +108,7 @@ const Allfarms = props => {
   };
 
   const get_farms = async () => {
+    console.log('22');
     console.log('getting', props.user_ids.user_id);
     let F_Data = {
       f_user_id: props.user_ids.user_id,
@@ -126,6 +130,7 @@ const Allfarms = props => {
           setData({
             ...data,
             farm_info: resjson.data,
+            searchText: '',
           });
         }
         console.log(data.farm_info);
@@ -153,7 +158,23 @@ const Allfarms = props => {
       didmount: 1,
     });
   }
+  const search = searchText => {
+    console.log(searchText);
+    if (searchText == '') {
+      get_farms();
+    } else {
+      console.log(data.farm_info);
 
+      let filteredData = data.farm_info.filter(function(item) {
+        return item.farm_name.toLowerCase().includes(searchText.toLowerCase());
+      });
+      setData({
+        ...data,
+        farm_info: filteredData,
+        searchText: searchText,
+      });
+    }
+  };
   renderItem = ({item, index}) => {
     let style = {};
     let season = JSON.stringify(item.season);
@@ -279,7 +300,26 @@ const Allfarms = props => {
             <Text style={{color: '#fff'}}>DELETE </Text>
           </View> */}
           <View
-            onPress={() => del_farms(item.id)}
+            onPress={() =>
+              Alert.alert(
+                'Delete Farm',
+                'Are you sure you want to delete this Farm.',
+                [
+                  {
+                    text: 'Yes',
+                    onPress: () => console.log('Yes button clicked'),
+                  },
+                  {
+                    text: 'No',
+                    onPress: () => console.log('No button clicked'),
+                    style: 'cancel',
+                  },
+                ],
+                {
+                  cancelable: true,
+                },
+              )
+            }
             style={[
               styles.box,
               {backgroundColor: '#05422b', marginVertical: 5},
@@ -288,10 +328,52 @@ const Allfarms = props => {
               source={require('../assets/img/edit.png')}
               style={{width: '15%', height: '20%', resizeMode: 'stretch'}}
             />
-            <Text onPress={() => del_farms(item.id)} style={{color: '#fff'}}>
+            <Text
+              onPress={() =>
+                Alert.alert(
+                  'Delete Farm',
+                  'Are you sure you want to delete this Farm.',
+                  [
+                    {
+                      text: 'Yes',
+                      onPress: () => del_farms(item.id),
+                    },
+                    {
+                      text: 'No',
+                      onPress: () => console.log('No button clicked'),
+                      style: 'cancel',
+                    },
+                  ],
+                  {
+                    cancelable: true,
+                  },
+                )
+              }
+              style={{color: '#fff'}}>
               مسخ کریں{' '}
             </Text>
-            <Text onPress={() => del_farms(item.id)} style={{color: '#fff'}}>
+            <Text
+              onPress={() =>
+                Alert.alert(
+                  'Delete Farm',
+                  'Are you sure you want to delete this Farm.',
+                  [
+                    {
+                      text: 'Yes',
+                      onPress: () => del_farms(item.id),
+                    },
+                    {
+                      text: 'No',
+                      onPress: () => console.log('No button clicked'),
+                      style: 'cancel',
+                    },
+                  ],
+                  {
+                    cancelable: true,
+                  },
+                )
+              }
+              style={{color: '#fff'}}>
               Delete{' '}
             </Text>
           </View>
@@ -307,6 +389,7 @@ const Allfarms = props => {
     // console.log("i am")
     this.drawer._root.open();
   };
+
   return (
     <Drawer
       ref={ref => {
@@ -333,9 +416,9 @@ const Allfarms = props => {
                 flexDirection: 'column',
                 justifyContent: 'center',
               }}
-              onPress={() => openDrawer()}>
+              onPress={() => props.navigation.navigate('dashboard')}>
               <Image
-                source={require('../assets/img/menu.png')}
+                source={require('../assets/img/home.png')}
                 style={{
                   width: '30%',
                   height: 30,
@@ -345,6 +428,7 @@ const Allfarms = props => {
               />
             </TouchableOpacity>
           </View>
+
           <View
             style={{flex: 2, justifyContent: 'center', alignItems: 'center'}}>
             <Text style={{color: 'white', fontSize: 20, fontWeight: '800'}}>
@@ -367,6 +451,18 @@ const Allfarms = props => {
         </View>
       </View>
 
+      <SearchBar
+        round={true}
+        lightTheme={true}
+        placeholder="Search..."
+        round
+        searchIcon={{size: 24}}
+        autoCapitalize="none"
+        autoCorrect={false}
+        onChangeText={search}
+        value={data.searchText}
+        // onClear={text => get_farms()}
+      />
       <View
         style={{
           flex: 1,

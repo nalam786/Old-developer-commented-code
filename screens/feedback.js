@@ -481,9 +481,16 @@ const Feedback = props => {
           }}>
           <View style={{alignSelf: 'center', marginTop: 30}}>
             <View style={{alignSelf: 'center'}}>
-              <Text style={{fontSize: 16, color: 'green', fontWeight: 'bold'}}>
-                How do you rate our advisory services?
-              </Text>
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={{fontSize: 20, color: 'green', fontWeight: 'bold'}}>
+                  -> {'  '}
+                </Text>
+                <Text
+                  style={{fontSize: 16, color: 'green', fontWeight: 'bold'}}>
+                  How do you rate our advisory services?
+                </Text>
+              </View>
               <Text style={{fontSize: 16, color: 'green', fontWeight: 'bold'}}>
                 ہمارے مشورہ آپ کتنا مفید سمجھتے ہیں؟
               </Text>
@@ -656,15 +663,20 @@ const Feedback = props => {
                 </Button>
               </View>
             </View>
-            <Text
-              style={{
-                fontSize: 16,
-                color: 'green',
-                fontWeight: 'bold',
-                marginTop: 30,
-              }}>
-              If you have any other question in regard
-            </Text>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{fontSize: 20, color: 'green', fontWeight: 'bold'}}>
+                -> {'  '}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  color: 'green',
+                  fontWeight: 'bold',
+                  marginTop: 30,
+                }}>
+                If you have any other question in regard
+              </Text>
+            </View>
             <Text style={{fontSize: 16, color: 'green', fontWeight: 'bold'}}>
               to your farm, crop and soil health, please
             </Text>
